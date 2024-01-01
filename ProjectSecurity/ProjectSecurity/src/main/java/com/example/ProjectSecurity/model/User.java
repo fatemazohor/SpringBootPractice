@@ -5,6 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,5 +35,25 @@ public class User {
     private String image;
 
     private boolean is_Enabled;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roleset= new HashSet<>();
+
+    public User(String email, String password, String name, String gender, String cell) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.gender = gender;
+        this.cell = cell;
+    }
+
+    public void  addRole(Role role){
+        this.roleset.add(role);
+    }
 
 }
