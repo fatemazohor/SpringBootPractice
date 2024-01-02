@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+          integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" th:href="@{/fontawesome/all.css}">
+</head>
+<body>
+
+<form th:action="@{/user/save}" th:object="${user}" method="post" >
+  <label>First Name</label>
+  <input type="text" th:field="*{name}"><br>
+
+  <label>Email</label>
+  <input type="email" th:field="*{email}"><br>
+
+  <label>Password</label>
+  <input type="password" th:field="*{password}"><br>
+
+<label>Cell </label>
+  <input type="text" th:field="*{cellNo}"><br>
+
+
+  <input type="submit" value="Save">
+
+
+</form>
+
+
+
+</body>
+</html>
