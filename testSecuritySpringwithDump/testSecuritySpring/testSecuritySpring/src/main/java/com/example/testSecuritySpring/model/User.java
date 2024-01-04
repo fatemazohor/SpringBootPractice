@@ -37,7 +37,10 @@ public class User {
 
     private boolean is_Enabled;
 
-
+//not best practice hibernate session end in repository
+//    @ManyToMany(
+//                fetch = FetchType.EAGER
+//    )
     @ManyToMany
     @JoinTable(
             name = "user_role",

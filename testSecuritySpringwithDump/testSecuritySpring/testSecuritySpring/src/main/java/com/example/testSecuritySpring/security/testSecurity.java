@@ -30,14 +30,31 @@ public class testSecurity {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http
-                .authorizeRequests()
-                .requestMatchers("/user/**")
-                .hasAnyRole("admin")
-                .anyRequest().authenticated()
-                .and()
+                .authorizeHttpRequests((authorize)->authorize
+                        .requestMatchers("/user/**")
+                        .hasAnyRole("admin")
+                        .anyRequest().authenticated()
+                )
+
+
                 .httpBasic(Customizer.withDefaults())
                 .formLogin(Customizer.withDefaults())
                 .userDetailsService(userDetailsService);
         return http.build();
+
+        //authorizeRequests() is deprecated but still work.
+
+//        http
+//                .authorizeRequests()
+//                .requestMatchers("/user/**")
+//                .hasAnyRole("admin")
+//                .anyRequest().authenticated()
+//                .and()
+//                .httpBasic(Customizer.withDefaults())
+//                .formLogin(Customizer.withDefaults())
+//                .userDetailsService(userDetailsService);
+//        return http.build();
+
+
     }
 }

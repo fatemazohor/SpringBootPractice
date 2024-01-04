@@ -36,16 +36,6 @@
   }
 }</component>
   <component name="RunManager" selected="JUnit.FirstProjectSecurity">
-    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
-      <setting name="path" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workDir" value="file://$PROJECT_DIR$" />
-      <setting name="debug" value="false" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="All in ProjectSecurity" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="ProjectSecurity" />
       <option name="PACKAGE_NAME" value="" />
@@ -89,6 +79,8 @@
       <workItem from="1704176818463" duration="645000" />
       <workItem from="1704177531861" duration="36000" />
       <workItem from="1704178274989" duration="107000" />
+      <workItem from="1704266432336" duration="3000" />
+      <workItem from="1704337192450" duration="57000" />
     </task>
     <servers />
   </component>
