@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
+
 public class UserController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class UserController {
     @Autowired
     private IUserRepo userRepo;
 
-    @GetMapping("")
+    @GetMapping("/user")
     private String getAlluser(Model m){
         List<User> userList=userRepo.findAll();
         m.addAttribute("userList",userList);

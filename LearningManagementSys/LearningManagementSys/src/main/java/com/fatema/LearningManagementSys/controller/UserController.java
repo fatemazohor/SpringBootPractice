@@ -9,15 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("/user")
+
 public class UserController {
     @Autowired
     private UserService userService;
@@ -28,7 +25,7 @@ public class UserController {
     @Autowired
     private IUserRepository userRepo;
 
-    @GetMapping("")
+    @GetMapping("/user")
     private String getAlluser(Model m){
         List<User> userList=userRepo.findAll();
         m.addAttribute("userList",userList);
@@ -57,4 +54,20 @@ public class UserController {
 
         return "redirect:/user";
     }
+    @GetMapping("/update/{id}")
+    private String editUser(@PathVariable int id,Model m){
+        User user=userRepo.findById(id).get();
+    m.addAttribute("user", user);
+        return "userform";
+    }
+    @GetMapping("/delete/{id}")
+    private String editUser(@PathVariable int id){
+        userRepo.deleteById(id);
+
+        return "redirect:/user";
+    }
+
+
+
+
 }
