@@ -1,3 +1,44 @@
 <div th:insert="header.html"></div>
-<div > this is page222</div>
+<div > this is page222
+
+    <div class="container py-2">
+        <h4 >Enter New Employeee</h4>
+<!--        <h4 >Update Employeee</h4>-->
+        <form method="post" >
+            <input type="hidden" >
+            <div class="mb-3">
+                <label for="ename" class="form-label">Employee Name</label>
+                <input type="text" class="form-control" name="ename" id="ename" >
+            </div>
+            <div class="mb-3">
+                <label for="contact" class="form-label">Contact</label>
+                <input type="text"  class="form-control" name="contact" id="contact" >
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">Gender</label>
+                <input class="form-check-input" type="radio" name="gender"  value="male" >
+                <label class="form-check-label" >
+                    Male
+                </label>
+                <input class="form-check-input" type="radio" name="gender"  value="Female" >
+                <label class="form-check-label" >
+                    Female
+                </label>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="text" class="form-control" name="email" id="email" >
+            </div>
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" name="contact" id="address" >
+            </div>
+            <div class="mb-3">
+                <button class="btn btn-success" type="submit" >Submit</button>
+                <button class="btn btn-success" type="submit" >Update</button>
+                <button class="btn btn-warning" type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
 <div th:insert="footer.html"></div>
