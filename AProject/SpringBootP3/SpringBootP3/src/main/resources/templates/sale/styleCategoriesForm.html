@@ -1,6 +1,6 @@
 <div th:insert="header.html"></div>
 <div class="px-3 py-3">
-    <h4 class="card-title mb-1" th:text="${title}"></h4>
+    <h4 class="card-title mb-1"  th:text="${title}"></h4>
     <p class="pb-0">Best seller of the month cate</p>
     <a href=/page2 class="btn btn-sm btn-primary">View Sales</a>
 
@@ -13,7 +13,8 @@
 
             </div>
 
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" th:if="${id==null}" class="btn btn-primary">Submit</button>
+            <button type="submit" th:if="${id!=null}" class="btn btn-primary">Update</button>
         </form>
     </div>
 

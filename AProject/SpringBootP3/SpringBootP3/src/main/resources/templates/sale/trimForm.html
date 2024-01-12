@@ -1,19 +1,20 @@
 <div th:insert="header.html"></div>
 <div class="px-3 py-3">
-    <h4 class="card-title mb-1" th:text="${title}"></h4>
+    <h4 class="card-title mb-1"  th:text="${title}"></h4>
     <p class="pb-0">Best seller of the month cate</p>
     <a href=/page2 class="btn btn-sm btn-primary">View Sales</a>
 
     <div>
-        <form method="post" th:action="@{/stylecategories/save}" th:object="${styleCategories}">
+        <form method="post" th:action="@{/trim/save}" th:object="${trim}">
             <input type="hidden" class="form-control" th:field="*{id}">
             <div class="mb-3">
-                <label for="Category name" class="form-label">Category name</label>
+                <label for="Category name" class="form-label">Trim name</label>
                 <input type="text" class="form-control" id="Category name" th:field="*{name}">
 
             </div>
 
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" th:if="${id==null}" class="btn btn-primary">Submit</button>
+            <button type="submit" th:if="${id!=null}" class="btn btn-primary">Update</button>
         </form>
     </div>
 
