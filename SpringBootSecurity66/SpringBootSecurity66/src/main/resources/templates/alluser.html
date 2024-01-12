@@ -1,0 +1,35 @@
+<div th:insert="header.html">...</div>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Cell</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="user: ${userList}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.gender}"></td>
+            <td th:text="${user.cellNo}"></td>
+            <td>
+
+            </td>
+
+        </tr>
+        </tbody>
+
+    </table>
+</div>
+
+
+
+<div th:insert="footer.html">...</div>

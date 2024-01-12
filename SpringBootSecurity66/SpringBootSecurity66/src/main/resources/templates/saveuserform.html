@@ -1,0 +1,49 @@
+<div th:insert="header.html">...</div>
+<div th:insert="sidebar.html">...</div>
+
+<main id="main" class="main">
+
+    <div class="pagetitle">
+        <h1 class="text-center">All Depratments</h1>
+
+    </div><!-- End Page Title -->
+
+    <section class="section">
+        <div class="row">
+            <div class="col-md-10 offset-1">
+                <div class="card">
+                    <div class="card-body mt-3">
+
+                    <!-- start my work-->
+
+                        <form th:action="@{/public/user/save}" th:object="${user}" method="post">
+                            <label>First Name</label>
+                            <input type="text" th:field="*{name}"><br>
+
+                            <label>Email</label>
+                            <input type="email" th:field="*{email}"><br>
+
+                            <label>Password</label>
+                            <input type="password" th:field="*{password}"><br>
+
+                            <label>Cell </label>
+                            <input type="text" th:field="*{cellNo}"><br>
+
+
+                            <input type="submit" value="Save">
+
+
+                        </form>
+
+<!--                        end my work-->
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+</main><!-- End #main -->
+
+<div th:insert="footer.html">...</div>
