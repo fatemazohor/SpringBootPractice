@@ -21,8 +21,8 @@
         <label class="form-label" for="category" id="category">Category</label>
 
     <select name="category" class="form-control" th:field="*{category}">
-        <option th:if="${id == null}" th:each="cat:${categoryList}" th:text="${cat.category}" th:value="${cat.id}">Select one</option>
-        <option th:if="${id != null} && ${category == cat.id}" th:each="cat:${categoryList}" th:text="${cat.category}" th:value="${cat.id}">Select one</option>
+        <option  th:each="cat:${categoryList}" th:text="${cat.category}" th:value="${cat.id}">Select one</option>
+<!--        <option th:if="${id != null} && ${category == cat.id}" th:each="cat:${categoryList}" th:text="${cat.category}" th:value="${cat.id}">Select one</option>-->
     </select>
 
     </div>

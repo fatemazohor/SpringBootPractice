@@ -55,6 +55,11 @@ public class ProductController {
     public String updateProduct(@PathVariable int id,Model m){
         Products product = service.findProduct(id);
         m.addAttribute("product",product);
+
+
+        List<Categories> categoriesList=catservice.getAllCategories();
+        m.addAttribute("categoryList", categoriesList);
+
         return "FormProduct";
     }
 }
