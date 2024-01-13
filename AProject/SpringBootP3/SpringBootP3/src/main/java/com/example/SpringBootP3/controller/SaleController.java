@@ -34,6 +34,9 @@ public class SaleController {
     @Autowired
     private IStyleSizeRepository styleSizeRepo;
 
+    @Autowired
+    private IMeasurementRepo measurementRepo;
+
 
 
 
@@ -333,6 +336,62 @@ public String rawMaterialcatList(Model m){
     }
 
 //    Style Size end
+//    Measurement start
+
+    @GetMapping("/measurement/list")
+    public String measurementList(Model m){
+        List<Measurement> measurementList=measurementRepo.findAll();
+        m.addAttribute("title","Measurement List");
+        m.addAttribute("measurementList", measurementList);
+        return "sale/measurementList";
+    }
+    @GetMapping("/measurement/addform")
+    public String measurementForm(Model m){
+//        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+
+//Create new measurement
+        m.addAttribute("measurement",new Measurement());
+        m.addAttribute("title","Create new Measurement");
+
+        return "sale/measurementForm";
+    }
+
+    @PostMapping("/measurement/save")
+    public String measurementSave(@ModelAttribute Measurement measurement){
+
+
+        measurementRepo.save(measurement);
+
+
+        return "redirect:/measurement/list";
+    }
+
+    @GetMapping("/measurement/delete/{id}")
+    public String measurementDelete(@PathVariable int id){
+        measurementRepo.deleteById(id);
+        return "redirect:/measurement/list";
+    }
+
+    @GetMapping("/measurement_edit/{id}")
+    public String measurementEdit(@PathVariable int id,Model m){
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+
+
+//Update measurement
+        StyleSize measurementName=styleSizeRepo.findById(id).get();
+        m.addAttribute("title","Update Measurement");
+        m.addAttribute("measurement",measurementName);
+        return "sale/measurementForm";
+
+    }
+
+//    Measurement end
 
 
 

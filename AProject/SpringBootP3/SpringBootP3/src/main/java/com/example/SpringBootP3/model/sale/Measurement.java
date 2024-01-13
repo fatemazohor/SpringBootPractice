@@ -9,15 +9,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Mesurement {
+public class Measurement {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String code;
+    private String codeName;
     private String name;
     private String tolerance;
 
     @ManyToOne
     @JoinColumn(name = "style_id")
+    private Style styleId;
 
 }
