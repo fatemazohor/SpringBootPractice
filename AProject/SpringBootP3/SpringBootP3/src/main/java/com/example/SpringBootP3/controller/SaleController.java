@@ -270,6 +270,7 @@ public String rawMaterialcatList(Model m){
     }
 
 //    Style end
+
 //    Style Size start
 
     @GetMapping("/style_size/list")
@@ -281,10 +282,16 @@ public String rawMaterialcatList(Model m){
     }
     @GetMapping("/style_size/addform")
     public String styleSizeform(Model m){
-        List<StyleCategories> styleCategoriesList=styleCategoriesRepo.findAll();
-        m.addAttribute("styleCategoriesList", styleCategoriesList);
-        m.addAttribute("styleCategories", new StyleCategories());
+//        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+//        Size id dropdown
+        List<Size> sizeList=sizeRepo.findAll();
+        m.addAttribute("sizeList", sizeList);
+        m.addAttribute("size", new Size());
 
+//Create new StyleSize
         m.addAttribute("styleSize",new StyleSize());
         m.addAttribute("title","Create new Style Size");
 
@@ -308,10 +315,16 @@ public String rawMaterialcatList(Model m){
 
     @GetMapping("/style_size_edit/{id}")
     public String styleSizeEdit(@PathVariable int id,Model m){
-        List<StyleCategories> styleCategoriesList=styleCategoriesRepo.findAll();
-        m.addAttribute("styleCategoriesList", styleCategoriesList);
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+//        Size id dropdown
+        List<Size> sizeList=sizeRepo.findAll();
+        m.addAttribute("sizeList", sizeList);
+        m.addAttribute("size", new Size());
 
-
+//Update StyleSize
         StyleSize styleSizeName=styleSizeRepo.findById(id).get();
         m.addAttribute("title","Update Style Size");
         m.addAttribute("styleSize",styleSizeName);
