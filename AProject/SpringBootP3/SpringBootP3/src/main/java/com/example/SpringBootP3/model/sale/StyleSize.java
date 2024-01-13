@@ -1,27 +1,23 @@
 package com.example.SpringBootP3.model.sale;
 
+import com.example.SpringBootP3.SpringBootP3Application;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
-
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Style {
+public class StyleSize {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String code;
-    private String description;
-    private Date CreatedAt;
-    private Date UpdatedAt=new Date();
-
     @ManyToOne
-    @JoinColumn(name = "style_cat_id")
-    public StyleCategories categoriesId;
-
+    @JoinColumn(name = "style_id")
+    Style styleId;
+    @ManyToOne
+    @JoinColumn(name = "size_id")
+    Size sizeId;
 }

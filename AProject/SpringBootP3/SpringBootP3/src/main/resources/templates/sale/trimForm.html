@@ -2,9 +2,9 @@
 <div class="px-3 py-3">
     <h4 class="card-title mb-1"  th:text="${title}"></h4>
     <p class="pb-0">Best seller of the month cate</p>
-    <a href=/page2 class="btn btn-sm btn-primary">View Sales</a>
+    <a href=/trim/list class="btn btn-sm btn-primary">Manage</a>
 
-    <div>
+    <div class="py-2">
         <form method="post" th:action="@{/trim/save}" th:object="${trim}">
             <input type="hidden" class="form-control" th:field="*{id}">
             <div class="mb-3">
