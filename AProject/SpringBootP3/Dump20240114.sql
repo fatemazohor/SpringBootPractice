@@ -4,7 +4,7 @@ USE `springbootp2`;
 --
 -- Host: localhost    Database: springbootp2
 -- ------------------------------------------------------
--- Server version	8.0.31
+-- Server version	8.0.34
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -41,6 +41,63 @@ LOCK TABLES `fabric` WRITE;
 /*!40000 ALTER TABLE `fabric` DISABLE KEYS */;
 INSERT INTO `fabric` VALUES (1,'Solid green',NULL,'65% Polister, 35% Cotton'),(2,'Blue mosaic pattern',NULL,'65% Polister, 35% Cotton'),(3,'Italian Boucle Fabric',NULL,'100% Wool');
 /*!40000 ALTER TABLE `fabric` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `measurement`
+--
+
+DROP TABLE IF EXISTS `measurement`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `measurement` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `tolerance` varchar(255) DEFAULT NULL,
+  `style_id` int DEFAULT NULL,
+  `code_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK4y4svget7hww2mjujpbejvrk7` (`style_id`),
+  CONSTRAINT `FK4y4svget7hww2mjujpbejvrk7` FOREIGN KEY (`style_id`) REFERENCES `style` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `measurement`
+--
+
+LOCK TABLES `measurement` WRITE;
+/*!40000 ALTER TABLE `measurement` DISABLE KEYS */;
+/*!40000 ALTER TABLE `measurement` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `mesurement`
+--
+
+DROP TABLE IF EXISTS `mesurement`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `mesurement` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `code` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `tolerance` varchar(255) DEFAULT NULL,
+  `style_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK449yof4q4s9yap8fktu1fhvon` (`style_id`),
+  CONSTRAINT `FK449yof4q4s9yap8fktu1fhvon` FOREIGN KEY (`style_id`) REFERENCES `style` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mesurement`
+--
+
+LOCK TABLES `mesurement` WRITE;
+/*!40000 ALTER TABLE `mesurement` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mesurement` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -205,8 +262,14 @@ DROP TABLE IF EXISTS `style_size`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `style_size` (
   `id` int NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `size_id` int DEFAULT NULL,
+  `style_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK8ytkgcxej48tfjkfa7d8cmb43` (`size_id`),
+  KEY `FKfhcg8wp7mlkoh4i75fr31h6ro` (`style_id`),
+  CONSTRAINT `FK8ytkgcxej48tfjkfa7d8cmb43` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`),
+  CONSTRAINT `FKfhcg8wp7mlkoh4i75fr31h6ro` FOREIGN KEY (`style_id`) REFERENCES `style` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,6 +278,7 @@ CREATE TABLE `style_size` (
 
 LOCK TABLES `style_size` WRITE;
 /*!40000 ALTER TABLE `style_size` DISABLE KEYS */;
+INSERT INTO `style_size` VALUES (2,2,3),(3,3,3),(4,4,3);
 /*!40000 ALTER TABLE `style_size` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -301,4 +365,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-13 13:02:28
+-- Dump completed on 2024-01-14  1:06:37
