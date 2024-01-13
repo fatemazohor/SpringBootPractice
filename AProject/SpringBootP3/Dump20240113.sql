@@ -4,7 +4,7 @@ USE `springbootp2`;
 --
 -- Host: localhost    Database: springbootp2
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.0.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -54,7 +54,7 @@ CREATE TABLE `raw_material_cat` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,6 +63,7 @@ CREATE TABLE `raw_material_cat` (
 
 LOCK TABLES `raw_material_cat` WRITE;
 /*!40000 ALTER TABLE `raw_material_cat` DISABLE KEYS */;
+INSERT INTO `raw_material_cat` VALUES (1,'Trim'),(2,'Fabric');
 /*!40000 ALTER TABLE `raw_material_cat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -102,10 +103,12 @@ CREATE TABLE `style` (
   `code` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `style_cat_id` int DEFAULT NULL,
+  `created_at` datetime(6) DEFAULT NULL,
+  `updated_at` datetime(6) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FKgwidilhdbxllaje3qqcl0l8f3` (`style_cat_id`),
   CONSTRAINT `FKgwidilhdbxllaje3qqcl0l8f3` FOREIGN KEY (`style_cat_id`) REFERENCES `style_categories` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,6 +117,7 @@ CREATE TABLE `style` (
 
 LOCK TABLES `style` WRITE;
 /*!40000 ALTER TABLE `style` DISABLE KEYS */;
+INSERT INTO `style` VALUES (3,'ST123','Short sleeve shirt',1,'2024-01-13 10:58:58.888000','2024-01-13 10:58:58.888000'),(4,'ST401','Female dress',2,'2024-01-13 11:01:57.681000','2024-01-13 11:01:57.681000'),(5,'ST25','Striped Trouser',3,'2024-01-13 11:21:19.312000','2024-01-13 11:21:19.306000');
 /*!40000 ALTER TABLE `style` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -193,6 +197,28 @@ LOCK TABLES `style_material_quantity` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `style_size`
+--
+
+DROP TABLE IF EXISTS `style_size`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `style_size` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `style_size`
+--
+
+LOCK TABLES `style_size` WRITE;
+/*!40000 ALTER TABLE `style_size` DISABLE KEYS */;
+/*!40000 ALTER TABLE `style_size` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `trim`
 --
 
@@ -203,7 +229,7 @@ CREATE TABLE `trim` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -212,7 +238,7 @@ CREATE TABLE `trim` (
 
 LOCK TABLES `trim` WRITE;
 /*!40000 ALTER TABLE `trim` DISABLE KEYS */;
-INSERT INTO `trim` VALUES (3,'Label'),(4,'Hook'),(5,'Elastic'),(6,'Lace'),(9,'Button'),(10,'Zipper');
+INSERT INTO `trim` VALUES (3,'Label'),(4,'Hook'),(5,'Elastic'),(6,'Lace'),(9,'Button'),(10,'Zipper'),(11,'Cross button');
 /*!40000 ALTER TABLE `trim` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -275,4 +301,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-13  0:41:21
+-- Dump completed on 2024-01-13 13:02:28
