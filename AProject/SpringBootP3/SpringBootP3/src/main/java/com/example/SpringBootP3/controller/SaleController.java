@@ -5,13 +5,11 @@ import com.example.SpringBootP3.repository.sale.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class SaleController {
@@ -36,6 +34,12 @@ public class SaleController {
 
     @Autowired
     private IMeasurementRepo measurementRepo;
+
+    @Autowired
+    private IMeasurementAttachmentRepo measurementAttachmentRepo;
+
+    @Autowired
+    private IMeasurementSizeRepo measurementSizeRepo;
 
 
 
@@ -90,6 +94,8 @@ public String sizetList(Model m){
 }
     @GetMapping("/size/addform")
     public String sizeform(Model m){
+
+
         m.addAttribute("size",new Size());
         m.addAttribute("title","Create new Size");
         return "sale/sizeForm";
@@ -234,9 +240,16 @@ public String rawMaterialcatList(Model m){
     }
     @GetMapping("/style/addform")
     public String styleform(Model m){
+        // Style Categories drop down
         List<StyleCategories> styleCategoriesList=styleCategoriesRepo.findAll();
         m.addAttribute("styleCategoriesList", styleCategoriesList);
         m.addAttribute("styleCategories", new StyleCategories());
+
+        // Size id dropdown
+        List<Size> sizeList=sizeRepo.findAll();
+        m.addAttribute("sizeList", sizeList);
+        m.addAttribute("size", new Size());
+
 
         m.addAttribute("style",new Style());
         m.addAttribute("title","Create new Style");
@@ -261,8 +274,17 @@ public String rawMaterialcatList(Model m){
 
     @GetMapping("/styleedit/{id}")
     public String styleEdit(@PathVariable int id,Model m){
+
+
+        // Style Categories drop down
         List<StyleCategories> styleCategoriesList=styleCategoriesRepo.findAll();
         m.addAttribute("styleCategoriesList", styleCategoriesList);
+        m.addAttribute("styleCategories", new StyleCategories());
+
+        // Size id dropdown
+        List<Size> sizeList=sizeRepo.findAll();
+        m.addAttribute("sizeList", sizeList);
+        m.addAttribute("size", new Size());
 
 
         Style stylename=styleRepo.findById(id).get();
@@ -336,6 +358,7 @@ public String rawMaterialcatList(Model m){
     }
 
 //    Style Size end
+
 //    Measurement start
 
     @GetMapping("/measurement/list")
@@ -384,7 +407,7 @@ public String rawMaterialcatList(Model m){
 
 
 //Update measurement
-        StyleSize measurementName=styleSizeRepo.findById(id).get();
+        Measurement measurementName=measurementRepo.findById(id).get();
         m.addAttribute("title","Update Measurement");
         m.addAttribute("measurement",measurementName);
         return "sale/measurementForm";
@@ -392,6 +415,167 @@ public String rawMaterialcatList(Model m){
     }
 
 //    Measurement end
+
+//    Measurement Attachment start
+
+    @GetMapping("/measurement_attachment/list")
+    public String measurementAttachmentList(Model m){
+        List<MeasurementAttachment> measurementAttachmentList=measurementAttachmentRepo.findAll();
+        m.addAttribute("title","Measurement Attachment List");
+        m.addAttribute("measurementAttachmentList", measurementAttachmentList);
+        return "sale/measurementAttachmentList";
+    }
+    @GetMapping("/measurement_attachment/addform")
+    public String measurementAttachmentForm(Model m){
+//        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+
+//Create new measurement
+        m.addAttribute("measurementAttachment",new MeasurementAttachment());
+        m.addAttribute("title","Create new Measurement Attachment");
+
+        return "sale/measurementAttachmentForm";
+    }
+
+    @PostMapping("/measurement_attachment/save")
+    public String measurementAttachmentSave(@ModelAttribute MeasurementAttachment measurementAttachment){
+
+
+        measurementAttachmentRepo.save(measurementAttachment);
+
+
+        return "redirect:/measurement_attachment/list";
+    }
+
+    @GetMapping("/measurement_attachment/delete/{id}")
+    public String measurementAttachmentDelete(@PathVariable int id){
+        measurementAttachmentRepo.deleteById(id);
+        return "redirect:/measurement_attachment/list";
+    }
+
+    @GetMapping("/measurement_attachment_edit/{id}")
+    public String measurementAttachmentEdit(@PathVariable int id,Model m){
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+
+
+//Update measurement
+       MeasurementAttachment measurementAttachmentName=measurementAttachmentRepo.findById(id).get();
+        m.addAttribute("title","Update Measurement Attachment");
+        m.addAttribute("measurementAttachment",measurementAttachmentName);
+        return "sale/measurementAttachmentForm";
+
+    }
+
+//    Measurement Attachment end
+//    Measurement Size start
+
+    @GetMapping("/measurement_size/list")
+    public String measurementSizeList(Model m){
+        List<MeasurementSize> measurementSizeList=measurementSizeRepo.findAll();
+        m.addAttribute("title","Measurement Size List");
+        m.addAttribute("measurementSizeList", measurementSizeList);
+        return "sale/measurementSizeList";
+    }
+    @GetMapping("/measurement_size/addform")
+    public String measurementsizeForm(Model m){
+//        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+
+        //        Measurement id dropdown
+        List<Measurement> measurementList=measurementRepo.findAll();
+        m.addAttribute("measurementList", measurementList);
+        m.addAttribute("measurement",new Measurement());
+
+        //        Style Size id dropdown
+//        List<StyleSize> styleSizeList=styleSizeRepo.findAll();
+//        m.addAttribute("styleSizeList", styleSizeList);
+//        m.addAttribute("styleSize",new StyleSize());
+        // Size id dropdown
+        List<Size> sizeList=sizeRepo.findAll();
+        m.addAttribute("sizeList", sizeList);
+        m.addAttribute("size", new Size());
+
+//Create new measurement
+        m.addAttribute("measurementSize",new MeasurementSize());
+        m.addAttribute("title","Create new Measurement Size");
+
+        return "sale/measurementSizeForm";
+    }
+
+    @PostMapping("/measurement_size/save")
+    public String measurementSizeSave(@ModelAttribute MeasurementSize measurementSize){
+
+
+        measurementSizeRepo.save(measurementSize);
+
+
+        return "redirect:/measurement_size/list";
+    }
+
+    @GetMapping("/measurement_size/delete/{id}")
+    public String measurementSizeDelete(@PathVariable int id){
+        measurementSizeRepo.deleteById(id);
+        return "redirect:/measurement_size/list";
+    }
+
+    @GetMapping("/measurement_size_edit/{id}")
+    public String measurementSizeEdit(@PathVariable int id,Model m){
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+
+
+        //        Measurement id dropdown
+        List<Measurement> measurementList=measurementRepo.findAll();
+        m.addAttribute("measurementList", measurementList);
+        m.addAttribute("measurement",new Measurement());
+
+        //        Style Size id dropdown
+//        List<StyleSize> styleSizeList=styleSizeRepo.findAll();
+//        m.addAttribute("styleSizeList", styleSizeList);
+//        m.addAttribute("styleSize",new StyleSize());
+//  Size id dropdown
+        List<Size> sizeList=sizeRepo.findAll();
+        m.addAttribute("sizeList", sizeList);
+        m.addAttribute("size", new Size());
+
+
+//Update measurement
+        MeasurementSize measurementSizeName=measurementSizeRepo.findById(id).get();
+        m.addAttribute("title","Update Measurement Size");
+        m.addAttribute("measurementSize",measurementSizeName);
+        return "sale/measurementSizeForm";
+
+    }
+
+    //    Measurement Size end
+
+// Request body method for jquerychck
+    @GetMapping("/measurement_size/{id}")
+    @ResponseBody
+    public Optional<MeasurementSize> getmS(@PathVariable int id){
+        return measurementSizeRepo.findById(id);
+    }
+    @GetMapping("/style/{id}")
+    @ResponseBody
+    public Optional<Style> getmStyle(@PathVariable int id){
+        return styleRepo.findById(id);
+    }
+    @GetMapping("/style_size/{id}")
+    @ResponseBody
+    public Optional<StyleSize> getmStyleSize(@PathVariable int id){
+        return styleSizeRepo.findById(id);
+    }
+
+
 
 
 

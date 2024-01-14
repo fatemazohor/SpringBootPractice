@@ -21,6 +21,14 @@
                 </select>
 
             </div>
+            <div class="mb-3">
+                <label for="styleSizeid" class="form-label">Style Size</label>
+                <select name="styleCode" id="styleSizeid" class="form-control" th:field="*{styleSize}">
+                    <option  th:each="size:${sizeList}" th:text="${size.name}" th:value="${size.id}">Select one</option>
+
+                </select>
+
+            </div>
 
             <div class="mb-3">
                 <label for="Style Description" class="form-label">Style Description</label>

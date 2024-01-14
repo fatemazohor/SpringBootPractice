@@ -6,6 +6,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @NoArgsConstructor
@@ -23,5 +26,18 @@ public class Style {
     @ManyToOne
     @JoinColumn(name = "style_cat_id")
     public StyleCategories categoriesId;
+    
+//    @OneToMany(mappedBy = "style")
+//    private List<Size> styleSize;
+    @ManyToMany
+    @JoinTable(
+            name = "style_related_size",
+            joinColumns =@JoinColumn(name="style_id"),
+            inverseJoinColumns = @JoinColumn(name="size_id")
+    )
+    private Set<Size> styleSize=new HashSet<>();
+
+
+
 
 }

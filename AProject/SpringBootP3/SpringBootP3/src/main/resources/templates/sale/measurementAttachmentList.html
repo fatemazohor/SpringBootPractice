@@ -2,7 +2,7 @@
 <div class="px-3 py-3">
     <h4 class="card-title mb-1" th:text="${title}"></h4>
     <p class="pb-0">Best seller of the month cate</p>
-    <a href=/measurement/addform class="btn btn-sm btn-primary">Create New</a>
+    <a href=/measurement_attachment/addform class="btn btn-sm btn-primary">Create New</a>
 
     <div class="py-2">
         <table class="table table-striped text-center">
@@ -10,26 +10,26 @@
             <tr>
                 <th scope="col">Id</th>
                 <th scope="col">Style Code</th>
-                <th scope="col">Code</th>
+
                 <th scope="col">Name</th>
-                <th scope="col">Tolerance</th>
+                <th scope="col">Attachment</th>
 
                 <th scope="col">Action</th>
 
             </tr>
             </thead>
             <tbody>
-            <tr th:each="me:${measurementList}">
+            <tr th:each="me:${measurementAttachmentList}">
                 <td th:text="${me.id}"></td>
                 <td th:text="${me.styleId.code}"></td>
-                <td th:text="${me.codeName}"></td>
+
                 <td th:text="${me.name}"></td>
-                <td th:text="${me.tolerance}"></td>
+                <td th:text="${me.attachment}"></td>
 
                 <td>
-                    <a  class="btn btn-warning" th:href="@{'/measurement_edit/'+${me.id}}">Update</a>
+                    <a  class="btn btn-warning" th:href="@{'/measurement_attachment_edit/'+${me.id}}">Update</a>
 
-                    <a  class="btn btn-danger" th:href="@{'/measurement/delete/'+${me.id}}">Delete</a>
+                    <a  class="btn btn-danger" th:href="@{'/measurement_attachment/delete/'+${me.id}}">Delete</a>
                 </td>
 
             </tr>
