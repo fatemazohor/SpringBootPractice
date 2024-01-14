@@ -4,7 +4,7 @@ USE `springbootp2`;
 --
 -- Host: localhost    Database: springbootp2
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.0.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -52,7 +52,6 @@ DROP TABLE IF EXISTS `measurement`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `measurement` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
   `tolerance` varchar(255) DEFAULT NULL,
   `style_id` int DEFAULT NULL,
@@ -60,7 +59,7 @@ CREATE TABLE `measurement` (
   PRIMARY KEY (`id`),
   KEY `FK4y4svget7hww2mjujpbejvrk7` (`style_id`),
   CONSTRAINT `FK4y4svget7hww2mjujpbejvrk7` FOREIGN KEY (`style_id`) REFERENCES `style` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -69,35 +68,69 @@ CREATE TABLE `measurement` (
 
 LOCK TABLES `measurement` WRITE;
 /*!40000 ALTER TABLE `measurement` DISABLE KEYS */;
+INSERT INTO `measurement` VALUES (1,'Chest bellow armhole','0.5',3,'A'),(2,'Bottom hem','0.5',3,'B'),(3,'Body length','1',3,'C'),(4,'Across sholder','0.5',3,'D'),(5,'Sleeve length','0.5',3,'E'),(6,'Sleeve opening','0.25',3,'F'),(7,'Arm hole','0.25',3,'G'),(8,'Neck width','0.25',3,'H'),(9,'Neck drop','0.25',3,'I'),(10,'Neck rib high','0.125',3,'J'),(11,'Neck drop (V Neck)','0.125',3,'K');
 /*!40000 ALTER TABLE `measurement` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `mesurement`
+-- Table structure for table `measurement_attachment`
 --
 
-DROP TABLE IF EXISTS `mesurement`;
+DROP TABLE IF EXISTS `measurement_attachment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `mesurement` (
+CREATE TABLE `measurement_attachment` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `code` varchar(255) DEFAULT NULL,
+  `attachment` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `tolerance` varchar(255) DEFAULT NULL,
   `style_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `FK449yof4q4s9yap8fktu1fhvon` (`style_id`),
-  CONSTRAINT `FK449yof4q4s9yap8fktu1fhvon` FOREIGN KEY (`style_id`) REFERENCES `style` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `FKdj71blokfbe8r5v16gxu0eci7` (`style_id`),
+  CONSTRAINT `FKdj71blokfbe8r5v16gxu0eci7` FOREIGN KEY (`style_id`) REFERENCES `style` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `mesurement`
+-- Dumping data for table `measurement_attachment`
 --
 
-LOCK TABLES `mesurement` WRITE;
-/*!40000 ALTER TABLE `mesurement` DISABLE KEYS */;
-/*!40000 ALTER TABLE `mesurement` ENABLE KEYS */;
+LOCK TABLES `measurement_attachment` WRITE;
+/*!40000 ALTER TABLE `measurement_attachment` DISABLE KEYS */;
+INSERT INTO `measurement_attachment` VALUES (1,'Front Image','Front',3),(2,'Collar Image','Collar',3),(3,'V neck collar image','V neck collar',3);
+/*!40000 ALTER TABLE `measurement_attachment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `measurement_size`
+--
+
+DROP TABLE IF EXISTS `measurement_size`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `measurement_size` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `measurement` varchar(255) DEFAULT NULL,
+  `measurement_id` int DEFAULT NULL,
+  `style_id` int DEFAULT NULL,
+  `size_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKbyeueoic192s177rtj3xwmit3` (`measurement_id`),
+  KEY `FKp5q49gxkaoa2g7d30u4cc6m2n` (`style_id`),
+  KEY `FK19sdxly71m1mkyr2odj2fifvt` (`size_id`),
+  CONSTRAINT `FK19sdxly71m1mkyr2odj2fifvt` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`),
+  CONSTRAINT `FKbyeueoic192s177rtj3xwmit3` FOREIGN KEY (`measurement_id`) REFERENCES `measurement` (`id`),
+  CONSTRAINT `FKp5q49gxkaoa2g7d30u4cc6m2n` FOREIGN KEY (`style_id`) REFERENCES `style` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `measurement_size`
+--
+
+LOCK TABLES `measurement_size` WRITE;
+/*!40000 ALTER TABLE `measurement_size` DISABLE KEYS */;
+INSERT INTO `measurement_size` VALUES (1,'18',1,3,4),(2,'18',2,3,4),(3,'26',3,3,4),(4,'15',4,3,4),(5,'7',5,3,4),(6,'5.5',6,3,4),(7,'8',7,3,4),(8,'6.75',8,3,4),(9,'2.25',9,3,4),(10,'0.75',10,3,4),(11,'4',11,3,4);
+/*!40000 ALTER TABLE `measurement_size` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -174,7 +207,7 @@ CREATE TABLE `style` (
 
 LOCK TABLES `style` WRITE;
 /*!40000 ALTER TABLE `style` DISABLE KEYS */;
-INSERT INTO `style` VALUES (3,'ST123','Short sleeve shirt',1,'2024-01-13 10:58:58.888000','2024-01-13 10:58:58.888000'),(4,'ST401','Female dress',2,'2024-01-13 11:01:57.681000','2024-01-13 11:01:57.681000'),(5,'ST25','Striped Trouser',3,'2024-01-13 11:21:19.312000','2024-01-13 11:21:19.306000');
+INSERT INTO `style` VALUES (3,'ST123','Short sleeve shirt',1,'2024-01-14 13:11:01.667000','2024-01-14 13:11:01.660000'),(4,'ST401','Female dress',2,'2024-01-14 13:11:05.731000','2024-01-14 13:11:05.724000'),(5,'ST25','Striped Trouser',3,'2024-01-14 13:11:14.516000','2024-01-14 13:11:14.508000');
 /*!40000 ALTER TABLE `style` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,6 +284,33 @@ CREATE TABLE `style_material_quantity` (
 LOCK TABLES `style_material_quantity` WRITE;
 /*!40000 ALTER TABLE `style_material_quantity` DISABLE KEYS */;
 /*!40000 ALTER TABLE `style_material_quantity` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `style_related_size`
+--
+
+DROP TABLE IF EXISTS `style_related_size`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `style_related_size` (
+  `style_id` int NOT NULL,
+  `size_id` int NOT NULL,
+  PRIMARY KEY (`style_id`,`size_id`),
+  KEY `FKsmsko0jib7b3nolaa7odtelu0` (`size_id`),
+  CONSTRAINT `FKiolxptqi6d9rxnb93hb3aarjb` FOREIGN KEY (`style_id`) REFERENCES `style` (`id`),
+  CONSTRAINT `FKsmsko0jib7b3nolaa7odtelu0` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `style_related_size`
+--
+
+LOCK TABLES `style_related_size` WRITE;
+/*!40000 ALTER TABLE `style_related_size` DISABLE KEYS */;
+INSERT INTO `style_related_size` VALUES (4,1),(5,1),(3,4);
+/*!40000 ALTER TABLE `style_related_size` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -365,4 +425,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-14  1:06:37
+-- Dump completed on 2024-01-14 13:31:24
