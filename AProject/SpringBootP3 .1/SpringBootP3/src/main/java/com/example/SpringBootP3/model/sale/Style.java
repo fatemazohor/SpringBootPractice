@@ -1,5 +1,7 @@
 package com.example.SpringBootP3.model.sale;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Style {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,8 +30,9 @@ public class Style {
     @JoinColumn(name = "style_cat_id")
     public StyleCategories categoriesId;
     
-//    @OneToMany(mappedBy = "style")
-//    private List<Size> styleSize;
+    @OneToMany(mappedBy = "style")
+    private List<Measurement> styleMeasurement;
+
 //    @ManyToMany
 //    @JoinTable(
 //            name = "style_related_size",
