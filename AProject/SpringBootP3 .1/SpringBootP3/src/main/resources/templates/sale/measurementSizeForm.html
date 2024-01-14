@@ -19,22 +19,25 @@
                 </select>
 
             </div>
-<!--            <div class="mb-3">-->
-<!--                <label for="measurementid" class="form-label">Measurement Id</label>-->
-<!--                <select name="styleCode" id="measurementid" class="form-control" th:field="*{measurementId}">-->
-<!--                    <option  th:each="me:${styleMeasurement}" th:text="${me.name}" th:value="${me.id}">Select one</option>-->
-
-<!--                </select>-->
-
-<!--            </div>-->
+<!--            jquery-->
             <div class="mb-3">
                 <label for="measurementid" class="form-label">Measurement Id</label>
                 <select name="styleCode" id="measurementid" class="form-control" th:field="*{measurementId}">
-                    <option  th:each="me:${measurementList}" th:text="${me.name}" th:value="${me.id}">Select one</option>
+<!--                    <option th:value="null">-Select-</option>-->
+                    <option  th:each="me:${styleMeasurement}" th:text="${me.name}" th:value="${me.id}">Select one</option>
 
                 </select>
 
             </div>
+<!--            //database-->
+<!--            <div class="mb-3">-->
+<!--                <label for="measurementid" class="form-label">Measurement Id</label>-->
+<!--                <select name="styleCode" id="measurementid" class="form-control" th:field="*{measurementId}">-->
+<!--                    <option  th:each="me:${measurementList}" th:text="${me.name}" th:value="${me.id}">Select one</option>-->
+
+<!--                </select>-->
+
+<!--            </div>-->
             <div class="mb-3">
                 <label for="styleSizeid" class="form-label">Style Size</label>
                 <select name="styleCode" id="styleSizeid" class="form-control" th:field="*{sizeId}">
@@ -70,22 +73,22 @@
     </div>
 
 </div>
-<th:block th:fragement="script">
-    <script language="JavaScript" src="../assets/js/ddlist.js">
-        // $('document').ready(function(){
-        //     $('#styleCode').on('change',function (){
-        //         $('#measurementid').empty().append('<option value="null">-Select-</option>');
-        //         var styleId=$(this).val();
-        //         var href="http://localhost:8089/style/"+styleId
-        //         $.get(href,function (style,status){
-        //             var styleMeasurement = style.styleMeasurement;
-        //             for(var i=0; i<= styleMeasurement.length-1; i++){
-        //                 $('#measurementid').append('<option value=" '+styleMeasurement[i].id+' ">'+styleMeasurement[i].name+'</option>');
-        //             }
-        //         })
-        //     })
-        // })
+<!--<th:block th:fragement="script">-->
+<!--    <script language="JavaScript" src="../assets/js/ddlist.js">-->
+<!--        $('document').ready(function(){-->
+<!--            $('#styleCode').on('change',function (){-->
+<!--                $('#measurementid').empty().append('<option value="null">-Select-</option>');-->
+<!--                var styleId=$(this).val();-->
+<!--                var href="http://localhost:8089/style/"+styleId-->
+<!--                $.get(href,function (style,status){-->
+<!--                    var styleMeasurement = style.styleMeasurement;-->
+<!--                    for(var i=0; i<= styleMeasurement.length-1; i++){-->
+<!--                        $('#measurementid').append('<option value=" '+styleMeasurement[i].id+' ">'+styleMeasurement[i].name+'</option>');-->
+<!--                    }-->
+<!--                })-->
+<!--            })-->
+<!--        })-->
 
-    </script>
-</th:block>
+<!--    </script>-->
+<!--</th:block>-->
 <div th:insert="~{footer.html}"></div>
