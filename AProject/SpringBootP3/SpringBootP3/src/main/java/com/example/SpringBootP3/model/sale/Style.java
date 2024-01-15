@@ -26,7 +26,7 @@ public class Style {
     @ManyToOne
     @JoinColumn(name = "style_cat_id")
     public StyleCategories categoriesId;
-    
+
 //    @OneToMany(mappedBy = "style")
 //    private List<Size> styleSize;
     @ManyToMany
