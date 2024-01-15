@@ -245,7 +245,7 @@ public String rawMaterialcatList(Model m){
         m.addAttribute("styleCategoriesList", styleCategoriesList);
         m.addAttribute("styleCategories", new StyleCategories());
 
-//        // Size id dropdown
+        // Size id dropdown
 //        List<Size> sizeList=sizeRepo.findAll();
 //        m.addAttribute("sizeList", sizeList);
 //        m.addAttribute("size", new Size());
@@ -281,7 +281,7 @@ public String rawMaterialcatList(Model m){
         m.addAttribute("styleCategoriesList", styleCategoriesList);
         m.addAttribute("styleCategories", new StyleCategories());
 
-//        // Size id dropdown
+        // Size id dropdown
 //        List<Size> sizeList=sizeRepo.findAll();
 //        m.addAttribute("sizeList", sizeList);
 //        m.addAttribute("size", new Size());
@@ -472,6 +472,7 @@ public String rawMaterialcatList(Model m){
     }
 
 //    Measurement Attachment end
+
 //    Measurement Size start
 
     @GetMapping("/measurement_size/list")
@@ -502,7 +503,7 @@ public String rawMaterialcatList(Model m){
         m.addAttribute("sizeList", sizeList);
         m.addAttribute("size", new Size());
 
-//Create new measurement
+//Create new measurement size
         m.addAttribute("measurementSize",new MeasurementSize());
         m.addAttribute("title","Create new Measurement Size");
 
@@ -542,13 +543,14 @@ public String rawMaterialcatList(Model m){
 //        List<StyleSize> styleSizeList=styleSizeRepo.findAll();
 //        m.addAttribute("styleSizeList", styleSizeList);
 //        m.addAttribute("styleSize",new StyleSize());
+
 //  Size id dropdown
         List<Size> sizeList=sizeRepo.findAll();
         m.addAttribute("sizeList", sizeList);
         m.addAttribute("size", new Size());
 
 
-//Update measurement
+//Update measurement size
         MeasurementSize measurementSizeName=measurementSizeRepo.findById(id).get();
         m.addAttribute("title","Update Measurement Size");
         m.addAttribute("measurementSize",measurementSizeName);
@@ -558,17 +560,19 @@ public String rawMaterialcatList(Model m){
 
     //    Measurement Size end
 
-// Request body method for jquerychck
+// Request body method for jquery check
     @GetMapping("/measurement_size/{id}")
     @ResponseBody
     public Optional<MeasurementSize> getmS(@PathVariable int id){
         return measurementSizeRepo.findById(id);
     }
+    // this get style by id with other table that has relationship with
     @GetMapping("/style/{id}")
     @ResponseBody
-    public Optional<Style> getmStyle(@PathVariable int id){
+    public Optional<Style> getStyleById(@PathVariable int id){
         return styleRepo.findById(id);
     }
+
     @GetMapping("/style_size/{id}")
     @ResponseBody
     public Optional<StyleSize> getmStyleSize(@PathVariable int id){
