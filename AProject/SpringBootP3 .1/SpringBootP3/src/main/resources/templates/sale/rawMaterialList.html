@@ -23,11 +23,11 @@
             <tbody>
             <tr th:each="raw:${rawMaterialList}">
                 <td th:text="${raw.id}"></td>
-                <td th:text="${raw.styleId.code}"></td>
-                <td th:text="${raw.rawMaterialCatId.name}"></td>
-                <td th:text="${raw.uomId.name}"></td>
+                <td th:text="${raw.styleId}"></td>
+                <td th:text="${raw.name}"></td>
+                <td th:text="${raw.description}"></td>
                 <td th:text="${raw.unitPrice}"></td>
-                <td th:text="${raw.vendorId.company}"></td>
+                <td th:text="${raw.vendorId}"></td>
 <!--                <td th:text="${raw.tolerance}"></td>-->
 
                 <td>

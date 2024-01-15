@@ -61,10 +61,10 @@ public class SaleController {
 //    Style categories start
 
     @GetMapping("/stylecategories/list")
-    public String stylecatList(Model m){
+    public String stylecatList(Model model){
         List<StyleCategories> styleCategoriesList=styleCategoriesRepo.findAll();
-        m.addAttribute("title","Style Categories List");
-        m.addAttribute("styleCategoriesList", styleCategoriesList);
+        model.addAttribute("title","Style Categories List");
+        model.addAttribute("styleCategoriesList", styleCategoriesList);
         return "sale/styleCategoriesList";
     }
     @GetMapping("/stylecategories/addform")

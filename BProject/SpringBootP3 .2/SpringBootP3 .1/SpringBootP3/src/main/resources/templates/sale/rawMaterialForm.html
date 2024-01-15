@@ -1,0 +1,58 @@
+<div th:insert="header.html"></div>
+<div class="px-3 py-3">
+    <h4 class="card-title mb-1"  th:text="${title}"></h4>
+    <p class="pb-0">Best seller of the month cate</p>
+    <a href=/raw_material/list class="btn btn-sm btn-primary">Manage</a>
+
+    <div class="py-2">
+        <form method="post" th:action="@{/raw_material/save}" th:object="${rawMaterial}">
+            <input type="hidden" class="form-control" th:field="*{id}">
+
+
+
+
+            <div class="mb-3">
+                <label for="styleCode" class="form-label">Style Code</label>
+                <select name="styleCode" id="styleCode" class="form-control" th:field="*{styleId}">
+                    <option  th:each="style:${styleList}" th:text="${style.code}" th:value="${style.id}">Select one</option>
+
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+                <label for="rawMaterial" class="form-label">Style Code</label>
+                <select name="styleCode" id="rawMaterial" class="form-control" th:field="*{rawMaterialCatId}">
+                    <option  th:each="raw:${rawMaterialCategoriesList}" th:text="${raw.name}" th:value="${raw.id}">Select one</option>
+
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+                <label for="Name" class="form-label">Code</label>
+                <input type="text" class="form-control" id="Name" th:field="*{name}">
+
+            </div>
+
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <input type="text" class="form-control" id="description" th:field="*{description}">
+
+            </div>
+
+            <div class="mb-3">
+                <label for="unitPrice" class="form-label">Cost per Unit</label>
+                <input type="text" class="form-control" id="unitPrice" th:field="*{unitPrice}">
+
+            </div>
+
+
+
+            <button type="submit" th:if="${id==null}" class="btn btn-primary">Submit</button>
+            <button type="submit" th:if="${id!=null}" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+
+</div>
+<div th:insert="footer.html"></div>
