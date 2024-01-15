@@ -1,6 +1,7 @@
 package com.example.SpringBootP3.model.sale;
 
 import com.example.SpringBootP3.model.UOM;
+import com.example.SpringBootP3.model.Vendors;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,7 +30,7 @@ public class RawMaterial {
     private UOM uomId;
     @ManyToOne
     @JoinColumn(name = "vendor_id")
-    private UOM vendorId;
+    private Vendors vendorId;
 
 
 

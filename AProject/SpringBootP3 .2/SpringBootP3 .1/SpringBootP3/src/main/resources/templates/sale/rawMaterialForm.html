@@ -41,9 +41,30 @@
 
             </div>
 
+            <!--select Unit of measurement-->
+            <div class="mb-3">
+                <label for="uom" class="form-label">Unit of Measurement</label>
+                <select name="uom" id="uom" class="form-control" th:field="*{uomId}">
+                    <option  th:each="uom:${uomList}" th:text="${uom.name}" th:value="${uom.id}">Select one</option>
+
+                </select>
+
+            </div>
+
             <div class="mb-3">
                 <label for="unitPrice" class="form-label">Cost per Unit</label>
                 <input type="text" class="form-control" id="unitPrice" th:field="*{unitPrice}">
+
+            </div>
+
+            <!--            vendor company select-->
+
+            <div class="mb-3">
+                <label for="vendor" class="form-label">Vendor Name</label>
+                <select name="vendor" id="vendor" class="form-control" th:field="*{vendorId}">
+                    <option  th:each="vendor:${vendorList}" th:text="${vendor.company}" th:value="${vendor.id}">Select one</option>
+
+                </select>
 
             </div>
 

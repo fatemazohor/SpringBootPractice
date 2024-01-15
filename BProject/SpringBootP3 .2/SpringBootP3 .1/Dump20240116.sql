@@ -4,7 +4,7 @@ USE `springbootp3.1`;
 --
 -- Host: localhost    Database: springbootp3.1
 -- ------------------------------------------------------
--- Server version	8.0.31
+-- Server version	8.0.34
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -69,7 +69,7 @@ CREATE TABLE `measurement` (
 
 LOCK TABLES `measurement` WRITE;
 /*!40000 ALTER TABLE `measurement` DISABLE KEYS */;
-INSERT INTO `measurement` VALUES (1,'A','Chest bellow armhole',1,'0.5',1),(2,'B','Bottom hem',NULL,'0.5',1),(3,'C','Body length',NULL,'1',1),(4,'D','Across sholder',NULL,'0.5',1),(5,'E','Sleeve length',NULL,'0.5',1),(6,'F','Sleeve opening',NULL,'0.25',1),(7,'G','Arm hole',NULL,'0.25',1),(8,'H','Neck width',NULL,'0.25',1),(9,'I','Neck drop',NULL,'0.25',1),(10,'J','Neck rib high',NULL,'0.125',1),(11,'K','Neck drop (V Neck)',NULL,'0.125',1),(12,'L','Body length',NULL,'1',2);
+INSERT INTO `measurement` VALUES (1,'A','Chest bellow armhole',1,'0.5',1),(2,'B','Bottom hem',1,'0.5',1),(3,'C','Body length',1,'1',1),(4,'D','Across sholder',1,'0.5',1),(5,'E','Sleeve length',1,'0.5',1),(6,'F','Sleeve opening',1,'0.25',1),(7,'G','Arm hole',1,'0.25',1),(8,'H','Neck width',1,'0.25',1),(9,'I','Neck drop',1,'0.25',1),(10,'J','Neck rib high',1,'0.125',1),(11,'K','Neck drop (V Neck)',1,'0.125',1),(12,'L','Body length',2,'1',2);
 /*!40000 ALTER TABLE `measurement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -120,7 +120,7 @@ CREATE TABLE `measurement_size` (
   CONSTRAINT `FK19sdxly71m1mkyr2odj2fifvt` FOREIGN KEY (`size_id`) REFERENCES `size` (`id`),
   CONSTRAINT `FKbyeueoic192s177rtj3xwmit3` FOREIGN KEY (`measurement_id`) REFERENCES `measurement` (`id`),
   CONSTRAINT `FKp5q49gxkaoa2g7d30u4cc6m2n` FOREIGN KEY (`style_id`) REFERENCES `style` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +129,7 @@ CREATE TABLE `measurement_size` (
 
 LOCK TABLES `measurement_size` WRITE;
 /*!40000 ALTER TABLE `measurement_size` DISABLE KEYS */;
-INSERT INTO `measurement_size` VALUES (1,'18',1,4,1),(2,'18',2,4,1),(3,'26',3,4,1),(4,'15',4,4,1),(5,'7',5,4,1),(6,'5.5',6,4,1),(7,'8',7,4,1),(8,'6.75',8,4,1),(9,'2.25',9,4,1),(10,'0.75',10,4,1),(11,'4',11,4,1);
+INSERT INTO `measurement_size` VALUES (1,'18',1,4,1),(2,'18',2,4,1),(3,'26',3,4,1),(4,'15',4,4,1),(5,'7',5,4,1),(6,'5.5',6,4,1),(7,'8',7,4,1),(8,'6.75',8,4,1),(9,'2.25',9,4,1),(10,'0.75',10,4,1),(11,'4',11,4,1),(12,'18',12,1,2),(13,'18',1,1,1);
 /*!40000 ALTER TABLE `measurement_size` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,11 +155,12 @@ CREATE TABLE `raw_material` (
   KEY `FKoexb0fyhgkp2wgdygbnashyq4` (`style_id`),
   KEY `FKj6u92lrcx0fwa8wo36ukouorg` (`uom_id`),
   KEY `FKklvm1khdl6tlh9bplm46xxljr` (`vendor_id`),
+  CONSTRAINT `FK1aw80id49yggquwhhb00u697` FOREIGN KEY (`vendor_id`) REFERENCES `vendors` (`id`),
   CONSTRAINT `FKj6u92lrcx0fwa8wo36ukouorg` FOREIGN KEY (`uom_id`) REFERENCES `uom` (`id`),
   CONSTRAINT `FKklvm1khdl6tlh9bplm46xxljr` FOREIGN KEY (`vendor_id`) REFERENCES `uom` (`id`),
   CONSTRAINT `FKoexb0fyhgkp2wgdygbnashyq4` FOREIGN KEY (`style_id`) REFERENCES `style` (`id`),
   CONSTRAINT `FKrj2h8libq3wj8k8fyw91njspc` FOREIGN KEY (`raw_material_cat_id`) REFERENCES `raw_material_cat` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,6 +169,7 @@ CREATE TABLE `raw_material` (
 
 LOCK TABLES `raw_material` WRITE;
 /*!40000 ALTER TABLE `raw_material` DISABLE KEYS */;
+INSERT INTO `raw_material` VALUES (1,NULL,'65% Polister, 35% Cotton','Blue mosaic pattern','55',1,1,1,1),(2,NULL,'Brand and wash care label','Brand label','1.5',2,1,3,3);
 /*!40000 ALTER TABLE `raw_material` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -402,33 +404,6 @@ INSERT INTO `uom` VALUES (1,'Yard'),(2,'Mitter'),(3,'Piece'),(4,'Box'),(5,'Roll'
 UNLOCK TABLES;
 
 --
--- Table structure for table `vendor`
---
-
-DROP TABLE IF EXISTS `vendor`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `vendor` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `address` varchar(255) DEFAULT NULL,
-  `cell` varchar(255) DEFAULT NULL,
-  `company` varchar(255) DEFAULT NULL,
-  `contact_person` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `vendor`
---
-
-LOCK TABLES `vendor` WRITE;
-/*!40000 ALTER TABLE `vendor` DISABLE KEYS */;
-/*!40000 ALTER TABLE `vendor` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `vendors`
 --
 
@@ -465,4 +440,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-15 14:06:29
+-- Dump completed on 2024-01-16  1:47:12
