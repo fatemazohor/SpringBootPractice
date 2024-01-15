@@ -1,6 +1,10 @@
 package com.example.SpringBootP3.controller;
 
+import com.example.SpringBootP3.model.UOM;
+import com.example.SpringBootP3.model.Vendors;
 import com.example.SpringBootP3.model.sale.*;
+import com.example.SpringBootP3.repository.other.IUOMRepo;
+import com.example.SpringBootP3.repository.other.IVendorRepo;
 import com.example.SpringBootP3.repository.sale.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +44,12 @@ public class SaleController {
 
     @Autowired
     private IMeasurementSizeRepo measurementSizeRepo;
+    @Autowired
+    private IRawMaterialRepo iRawMaterialRepo;
+    @Autowired
+    private IUOMRepo iuomRepo;
+    @Autowired
+    private IVendorRepo vendorRepo;
 
 
 
@@ -560,13 +570,99 @@ public String rawMaterialcatList(Model m){
 
     //    Measurement Size end
 
+    //    Raw Material start
+
+    @GetMapping("/raw_material/list")
+    public String rawMaterialList(Model m){
+        List<RawMaterial> rawMaterialList=iRawMaterialRepo.findAll();
+        m.addAttribute("title","Raw Material List");
+        m.addAttribute("rawMaterialList", rawMaterialList);
+        return "sale/rawMaterialList";
+    }
+    @GetMapping("/raw_material/addform")
+    public String rawMaterialForm(Model m){
+//        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+
+        //       Raw Material Category id dropdown
+        List<RawMaterialCat> rawMaterialCategoriesList=rawMaterialCatRepo.findAll();
+        m.addAttribute("title","Raw Material Categories List");
+        m.addAttribute("rawMaterialCategoriesList", rawMaterialCategoriesList);
+
+        //        Unit of Mesurement id dropdown
+        List<UOM> uomList=iuomRepo.findAll();
+        m.addAttribute("title","Unit of Measurement List");
+        m.addAttribute("uomList", uomList);
+        // Vendor id dropdown
+        List<Vendors> vendorList=vendorRepo.findAll();
+        m.addAttribute("title","Vendor List");
+        m.addAttribute("vendorList", vendorList);
+
+//Create new Raw Material
+        m.addAttribute("rawMaterial",new RawMaterial());
+        m.addAttribute("title","Create new Raw Material");
+
+        return "sale/rawMaterialForm";
+    }
+
+    @PostMapping("/raw_material/save")
+    public String rawMaterialSave(@ModelAttribute RawMaterial rawMaterial){
+
+
+        iRawMaterialRepo.save(rawMaterial);
+
+
+        return "redirect:/raw_material/list";
+    }
+
+    @GetMapping("/raw_material/delete/{id}")
+    public String rawMaterialDelete(@PathVariable int id){
+        iRawMaterialRepo.deleteById(id);
+        return "redirect:/raw_material/list";
+    }
+
+    @GetMapping("/raw_material_edit/{id}")
+    public String rawMaterialEdit(@PathVariable int id,Model m){
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+
+        //       Raw Material Category id dropdown
+        List<RawMaterialCat> rawMaterialCategoriesList=rawMaterialCatRepo.findAll();
+        m.addAttribute("title","Raw Material Categories List");
+        m.addAttribute("rawMaterialCategoriesList", rawMaterialCategoriesList);
+
+        //        Unit of Mesurement id dropdown
+        List<UOM> uomList=iuomRepo.findAll();
+        m.addAttribute("title","Unit of Measurement List");
+        m.addAttribute("uomList", uomList);
+        // Vendor id dropdown
+        List<Vendors> vendorList=vendorRepo.findAll();
+        m.addAttribute("title","Vendor List");
+        m.addAttribute("vendorList", vendorList);
+
+
+//Update Raw Material
+        RawMaterial rawMaterialName=iRawMaterialRepo.findById(id).get();
+        m.addAttribute("title","Update Raw Material");
+        m.addAttribute("rawMaterial",rawMaterialName);
+        return "sale/rawMaterialForm";
+
+    }
+
+    //    Raw Material end
+
+
 // Request body method for jquery check
     @GetMapping("/measurement_size/{id}")
     @ResponseBody
     public Optional<MeasurementSize> getmS(@PathVariable int id){
         return measurementSizeRepo.findById(id);
     }
-    // this get style by id with other table that has relationship with
+    // this get style by id with other table that has relationship with in measurement size page.
     @GetMapping("/style/{id}")
     @ResponseBody
     public Optional<Style> getStyleById(@PathVariable int id){
