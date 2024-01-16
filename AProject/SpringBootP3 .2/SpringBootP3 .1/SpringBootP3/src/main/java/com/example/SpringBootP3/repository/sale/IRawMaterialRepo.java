@@ -10,7 +10,11 @@ import java.util.List;
 
 @Repository
 public interface IRawMaterialRepo extends JpaRepository<RawMaterial,Integer> {
-//    @Query("select raw from RawMaterial raw where raw.styleId=:styleId order by raw.rawMaterialCatId")
-//    @Query("select raw from RawMaterial raw where raw.styleId=?1")
-//    public List<RawMaterial> findRawMaterialByStyleId(Integer styleId);
+//    @Query("select raw from RawMaterial raw where raw.styleId.id=:styleId order by raw.rawMaterialCatId.id")
+
+//    public List<RawMaterial> findBystyleId(Integer styleId);
+
+//    @Query("SELECT raw.description, raw.name from  Style s join RawMaterial raw on raw.styleId.id= s.id where s.id=:id")
+    @Query("SELECT raw.name,raw.description from  Style s join RawMaterial raw on raw.styleId.id= s.id where s.id=:id")
+    public  List<RawMaterial> findRawMaterialByStyleId(int id);
 }

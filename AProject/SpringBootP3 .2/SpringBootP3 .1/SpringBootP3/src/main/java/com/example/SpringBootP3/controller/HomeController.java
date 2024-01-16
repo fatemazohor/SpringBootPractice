@@ -39,8 +39,19 @@ public class HomeController {
     private String techpage(@PathVariable int id, Model m){
         Style styleData=iStyleRepo.findById(id).get();
         m.addAttribute("styleData",styleData);
-//        List<RawMaterial> materialList=techPackService.getQueryList(id);
+
+// getQueryList method
+//        List<RawMaterial> materialList=techPackService.getQueryList(Integer.valueOf(id));
 //        m.addAttribute("materialList",materialList);
+
+
+//        find by style id method
+        List<RawMaterial> rawMaterialList=techPackService.getTechPack(id);
+        m.addAttribute("rawMaterialList",rawMaterialList);
+
+        //find by style and raw material table join query
+//        List<Style> styleMaterialList=techPackService.getStyleMaterial(id);
+//        m.addAttribute("styleMaterialList",styleMaterialList);
         return "other/techpage";
     }
 }

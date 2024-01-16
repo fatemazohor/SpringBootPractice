@@ -20,7 +20,7 @@ import java.util.Set;
 public class Style {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private int id;
     private String code;
     private String description;
     private Date CreatedAt;
