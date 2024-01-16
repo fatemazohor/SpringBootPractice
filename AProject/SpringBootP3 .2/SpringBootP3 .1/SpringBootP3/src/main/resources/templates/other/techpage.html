@@ -32,7 +32,7 @@
                     </div>
 <!--                    </form>-->
                     <div class="row">
-                        <div class="col-md-6 p-0">
+                        <div class="col-md-12 p-0">
                             <div class="card rounded-0 shadow-none border h-100">
                                 <div class="px-3 py-1 bg-light">
                                     <h5 class="pt-2">Fabrication</h5>
@@ -42,94 +42,95 @@
                                         <tbody>
                                         <tr th:each="mat:${rawMaterialList}">
                                             <td>
-                                                <strong th:text="${mat.name}">Fabric: Blue mosaic pattern</strong>
+                                                <strong th:text="${mat.rawMaterialCatId.name}+': '+${mat.name}">Fabric: Blue mosaic pattern</strong>
                                                 <br>
-                                                65% Polister, 35% Cotton
+                                                <p th:text="${mat.description}"></p>
                                             </td>
                                             <td>
                                                 <!--                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/fabrics/1.png" width="50">-->
                                             </td>
                                         </tr>
-                                        <tr>
-                                        <tr>
-                                            <td>
-                                                <strong>Fabric: Blue mosaic pattern</strong>
-                                                <br>
-                                                65% Polister, 35% Cotton
-                                            </td>
-                                            <td>
-                                                <!--                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/fabrics/1.png" width="50">-->
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <strong>Fabric: Solid green</strong>
-                                                <br>
-                                                65% Polister, 35% Cotton
-                                            </td>
-                                            <td>
-                                                <!--                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/fabrics/2.png" width="50">-->
-                                            </td>
-                                        </tr>
+<!--                                        <tr> demo data static-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Fabric: Blue mosaic pattern</strong>-->
+<!--                                                <br>-->
+<!--                                                65% Polister, 35% Cotton-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                &lt;!&ndash;                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/fabrics/1.png" width="50">&ndash;&gt;-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Fabric: Solid green</strong>-->
+<!--                                                <br>-->
+<!--                                                65% Polister, 35% Cotton-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                &lt;!&ndash;                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/fabrics/2.png" width="50">&ndash;&gt;-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6 p-0">
-                            <div class="card rounded-0 shadow-none border h-100">
-                                <div class="px-3 py-1 bg-light">
-                                    <h5 class="pt-2">Trim</h5>
-                                </div>
-                                <div class="px-3 pt-2">
-                                    <table class="table">
-                                        <tbody>
-                                        <tr>
-                                            <td>
-                                                <strong>Trim Category: Label</strong>
-                                                <br>
-                                                Brand and wash care label
-                                            </td>
-                                            <td>
-                                                <!--                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/style_trims/1.png" width="65">-->
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <strong>Trim Category: Thread</strong>
-                                                <br>
-                                                Blue thread
-                                            </td>
-                                            <td>
-                                                <!--                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/style_trims/2.png" width="65">-->
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <strong>Trim Category: Thread</strong>
-                                                <br>
-                                                Green thread
-                                            </td>
-                                            <td>
-                                                <!--                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/style_trims/.png" width="65">-->
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                <strong>Trim Category: Accessory</strong>
-                                                <br>
-                                                Poly bag
-                                            </td>
-                                            <td>
-                                                <!--                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/style_trims/.jpg" width="65">-->
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+<!--                        trim demo data -->
+<!--                        <div class="col-md-6 p-0">-->
+<!--                            <div class="card rounded-0 shadow-none border h-100">-->
+<!--                                <div class="px-3 py-1 bg-light">-->
+<!--                                    <h5 class="pt-2">Trim</h5>-->
+<!--                                </div>-->
+<!--                                <div class="px-3 pt-2">-->
+<!--                                    <table class="table">-->
+<!--                                        <tbody>-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Trim Category: Label</strong>-->
+<!--                                                <br>-->
+<!--                                                Brand and wash care label-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                &lt;!&ndash;                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/style_trims/1.png" width="65">&ndash;&gt;-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Trim Category: Thread</strong>-->
+<!--                                                <br>-->
+<!--                                                Blue thread-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                &lt;!&ndash;                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/style_trims/2.png" width="65">&ndash;&gt;-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Trim Category: Thread</strong>-->
+<!--                                                <br>-->
+<!--                                                Green thread-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                &lt;!&ndash;                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/style_trims/.png" width="65">&ndash;&gt;-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        <tr>-->
+<!--                                            <td>-->
+<!--                                                <strong>Trim Category: Accessory</strong>-->
+<!--                                                <br>-->
+<!--                                                Poly bag-->
+<!--                                            </td>-->
+<!--                                            <td>-->
+<!--                                                &lt;!&ndash;                        <img alt="image" class="shadow p-1 rounded border bg-secondary" src="http://asia.intels.co/projects/laravel/stripe/public/img/style_trims/.jpg" width="65">&ndash;&gt;-->
+<!--                                            </td>-->
+<!--                                        </tr>-->
+<!--                                        </tbody>-->
+<!--                                    </table>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="row">
                         <div class="col-md-12 p-0">
                             <div class="card rounded-0 shadow-none border h-100">

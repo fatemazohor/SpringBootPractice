@@ -45,7 +45,7 @@ public class HomeController {
 //        m.addAttribute("materialList",materialList);
 
 
-//        find by style id method
+//        find by style id method from raw material table
         List<RawMaterial> rawMaterialList=techPackService.getTechPack(id);
         m.addAttribute("rawMaterialList",rawMaterialList);
 
