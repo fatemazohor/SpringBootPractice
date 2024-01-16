@@ -23,6 +23,7 @@ public class TechPackService {
 //        return materialList;
 //    }
 
+    // raw material repo join query
     public List<RawMaterial> getTechPack(int id){
         List<RawMaterial> rawMaterialList=rawMaterialRepo.findRawMaterialByStyleId(id);
         return rawMaterialList;
