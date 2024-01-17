@@ -1,5 +1,6 @@
 package com.example.SpringBootP3.controller;
 
+import com.example.SpringBootP3.model.sale.MeasurementDetails;
 import com.example.SpringBootP3.model.sale.RawMaterial;
 import com.example.SpringBootP3.model.sale.Style;
 import com.example.SpringBootP3.repository.sale.IStyle;
@@ -52,6 +53,19 @@ public class HomeController {
         //find by style and raw material table join query
 //        List<Style> styleMaterialList=techPackService.getStyleMaterial(id);
 //        m.addAttribute("styleMaterialList",styleMaterialList);
+
+        //Measurement details list to tech pack
+        List<MeasurementDetails> measurementDetailsList=techPackService.getMeasuermentDetList(id);
+        m.addAttribute("measurementDetailsList",measurementDetailsList);
         return "other/techpage";
+    }
+
+    //demo data check page --work
+    @GetMapping("/demo_page/{id}")
+    public String demoCheck(@PathVariable int id,Model m){
+        List<MeasurementDetails> measurementDetailsList=techPackService.getMeasuermentDetList(id);
+        m.addAttribute("measurementDetailsList",measurementDetailsList);
+        return "other/demopage";
+
     }
 }

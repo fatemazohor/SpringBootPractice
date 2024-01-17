@@ -1,7 +1,9 @@
 package com.example.SpringBootP3.service.techPack;
 
+import com.example.SpringBootP3.model.sale.MeasurementDetails;
 import com.example.SpringBootP3.model.sale.RawMaterial;
 import com.example.SpringBootP3.model.sale.Style;
+import com.example.SpringBootP3.repository.sale.IMeasurementDetailsRepo;
 import com.example.SpringBootP3.repository.sale.IRawMaterialRepo;
 import com.example.SpringBootP3.repository.sale.IStyle;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,9 @@ public class TechPackService {
     @Autowired
     private IRawMaterialRepo rawMaterialRepo;
 
+    @Autowired
+    private IMeasurementDetailsRepo detailsRepo;
+
 //    public List<RawMaterial> getQueryList(int id){
 //        List<RawMaterial> materialList=rawMaterialRepo.findBystyleId(id);
 //        return materialList;
@@ -33,4 +38,10 @@ public class TechPackService {
         List<Style> materialList=styleRepo.findStyleById(id);
         return materialList;
     }
+
+    //Measurement Details table list by style id
+    public List<MeasurementDetails> getMeasuermentDetList(int id){
+        return detailsRepo.findByStyleId(id);
+    }
+
 }

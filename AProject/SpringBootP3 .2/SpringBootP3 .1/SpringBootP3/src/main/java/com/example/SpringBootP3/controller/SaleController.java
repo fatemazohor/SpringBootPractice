@@ -51,6 +51,9 @@ public class SaleController {
     @Autowired
     private IVendorRepo vendorRepo;
 
+    @Autowired
+    private IMeasurementDetailsRepo detailsRepo;
+
 
 
 
@@ -654,6 +657,58 @@ public String rawMaterialcatList(Model m){
     }
 
     //    Raw Material end
+    //    Measurement  Details start
+
+    @GetMapping("/measurement_details/list")
+    public String measurementDetailsList(Model m){
+        List<MeasurementDetails> measurementDetailsList=detailsRepo.findAll();
+        m.addAttribute("title","Measurement Details List");
+        m.addAttribute("measurementDetailsList", measurementDetailsList);
+        return "sale/measurementDetailsList";
+    }
+    @GetMapping("/measurement_details/addform")
+    public String measurementDetailsform(Model m){
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+        //style id end
+        //Create new measurement details
+        m.addAttribute("measurementDetails",new MeasurementDetails());
+        m.addAttribute("title","Measurement Details Add Form");
+        return "sale/measurementDetailsForm";
+    }
+    @PostMapping("/measurement_details/save")
+    public String measurementDetailsSave(@ModelAttribute MeasurementDetails measurementDetails){
+        detailsRepo.save(measurementDetails);
+        return "redirect:/measurement_details/list";
+    }
+    @GetMapping("/measurement_details/delete/{id}")
+    public String measurementDetailsDelete(@PathVariable int id){
+        detailsRepo.deleteById(id);
+        return "redirect:/measurement_details/list";
+    }
+
+    @GetMapping("/measurement_details_edit/{id}")
+    public String measurementDetailsEdit(@PathVariable int id,Model m){
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+        //style id end
+
+        //Update measurement details
+        MeasurementDetails measurementDetailsName=detailsRepo.findById(id).get();
+        m.addAttribute("title","Measurement Details Edit Form");
+        m.addAttribute("measurementDetails",measurementDetailsName);
+        return "sale/measurementDetailsForm";
+
+    }
+
+    //    Measurement  Details end
+
+
+
 
 
 // Request body method for jquery check
