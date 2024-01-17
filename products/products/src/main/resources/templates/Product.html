@@ -17,6 +17,7 @@
                 <th>Product</th>
                 <th>Category</th>
                 <th>Price</th>
+                <th>Image</th>
                 <th>Action</th>
             </tr>
 
@@ -27,6 +28,10 @@
                 <td th:text="${product.name}"></td>
                 <td th:text="${product.category.category}"></td>
                 <td th:text="${product.price}"></td>
+                <td>
+                    <img height="80px"
+                         th:src="@{${'/product/display?id='+product.id}}">
+                </td>
 
                 <td>
                     <a  class="btn btn-warning" th:href="@{'/product/update/'+${product.id}}">Update</a>
