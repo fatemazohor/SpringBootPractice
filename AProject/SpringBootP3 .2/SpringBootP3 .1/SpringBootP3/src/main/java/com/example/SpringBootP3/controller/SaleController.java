@@ -7,10 +7,21 @@ import com.example.SpringBootP3.repository.other.IUOMRepo;
 import com.example.SpringBootP3.repository.other.IVendorRepo;
 import com.example.SpringBootP3.repository.sale.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -438,6 +449,39 @@ public String rawMaterialcatList(Model m){
         m.addAttribute("measurementAttachmentList", measurementAttachmentList);
         return "sale/measurementAttachmentList";
     }
+
+    //measurement attachment display image
+    @GetMapping("/measurement_attachment/display")
+    public ResponseEntity<byte[]> getMeasurementAttachment(@RequestParam("id") int id)
+    throws IOException{
+        Optional<MeasurementAttachment> mattachment=measurementAttachmentRepo.findById(id);
+        if (mattachment.isPresent()){
+            MeasurementAttachment attachmentImage=mattachment.get();
+            //select directory
+            String uploadDirectory="src/main/resources/static/assets/image/measurement_att/";
+            String fileName=attachmentImage.getAttachment();
+            String filePath=Path.of(uploadDirectory,fileName).toString();
+            try {
+                Path path=Path.of(filePath);
+                byte[] imageByte=Files.readAllBytes(path);
+                return ResponseEntity
+                        .ok()
+                        .contentType(MediaType.IMAGE_JPEG)
+                        .header(HttpHeaders.CONTENT_DISPOSITION,"inline + filename="
+                                +path.getFileName().toString())
+                        .body(imageByte);
+            }catch (IOException e){
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            }
+
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+
+
+    //measurement attachment display image end
     @GetMapping("/measurement_attachment/addform")
     public String measurementAttachmentForm(Model m){
 //        Style id dropdown
@@ -453,8 +497,35 @@ public String rawMaterialcatList(Model m){
     }
 
     @PostMapping("/measurement_attachment/save")
-    public String measurementAttachmentSave(@ModelAttribute MeasurementAttachment measurementAttachment){
+    public String measurementAttachmentSave(@ModelAttribute @Validated MeasurementAttachment measurementAttachment
+    , BindingResult result, @RequestParam("attachment")MultipartFile measurementImage)
+    throws IOException, SQLException {
 
+        //save image start
+        if (!measurementImage.isEmpty()){
+            byte[] bytes=measurementImage.getBytes();
+            String originalFileName=measurementImage.getOriginalFilename();
+            //timestamp for unique image name
+            Long timestamp=System.currentTimeMillis();
+            //file extension
+            String fileExtension=originalFileName.substring(originalFileName.lastIndexOf("."));
+            //new file name
+            String newFileName="measurement_att_"+timestamp+fileExtension;
+            //set file name to database
+            measurementAttachment.setAttachment(newFileName);
+            //save image with new name in specific directory
+            String uploadDirectroy= "src/main/resources/static/assets/image/measurement_att/";
+            Path uploadPath=Path.of(uploadDirectroy);
+            if (!Files.exists(uploadPath)){
+                Files.createDirectories(uploadPath);
+            }
+            Path filePath=uploadPath.resolve(newFileName);
+            Files.write(filePath,bytes);
+        }
+
+
+
+        //save image end
 
         measurementAttachmentRepo.save(measurementAttachment);
 
@@ -483,8 +554,8 @@ public String rawMaterialcatList(Model m){
         return "sale/measurementAttachmentForm";
 
     }
-
-//    Measurement Attachment end
+//
+////    Measurement Attachment end
 
 //    Measurement Size start
 

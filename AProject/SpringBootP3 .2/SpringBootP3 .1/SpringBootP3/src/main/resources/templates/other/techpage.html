@@ -132,6 +132,7 @@
 <!--                            </div>-->
 <!--                        </div>-->
 <!--                    </div>-->
+<!--                        sketch-->
                     <div class="row">
                         <div class="col-md-12 p-0">
                             <div class="card rounded-0 shadow-none border h-100">
@@ -140,27 +141,29 @@
                                 </div>
                                 <div class="px-3 pt-2">
                                     <div class="row">
-                                        <div class="col-xl-4 col-md-6 my-2 mx-auto text-center">
+                                        <div class="col-xl-4 col-md-6 my-2 mx-auto text-center"
+                                        th:each="me:${measurementAttachmentList}">
                                             <div class="card bg-transparent rounded-0 shadow-none">
-                                                <strong><u>Front</u></strong>
+                                                <strong th:text="${me.name}"><u>Front</u></strong>
                                                 <br>
-                                                <!--                        <img alt="image" class="img-fluid mx-auto" src="http://asia.intels.co/projects/laravel/stripe/public/img/measurement_attachments/1.png" />-->
+                                                <img height="300px"
+                                                     th:src="@{${'/measurement_attachment/display?id=' + me.id} }">
                                             </div>
                                         </div>
-                                        <div class="col-xl-4 col-md-6 my-2 mx-auto text-center">
-                                            <div class="card bg-transparent rounded-0 shadow-none">
-                                                <strong><u>Collar</u></strong>
-                                                <br>
-                                                <!--                        <img alt="image" class="img-fluid mx-auto" src="http://asia.intels.co/projects/laravel/stripe/public/img/measurement_attachments/2.png" />-->
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-4 col-md-6 my-2 mx-auto text-center">
-                                            <div class="card bg-transparent rounded-0 shadow-none">
-                                                <strong><u>V neck collar</u></strong>
-                                                <br>
-                                                <!--                        <img alt="image" class="img-fluid mx-auto" src="http://asia.intels.co/projects/laravel/stripe/public/img/measurement_attachments/3.png" />-->
-                                            </div>
-                                        </div>
+<!--                                        <div class="col-xl-4 col-md-6 my-2 mx-auto text-center">-->
+<!--                                            <div class="card bg-transparent rounded-0 shadow-none">-->
+<!--                                                <strong><u>Collar</u></strong>-->
+<!--                                                <br>-->
+<!--                                                &lt;!&ndash;                        <img alt="image" class="img-fluid mx-auto" src="http://asia.intels.co/projects/laravel/stripe/public/img/measurement_attachments/2.png" />&ndash;&gt;-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-xl-4 col-md-6 my-2 mx-auto text-center">-->
+<!--                                            <div class="card bg-transparent rounded-0 shadow-none">-->
+<!--                                                <strong><u>V neck collar</u></strong>-->
+<!--                                                <br>-->
+<!--                                                &lt;!&ndash;                        <img alt="image" class="img-fluid mx-auto" src="http://asia.intels.co/projects/laravel/stripe/public/img/measurement_attachments/3.png" />&ndash;&gt;-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>
