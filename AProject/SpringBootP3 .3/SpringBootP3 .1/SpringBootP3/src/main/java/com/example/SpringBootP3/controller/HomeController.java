@@ -1,10 +1,11 @@
 package com.example.SpringBootP3.controller;
 
-import com.example.SpringBootP3.model.sale.MeasurementAttachment;
-import com.example.SpringBootP3.model.sale.MeasurementDetails;
-import com.example.SpringBootP3.model.sale.RawMaterial;
-import com.example.SpringBootP3.model.sale.Style;
+import com.example.SpringBootP3.model.bom.LaborCost;
+import com.example.SpringBootP3.model.sale.*;
+import com.example.SpringBootP3.repository.bom.ILaborCost;
 import com.example.SpringBootP3.repository.sale.IStyle;
+import com.example.SpringBootP3.repository.sale.IStyleAttachmentRepo;
+import com.example.SpringBootP3.service.techPack.BillOfMaterialService;
 import com.example.SpringBootP3.service.techPack.TechPackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,12 @@ public class HomeController {
     private IStyle iStyleRepo;
     @Autowired
     private TechPackService techPackService;
+    @Autowired
+    private BillOfMaterialService billOfMaterialService;
+    @Autowired
+    private IStyleAttachmentRepo styleAttachmentRepo;
+    @Autowired
+    private ILaborCost laborCostRepo;
 
     @GetMapping("/home")
     private String home(){
@@ -64,11 +71,92 @@ public class HomeController {
         return "other/techpage";
     }
 
+
+
+
+    // BOM first page start
+
+    @GetMapping("/style_bom")
+    private String getStyleBom(Model m){
+        List<Style> styleList=iStyleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+        m.addAttribute("title","Bill Of Materila");
+        return "sale/styleBOM";
+    }
+
+    // BOM first page end
+    //BOM 2nd or main page start
+
+    @GetMapping("/bill_of_material/{id}")
+    private String getBillPage(@PathVariable int id, Model m){
+        Style styleData=iStyleRepo.findById(id).get();
+        m.addAttribute("styleData",styleData);
+
+        //style attachment start
+        List<StyleAttachment> styleAttachment=billOfMaterialService.getStyleImage(id);
+        m.addAttribute("styleAttachment",styleAttachment);
+
+
+        //style attachment end
+
+
+
+        //small size table start
+        List<StyleMaterialQuantity> sMatQtyList=billOfMaterialService.getPriceList(3,id);
+        m.addAttribute("sMatQtyList",sMatQtyList);
+        //small size table end
+
+        //medium size table start
+        List<StyleMaterialQuantity> midMatQtyList=billOfMaterialService.getPriceList(2,id);
+        m.addAttribute("midMatQtyList",midMatQtyList);
+        //medium size table end
+
+        //large size table start
+        List<StyleMaterialQuantity> largeMatQtyList=billOfMaterialService.getPriceList(1,id);
+        m.addAttribute("largeMatQtyList",largeMatQtyList);
+        //large size table end
+
+        //Labor Cost table start
+        List<LaborCost> laborCostsList=laborCostRepo.findCostbyStyleId(id);
+        m.addAttribute("laborCostsList",laborCostsList);
+        //Labor Cost table end
+
+
+
+        return "other/billOfMaterial";
+    }
+    //BOM 2nd or main page end
+
+
+
+
     //demo data check page --work
-    @GetMapping("/demo_page/{id}")
-    public String demoCheck(@PathVariable int id,Model m){
-        List<MeasurementDetails> measurementDetailsList=techPackService.getMeasuermentDetList(id);
-        m.addAttribute("measurementDetailsList",measurementDetailsList);
+//    @GetMapping("/demo_page/{sizeid}/{styleid}")
+//    public String demoCheck(@PathVariable int sizeid,@PathVariable int styleid, Model m){
+////        List<MeasurementDetails> measurementDetailsList=techPackService.getMeasuermentDetList(id);
+////        m.addAttribute("measurementDetailsList",measurementDetailsList);
+////        List<StyleMaterialQuantity> materailQtyList=billOfMaterialService.getPriceBySize(id);
+////        m.addAttribute("materailQtyList",materailQtyList);
+//
+//        List<StyleMaterialQuantity> materailQtyList=billOfMaterialService.getPriceList(sizeid,styleid);
+//        m.addAttribute("materailQtyList",materailQtyList);
+//
+//        return "other/demopage";
+//
+//    }
+
+
+    @GetMapping("/demo_page/{styleid}")
+    public String demoCheck(@PathVariable int styleid, Model m){
+//        List<MeasurementDetails> measurementDetailsList=techPackService.getMeasuermentDetList(id);
+//        m.addAttribute("measurementDetailsList",measurementDetailsList);
+//        List<StyleMaterialQuantity> materailQtyList=billOfMaterialService.getPriceBySize(id);
+//        m.addAttribute("materailQtyList",materailQtyList);
+
+        List<StyleMaterialQuantity> materailQtyList=billOfMaterialService.getPriceList(3,styleid);
+        m.addAttribute("materailQtyList",materailQtyList);
+
         return "other/demopage";
 
     }

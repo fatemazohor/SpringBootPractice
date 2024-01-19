@@ -17,7 +17,7 @@ public class RawMaterial {
     private Integer id;
     private String name;
     private String description;
-    private String unitPrice;
+    private double unitPrice;
     private String attachment;
     @ManyToOne
     @JoinColumn(name = "style_id")
