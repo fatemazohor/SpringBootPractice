@@ -25,7 +25,7 @@
                 <td th:text="${style.description}"></td>
                 <td >
                     <a  class="btn btn-sm btn-outline-primary shadow-sm rounded-pill"
-                        th:href="@{'/techpage/'+${style.id}}">TechPack</a>
+                        th:href="@{'/techpage/'+${style.id}}" th:target="_blank">TechPack</a>
                 </td>
                 <td>
                     <a  class="btn btn-warning" th:href="@{'/styleedit/'+${style.id}}">Update</a>

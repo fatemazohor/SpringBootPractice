@@ -17,5 +17,5 @@ public class StyleAttachment {
 
     @ManyToOne
     @JoinColumn(name = "style_id")
-    public Style styleid;
+    public Style styleId;
 }

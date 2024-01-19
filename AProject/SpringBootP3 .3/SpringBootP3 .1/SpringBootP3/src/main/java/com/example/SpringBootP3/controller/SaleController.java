@@ -64,6 +64,10 @@ public class SaleController {
 
     @Autowired
     private IMeasurementDetailsRepo detailsRepo;
+    @Autowired
+    private IStyleAttachmentRepo styleAttachmentRepo;
+    @Autowired
+    private IStyleMaterialQuantityRepo styleMaterialQuantityRepo;
 
 
 
@@ -835,6 +839,185 @@ public String rawMaterialcatList(Model m){
     }
 
     //    Measurement  Details end
+
+
+    //    style attachment start
+    @GetMapping("/style_attachment/list")
+    public String styleAttachmentList(Model m){
+        List<StyleAttachment> styleAttachmentList=styleAttachmentRepo.findAll();
+        m.addAttribute("title","Style Attachment List");
+        m.addAttribute("styleAttachmentList", styleAttachmentList);
+        return "sale/styleAttachmentList";
+    }
+
+    //style image display display image
+    @GetMapping("/style_attachment/display")
+    public ResponseEntity<byte[]> getStyleAttachment(@RequestParam("id") int id)
+            throws IOException{
+        Optional<StyleAttachment> styleAttachment=styleAttachmentRepo.findById(id);
+        if (styleAttachment.isPresent()){
+            StyleAttachment styleImage=styleAttachment.get();
+            //select directory
+            String uploadDirectory="src/main/resources/static/assets/image/style_att/";
+            String fileName=styleImage.getAttachment();
+            String filePath=Path.of(uploadDirectory,fileName).toString();
+            try {
+                Path path=Path.of(filePath);
+                byte[] imageByte=Files.readAllBytes(path);
+                return ResponseEntity
+                        .ok()
+                        .contentType(MediaType.IMAGE_JPEG)
+                        .header(HttpHeaders.CONTENT_DISPOSITION,"inline + filename="
+                                +path.getFileName().toString())
+                        .body(imageByte);
+            }catch (IOException e){
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            }
+
+        }
+        return ResponseEntity.notFound().build();
+    }
+    //style image display end
+    @GetMapping("/style_attachment/addform")
+    public String styleAttachmentform(Model m){
+
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+        //style id end
+
+
+        m.addAttribute("styleAttachment",new StyleAttachment());
+        m.addAttribute("title","Create new Style Attachment");
+        return "sale/styleAttachmentForm";
+    }
+    @PostMapping("/style_attachment/save")
+    public String styleAttachmentSave(@ModelAttribute @Validated StyleAttachment styleAttachment, BindingResult result,
+                                      @RequestParam("attachment")MultipartFile styleImage) throws IOException, SQLException{
+
+        //save image start
+        if (!styleImage.isEmpty()){
+            byte[] bytes=styleImage.getBytes();
+            String originalFileName=styleImage.getOriginalFilename();
+            //timestamp for unique image name
+            Long timestamp=System.currentTimeMillis();
+            //file extension
+            String fileExtension=originalFileName.substring(originalFileName.lastIndexOf("."));
+            //new file name
+            String newFileName="style_att_"+timestamp+fileExtension;
+            //set file name to database
+            styleAttachment.setAttachment(newFileName);
+            //save image with new name in specific directory
+            String uploadDirectroy= "src/main/resources/static/assets/image/style_att/";
+            Path uploadPath=Path.of(uploadDirectroy);
+            if (!Files.exists(uploadPath)){
+                Files.createDirectories(uploadPath);
+            }
+            Path filePath=uploadPath.resolve(newFileName);
+            Files.write(filePath,bytes);
+        }
+
+
+
+        //save image end
+
+        styleAttachmentRepo.save(styleAttachment);
+        return "redirect:/style_attachment/list";
+    }
+    @GetMapping("/style_attachment/delete/{id}")
+    public String styleAttachmentDelete(@PathVariable int id){
+        styleAttachmentRepo.deleteById(id);
+        return "redirect:/style_attachment/list";
+    }
+
+    @GetMapping("/style_attachment_edit/{id}")
+    public String styleAttachmentEdit(@PathVariable int id,Model m){
+
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+        //style id end
+
+        StyleAttachment styleAttachmentName=styleAttachmentRepo.findById(id).get();
+        m.addAttribute("title","Update Style Attachment");
+        m.addAttribute("styleAttachment",styleAttachmentName);
+        return "sale/styleAttachmentForm";
+
+    }
+
+//   style attachment end
+
+    //    Style material quantity start
+
+    @GetMapping("/style_materaial_qty/list")
+    public String styleMatQtyList(Model m){
+        List<StyleMaterialQuantity> styleMatQtyList=styleMaterialQuantityRepo.findAll();
+        m.addAttribute("title","Style Material Quantity List");
+        m.addAttribute("styleMatQtyList", styleMatQtyList);
+        return "sale/styleMatQtyList";
+    }
+    @GetMapping("/style_materaial_qty/addform")
+    public String styleMatQtyform(Model m){
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+        //style id end
+        //raw material dropdown
+        List<RawMaterial> rawMaterialList=iRawMaterialRepo.findAll();
+        m.addAttribute("title","Raw Material List");
+        m.addAttribute("rawMaterialList", rawMaterialList);
+        //raw material dropdown end
+
+        //  Size id dropdown
+        List<Size> sizeList=sizeRepo.findAll();
+        m.addAttribute("sizeList", sizeList);
+        m.addAttribute("size", new Size());
+
+        m.addAttribute("styleMatQty",new StyleMaterialQuantity());
+        m.addAttribute("title","Style Material Quantity Add Form");
+        return "sale/styleMatQtyForm";
+    }
+    @PostMapping("/style_materaial_qty/save")
+    public String styleMatQtySave(@ModelAttribute StyleMaterialQuantity styleMaterialQuantity){
+        styleMaterialQuantityRepo.save(styleMaterialQuantity);
+        return "redirect:/style_materaial_qty/list";
+    }
+    @GetMapping("/style_materaial_qty/delete/{id}")
+    public String styleMatQtyDelete(@PathVariable int id){
+        styleMaterialQuantityRepo.deleteById(id);
+        return "redirect:/style_materaial_qty/list";
+    }
+
+    @GetMapping("/style_materaial_qty_edit/{id}")
+    public String styleMatQtyEdit(@PathVariable int id,Model m){
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+        //style id end
+
+        //raw material dropdown
+        List<RawMaterial> rawMaterialList=iRawMaterialRepo.findAll();
+        m.addAttribute("title","Raw Material List");
+        m.addAttribute("rawMaterialList", rawMaterialList);
+        //raw material dropdown end
+
+        //  Size id dropdown
+        List<Size> sizeList=sizeRepo.findAll();
+        m.addAttribute("sizeList", sizeList);
+        m.addAttribute("size", new Size());
+
+        StyleMaterialQuantity styleMatQtyName=styleMaterialQuantityRepo.findById(id).get();
+        m.addAttribute("title","Style Material Quantity Edit Form");
+        m.addAttribute("styleMatQty",styleMatQtyName);
+        return "sale/styleMatQtyForm";
+
+    }
+//    Style material quantity end
 
 
 

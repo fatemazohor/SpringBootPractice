@@ -13,11 +13,17 @@ public class StyleMaterialQuantity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private double quantity;
     @ManyToOne
     @JoinColumn(name = "style_id")
-    Style styleid;
+    Style styleId;
 //    add after makeing raw material table
-//    @ManyToOne
-//    @JoinColumn(name = "raw_material_id")
-//    RawMaterialCat rawMaterialCat;
+    @ManyToOne
+    @JoinColumn(name = "raw_material_id")
+    RawMaterial rawMaterialId;
+    //size id dropdown
+    @ManyToOne
+    @JoinColumn(name = "size_id")
+    Size sizeId;
+
 }
