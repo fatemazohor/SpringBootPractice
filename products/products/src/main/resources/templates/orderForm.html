@@ -1,0 +1,105 @@
+<div th:insert="header.html"></div>
+<div class="container">
+    <h2>Order entry</h2>
+    <h3 th:if="*{id == null}">Entry Category</h3>
+    <h3 th:if="*{id != null}">Update Category</h3>
+    <div class="container py-3">
+        <div id="responseDiv"> response</div>
+        <form id="orderForm" name="orderForm">
+            <input type="hidden" name="id" id="id">
+            <div class="mb-3">
+                <label>Style Id</label>
+                <input type="text" name="styleId" id="styleId">
+            </div>
+
+            <div class="mb-3">
+                <label>buyerId</label>
+                <input type="text" name="buyerId" id="buyerId">
+            </div>
+
+            <div class="mb-3">
+                <label>orderDate</label>
+                <input type="date" name="orderDate" id="orderDate">
+            </div>
+
+            <div class="mb-3">
+                <label>deliveryDate</label>
+                <input type="date" name="deliveryDate" id="deliveryDate">
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit"  id="saveOrder"
+                        onclick="addOrder()"
+
+                 >Submit</button>
+<!--                <button class="btn btn-primary" type="submit" >Update</button>-->
+                <button class="btn btn-warning" type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    // $('document').ready(function (){
+    //
+    //     // $('#saveOrder').on('click',function (){})
+    //     function saveOrder(){
+    //         var styleId=$('#styleId').val();
+    //         var buyerId=$('#buyerId').val();
+    //         // var orderDate=document.getElementById('orderDate').val();
+    //         // var deliveryDate=document.getElementById('deliveryDate').val();
+    //
+    //         $.ajax({
+    //             type: "POST",
+    //             url: "/save",
+    //             // url: "/order/save",
+    //             dataType: "json",
+    //             data:{
+    //                 styleId:styleId,
+    //                 buyerId:buyerId,
+    //                 // orderDate:orderDate,
+    //                 // deliveryDate:deliveryDate
+    //             },
+    //             success:function (response){
+    //                 console.log(response);
+    //
+    //                 var finalRes=JSON.stringify(response);
+    //
+    //                 $("#responseDiv").html("<br> Your response is"+finalRes+"</br>");
+    //
+    //             },
+    //             error:function (response){
+    //                 console.log(response);
+    //             }
+    //
+    //         })
+    //         //ajax method end
+    //     }
+    //     $('#saveOrder').on('click',function (){
+    //         saveOrder();
+    //     })
+    // })
+
+    //new method
+    // function addOrder(){
+    //     var url="/order_save";
+    //     var data=$(
+    //         '#orderForm'
+    //     ).serialize();
+    //     var method="POST";
+    //
+    //     $.ajax({
+    //         type:method,
+    //         url: url,
+    //         dataType: "JSON",
+    //         data: data,
+    //         success:function (data){
+    //             console.log(data);
+    //         }
+    //     })
+    //
+    // }
+</script>
+<div th:insert="footer.html"></div>

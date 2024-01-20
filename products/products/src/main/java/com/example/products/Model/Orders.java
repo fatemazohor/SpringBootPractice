@@ -8,24 +8,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Order {
+public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String styleId;
-    private String BuyerId;
+    private String buyerId;
     private Date orderDate;
-    private Date deliveryDate;
-    private String address;
-    private String status;
-    private String remarks;
-    private double paid;
-    private double discount;
-    private double vat;
+    private LocalDateTime deliveryDate;
 }
