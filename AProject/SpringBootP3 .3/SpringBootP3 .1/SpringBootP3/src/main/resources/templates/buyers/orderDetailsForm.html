@@ -1,0 +1,160 @@
+<div th:insert="header.html" xmlns="http://www.w3.org/1999/html"></div>
+<div class="px-3 py-3">
+    <h4 class="card-title mb-1" th:text="${title}"></h4>
+    <p class="pb-0">Best seller of the month cate</p>
+    <a href=/order_details/list class="btn btn-sm btn-primary">Manage</a>
+
+    <!--    <div class="py-2">-->
+    <!--        <form method="post" th:action="@{/order_details/save}" th:object="${orderDetails}">-->
+    <!--            <input type="hidden" class="form-control" th:field="*{id}">-->
+    <!--            <div class="mb-3">-->
+    <!--                <label for="Category name" class="form-label">Order Date</label>-->
+    <!--                <input type="text" class="form-control" id="Category name" th:field="*{oderDate}">-->
+
+    <!--            </div>-->
+
+    <!--            <button type="submit" th:if="${id==null}" class="btn btn-primary">Submit</button>-->
+    <!--            <button type="submit" th:if="${id!=null}" class="btn btn-primary">Update</button>-->
+    <!--        </form>-->
+    <!--    </div>-->
+    <div>
+        <form action="http://asia.intels.co/projects/laravel/stripe/public/orders" method="POST"
+              enctype="multipart/form-data">
+            <input type="hidden" name="_token" value="kykLQ4DuOKL9uKMqn3QwLfITskcOj2s3K6PGoNHT">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class='mb-2'><label>Style Id</label>
+                            <div class=''><select name='cmbStyleId' id='cmbStyleId' class='form-control'>
+                                <option value='1'>ST123</option>
+                                <option value='2'>ST401</option>
+                            </select></div>
+                        </div>
+                        <div class='mb-2'><label>Buyer Id</label>
+                            <div class=''><select name='cmbBuyerId' id='cmbBuyerId' class='form-control'>
+                                <option value='1'>ARC</option>
+                                <option value='2'>High Ltd</option>
+                            </select></div>
+                        </div>
+                        <label>Shipping Address</label>
+                        <textarea name="txtShippingAddress" id="txtShippingAddress" class="form-control"></textarea>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class='mb-2'><label for='txtOrderDate' class=''>Order Date</label>
+                            <div class=''><input type='date' class='form-control' name='txtOrderDate' id='txtOrderDate'
+                                                 value='' placeholder=''></div>
+                        </div>
+                        <div class='mb-2'><label for='txtDeliveryDate' class=''>Delivery Date</label>
+                            <div class=''><input type='date' class='form-control' name='txtDeliveryDate'
+                                                 id='txtDeliveryDate' value='' placeholder=''></div>
+                        </div>
+                        <div class='mb-2'><label>Status</label>
+                            <div class=''><select name='cmbStatusId' id='cmbStatusId' class='form-control'>
+                                <option value='1'>Invoiced</option>
+                                <option value='2'>Processing</option>
+                                <option value='3'>Shifted</option>
+                                <option value='4'>Delivered</option>
+                            </select></div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <hr>
+                        <h6 class="color-primary">Add Item Details</h6>
+                    </div>
+                    <div class="col mx-auto">
+                        <div class='mb-2'><label>Size Id</label>
+                            <div class=''><select name='cmbSizeId' id='cmbSizeId' class='form-control'>
+                                <option value='1'>XXS</option>
+                                <option value='2'>XS</option>
+                                <option value='3'>S</option>
+                                <option value='4'>M</option>
+                                <option value='5'>L</option>
+                                <option value='6'>XL</option>
+                                <option value='7'>XXL</option>
+                            </select></div>
+                        </div>
+                    </div>
+                    <div class="col mx-auto">
+                        <div class='mb-2'><label for='txtQuantity' class=''>Quantity</label>
+                            <div class=''><input type='text' class='form-control' name='txtQuantity' id='txtQuantity'
+                                                 value='1' placeholder=''></div>
+                        </div>
+                    </div>
+                    <div class="col mx-auto">
+                        <div class='mb-2'><label for='txtPrice' class=''>Price</label>
+                            <div class=''><input type='text' class='form-control' name='txtPrice' id='txtPrice'
+                                                 value='0' placeholder=''></div>
+                        </div>
+                    </div>
+                    <div class="col mx-auto">
+                        <div class='mb-2'><label for='txtDiscount' class=''>Discount</label>
+                            <div class=''><input type='text' class='form-control' name='txtDiscount' id='txtDiscount'
+                                                 value='0' placeholder=''></div>
+                        </div>
+                    </div>
+                    <div class="col mx-auto">
+                        <div class='mb-2'><label for='vat' class=''>Vat</label>
+                            <div class=''><input type='text' class='form-control' name='vat' id='vat' value='0'
+                                                 placeholder=''></div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <input type="button" id="btnAddToCart" name="btnAddToCart" class="btn btn-sm btn-outline-dark"
+                               value="Add item"/>
+                        <input type="button" id="clearAll" class="btn btn-sm btn-outline-danger" value="Empty"/>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-5 order-lg-1 order-2">
+                    <div class='mb-2'><label for='txtRemark' class=''>Remarks</label>
+                        <div class=''><input type='text' class='form-control' name='txtRemark' id='txtRemark' value=''
+                                             placeholder=''></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-2 order-1 ml-auto bg-light">
+                    <table class="table table-striped text-right">
+                        <tfoot>
+                        <tr>
+                            <th>Subtotal</th>
+                            <th><input type="text" class="form-control form-control-sm text-right" name="txtSubtotal"
+                                       id="txtSubtotal" value="0"/></th>
+                        </tr>
+                        <tr class="d-none">
+                            <th></th>
+                            <th><input type="text" class="form-control form-control-sm text-right" name="discount"
+                                       id="discount" value="0"/></th>
+                        </tr>
+                        <tr>
+                            <th>VAT</th>
+                            <th><input type="text" class="form-control form-control-sm text-right" name="txtVat"
+                                       id="txtVat" value="0"/></th>
+                        </tr>
+                        <tr>
+                            <th>Paid Amount</th>
+                            <th><input type="text" class="form-control form-control-sm text-right" name="txtPaidAmount"
+                                       id="txtPaidAmount" value="0"/></th>
+                        </tr>
+                        <tr>
+                            <th>Due Amount</th>
+                            <th><input type="text" class="form-control form-control-sm text-right text-danger"
+                                       name="txtDueAmount" id="txtDueAmount" value="0"/></th>
+                        </tr>
+                        <tr>
+                            <th>Total</th>
+                            <th><input type="text" class="form-control form-control-sm text-right h6"
+                                       name="txtTotalAmount" id="txtTotalAmount" value="0"/></th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer border-top">
+                <input type='button' value='Create' name='btnProcessOrder' id='btnProcessOrder' class='btn btn-info'/>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div th:insert="footer.html"></div>

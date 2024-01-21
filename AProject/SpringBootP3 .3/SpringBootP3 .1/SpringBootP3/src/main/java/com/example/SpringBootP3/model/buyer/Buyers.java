@@ -1,4 +1,4 @@
-package com.example.products.Model;
+package com.example.SpringBootP3.model.buyer;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,21 +8,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-import java.util.Date;
-
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Orders {
+public class Buyers {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String styleId;
-    private String buyerId;
-    private Date orderDate;
-    private LocalDateTime deliveryDate;
-    private double price;
-    private String qty;
+    private String organization;
+    private String contactPerson;
+    private String phone;
+    private String email;
+    private String address;
+    private String country;
+
 }

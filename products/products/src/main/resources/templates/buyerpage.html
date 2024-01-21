@@ -1,0 +1,21 @@
+
+<div th:insert="~{header.html}"></div>
+<div>
+    buyer page
+    <div class="container py-3">
+        <form method="post" th:action="@{'/category/save'}" th:object="${category}">
+            <input type="hidden" name="id" id="id" th:field="*{id}">
+            <div class="mb-3">
+                <label>Category</label>
+                <input type="text" name="category" id="category" th:field="*{category}">
+            </div>
+
+            <div class="mb-3">
+                <button class="btn btn-primary" type="submit" th:if="*{id == null}">Submit</button>
+                <button class="btn btn-primary" type="submit" th:if="*{id != null}">Update</button>
+                <button class="btn btn-warning" type="reset">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:insert="~{footer.html}"></div>

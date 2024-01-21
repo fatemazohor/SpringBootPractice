@@ -17,9 +17,9 @@ public class OrderDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String sizeId;
-    private double quantity;
-    private double price;
-    private double total;
+    private String quantity;
+    private String  price;
+    private String  total;
 
 
 }

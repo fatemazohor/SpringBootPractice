@@ -2,18 +2,11 @@ package com.example.products.Controller;
 
 import com.example.products.Model.Orders;
 import com.example.products.Repository.IOrderDetails;
-import com.example.products.Repository.IOrders;
 import com.example.products.Services.OrdersService;
 import com.fasterxml.jackson.core.io.JsonEOFException;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Controller
 public class OrderController {
@@ -29,33 +22,57 @@ public class OrderController {
         return "orderForm";
     }
 
-    @GetMapping("/orderdetails")
-    public String orderDetForm() {
 
-        return "orderDetailsForm";
-    }
 
     @PostMapping("/save")
 
     public @ResponseBody String saveOrders(
             @RequestParam("styleId") String style,
-            @RequestParam("buyerId") String buyer
-//            @RequestParam("orderDate") Date orderDate,
-//            @RequestParam("deliveryDate") LocalDateTime deliveryDate
+            @RequestParam("buyerId") String buyer,
+            @RequestParam("qty") String qty
+//            @RequestParam("price") String price
+
+//            @RequestParam("orderDate") String orderDate,
+//            @RequestParam("deliveryDate") String deliveryDate
 
 
     ) throws JsonEOFException {
         System.out.println("inside order controller");
-//        Orders orders=ordersService.orderDataSave(style,buyer,orderDate,deliveryDate);
-//        LocalDateTime myorder=LocalDateTime.parse();
-        Orders orders = ordersService.orderDataSave(style, buyer);
+        Orders orders=ordersService.orderDataSave(style,buyer,qty);
+//
+//        Orders orders = ordersService.orderDataSave(style, buyer);
 
-        JSONPObject resobj;
-        resobj = new JSONPObject("id", orders.getStyleId());
+//        JSONPObject resobj;
+//        resobj = new JSONPObject("id", orders.getStyleId());
 
 
-        return resobj.toString();
+        return "Data saved";
     }
+
+    @GetMapping("/orderdetails")
+    public String orderDetForm() {
+
+        return "orderDetailsForm";
+    }
+    @PostMapping("/det_save")
+    public String orDetailssave(@ModelAttribute("ordere")Orders orders){
+    ordersService.saveData(orders);
+        return "data saved";
+    }
+
+    @PostMapping("/details_save")
+    public String  detailsSave(
+            @RequestParam("sizeId")String sizeId,
+            @RequestParam("quantity")String quantity,
+            @RequestParam("price")String price,
+            @RequestParam("total")String total
+    ){
+
+        return "details";
+    }
+
+
+
 
 //    @PostMapping("/order_save")
 //    public String newOrderSave(@ModelAttribute("orders")Orders orders){

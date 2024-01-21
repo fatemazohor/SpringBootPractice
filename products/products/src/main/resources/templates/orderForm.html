@@ -26,10 +26,18 @@
                 <label>deliveryDate</label>
                 <input type="date" name="deliveryDate" id="deliveryDate">
             </div>
+            <div class="mb-3">
+                <label>price</label>
+                <input type="text" name="price" id="price">
+            </div>
+            <div class="mb-3">
+                <label>qty</label>
+                <input type="text" name="qty" id="qty">
+            </div>
 
             <div class="mb-3">
                 <button class="btn btn-primary" type="submit"  id="saveOrder"
-                        onclick="addOrder()"
+
 
                  >Submit</button>
 <!--                <button class="btn btn-primary" type="submit" >Update</button>-->
@@ -41,46 +49,55 @@
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
+<script src="component/jquery.validate.min.js" type="text/javascript"></script>
+<script src="component/DataTables/datatables.min.js" type="text/javascript"></script>
 <script>
-    // $('document').ready(function (){
-    //
-    //     // $('#saveOrder').on('click',function (){})
-    //     function saveOrder(){
-    //         var styleId=$('#styleId').val();
-    //         var buyerId=$('#buyerId').val();
-    //         // var orderDate=document.getElementById('orderDate').val();
-    //         // var deliveryDate=document.getElementById('deliveryDate').val();
-    //
-    //         $.ajax({
-    //             type: "POST",
-    //             url: "/save",
-    //             // url: "/order/save",
-    //             dataType: "json",
-    //             data:{
-    //                 styleId:styleId,
-    //                 buyerId:buyerId,
-    //                 // orderDate:orderDate,
-    //                 // deliveryDate:deliveryDate
-    //             },
-    //             success:function (response){
-    //                 console.log(response);
-    //
-    //                 var finalRes=JSON.stringify(response);
-    //
-    //                 $("#responseDiv").html("<br> Your response is"+finalRes+"</br>");
-    //
-    //             },
-    //             error:function (response){
-    //                 console.log(response);
-    //             }
-    //
-    //         })
-    //         //ajax method end
-    //     }
-    //     $('#saveOrder').on('click',function (){
-    //         saveOrder();
-    //     })
-    // })
+    $('document').ready(function (){
+
+        // $('#saveOrder').on('click',function (){})
+        function saveOrder(){
+            var data=$('#orderForm').serialize();
+            var styleId=$('#styleId').val();
+            var buyerId=$('#buyerId').val();
+            var qty=$('#qty').val();
+            // var price=$('#price').val();
+            // var orderDate=document.getElementById('orderDate').val();
+            // var deliveryDate=document.getElementById('deliveryDate').val();
+
+            $.ajax({
+                type: "POST",
+                url: "/save",
+                // url: "/det_save",
+                dataType: "json",
+                data:{
+                    styleId:styleId,
+                    buyerId:buyerId,
+                    qty:qty
+                    // orderDate:orderDate,
+                    // deliveryDate:deliveryDate,
+                    // price:price
+                },
+                // data:data,
+                success:function (response){
+                    console.log(response);
+
+                    var finalRes=JSON.stringify(response);
+
+                    $("#responseDiv").html("<br> Your response is"+finalRes+"</br>");
+
+                },
+                error:function (response){
+                    console.log(response);
+
+                }
+
+            })
+            //ajax method end
+        }
+        $('#saveOrder').on('click',function (){
+            saveOrder();
+        })
+    })
 
     //new method
     // function addOrder(){
