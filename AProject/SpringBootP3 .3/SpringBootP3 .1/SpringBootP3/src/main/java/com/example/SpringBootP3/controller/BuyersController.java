@@ -1,12 +1,10 @@
 package com.example.SpringBootP3.controller;
 
-import com.example.SpringBootP3.model.buyer.Buyers;
-import com.example.SpringBootP3.model.buyer.OrderDetails;
-import com.example.SpringBootP3.model.buyer.OrderStatus;
+import com.example.SpringBootP3.model.buyer.*;
 import com.example.SpringBootP3.model.sale.Size;
-import com.example.SpringBootP3.repository.buyer.IBuyerRepo;
-import com.example.SpringBootP3.repository.buyer.IOrderDetails;
-import com.example.SpringBootP3.repository.buyer.IOrderStatus;
+import com.example.SpringBootP3.model.sale.Style;
+import com.example.SpringBootP3.repository.buyer.*;
+import com.example.SpringBootP3.repository.sale.IStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +23,14 @@ public class BuyersController {
     private IOrderStatus orderStatusRepo;
     @Autowired
     private IOrderDetails orderDetailsRepo;
+    @Autowired
+    private IStyle styleRepo;
+    @Autowired
+    private ITask taskRepo;
+    @Autowired
+    private ITimeActionRepo timeActionRepo;
+
+
 
     //buyers registration
     @GetMapping("/buyers/list")
@@ -100,6 +106,7 @@ public class BuyersController {
 
     }
     //Order Status end
+
     //Order Details
 
     @GetMapping("/order_details/list")
@@ -111,6 +118,18 @@ public class BuyersController {
     }
     @GetMapping("/order_details/addform")
     public String orderDetailsform(Model m){
+
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+
+        //Buyer id dropdown
+        List<Buyers> buyersList=buyerRepo.findAll();
+        m.addAttribute("buyersList", buyersList);
+        //Order Status dropdown
+        List<OrderStatus> orderStatusList=orderStatusRepo.findAll();
+        m.addAttribute("orderStatusList", orderStatusList);
 
 
         m.addAttribute("orderDetails",new OrderDetails());
@@ -131,14 +150,121 @@ public class BuyersController {
 
     @GetMapping("/order_details_edit/{id}")
     public String orderDetailsEdit(@PathVariable int id,Model m){
+
+        //        Style id dropdown
+        List<Style> styleList=styleRepo.findAll();
+        m.addAttribute("styleList", styleList);
+        m.addAttribute("style", new Style());
+
+        //Buyer id dropdown
+        List<Buyers> buyersList=buyerRepo.findAll();
+        m.addAttribute("buyersList", buyersList);
+
+        //Order Status dropdown
+        List<OrderStatus> orderStatusList=orderStatusRepo.findAll();
+        m.addAttribute("orderStatusList", orderStatusList);
+
         OrderDetails orderDetailsname=orderDetailsRepo.findById(id).get();
         m.addAttribute("title","Update Order Details");
         m.addAttribute("orderDetails",orderDetailsname);
-        return "buyers/orderDetailsForm";
+        return "buyers/orderDetailsUpdateForm";
 
     }
 
 
 
     //Order Details end
+
+    //Task Start
+    @GetMapping("/task/list")
+    public String taskList(Model m){
+        List<Task> taskList=taskRepo.findAll();
+        m.addAttribute("title","Task List");
+        m.addAttribute("taskList", taskList);
+        return "buyers/taskList";
+    }
+    @GetMapping("/task/addform")
+    public String taskform(Model m){
+
+
+        m.addAttribute("task",new Task());
+        m.addAttribute("title","Create new Task");
+        return "buyers/taskForm";
+    }
+
+    @PostMapping("/task/save")
+    public String taskSave(@ModelAttribute Task task){
+        taskRepo.save(task);
+        return "redirect:/task/list";
+    }
+    @GetMapping("/task/delete/{id}")
+    public String taskDelete(@PathVariable int id){
+        taskRepo.deleteById(id);
+        return "redirect:/task/list";
+    }
+
+    @GetMapping("/task_edit/{id}")
+    public String taskEdit(@PathVariable int id,Model m){
+        Task taskname=taskRepo.findById(id).get();
+        m.addAttribute("title","Update Task");
+        m.addAttribute("task",taskname);
+        return "buyers/taskForm";
+
+    }
+    //Task end
+
+
+    //TimeAction start
+    @GetMapping("/time_action/list")
+    public String timeActionList(Model m){
+        List<TimeAction> timeActionList=timeActionRepo.findAll();
+        m.addAttribute("title","Time Action List");
+        m.addAttribute("timeActionList", timeActionList);
+        return "buyers/timeActionList";
+    }
+    @GetMapping("/time_action/addform")
+    public String timeActionform(Model m){
+        // Order Id dropdown
+        List<OrderDetails> orderDetailsList=orderDetailsRepo.findAll();
+        m.addAttribute("orderDetailsList", orderDetailsList);
+        //task id dropdown
+        List<Task> taskList=taskRepo.findAll();
+        m.addAttribute("taskList", taskList);
+
+
+
+        m.addAttribute("timeAction",new TimeAction());
+        m.addAttribute("title","Create new Time Action");
+        return "buyers/timeActionForm";
+    }
+
+    @PostMapping("/time_action/save")
+    public String timeActionSave(@ModelAttribute TimeAction timeAction){
+        timeActionRepo.save(timeAction);
+        return "redirect:/time_action/list";
+    }
+    @GetMapping("/time_action/delete/{id}")
+    public String timeActionDelete(@PathVariable int id){
+        timeActionRepo.deleteById(id);
+        return "redirect:/time_action/list";
+    }
+
+    @GetMapping("/time_action_edit/{id}")
+    public String timeActionEdit(@PathVariable int id,Model m){
+
+        // Order Id dropdown
+        List<OrderDetails> orderDetailsList=orderDetailsRepo.findAll();
+        m.addAttribute("orderDetailsList", orderDetailsList);
+        //task id dropdown
+        List<Task> taskList=taskRepo.findAll();
+        m.addAttribute("taskList", taskList);
+
+        TimeAction timeActionname=timeActionRepo.findById(id).get();
+        m.addAttribute("title","Update Time Action");
+        m.addAttribute("timeAction",timeActionname);
+        return "buyers/timeActionForm";
+
+    }
+
+    //TimeAction end
 }

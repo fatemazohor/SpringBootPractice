@@ -9,7 +9,12 @@
             <thead>
             <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Name</th>
+                <th scope="col">Buyer</th>
+                <th scope="col">Style</th>
+                <th scope="col">Order Date</th>
+                <th scope="col">Delivery Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Time & Action</th>
                 <th scope="col">Action</th>
 
             </tr>
@@ -17,11 +22,22 @@
             <tbody>
             <tr th:each="si:${orderDetailsList}">
                 <td th:text="${si.id}"></td>
-                <td th:text="${si.buyersId}"></td>
+                <td th:text="${si.buyersId.organization}"></td>
+                <td th:text="${si.styleId.code}"></td>
+                <td th:text="${si.oderDate}"></td>
+                <td th:text="${si.deliveryDate}"></td>
+                <td th:text="${si.orStatusId.name}">
+<!--                    <span th:if="${si.orStatusId == 1}" class="badge badge-warning" ></span>-->
+                </td>
+                <td>
+                    <a  class="btn btn-sm btn-info text-white shadow-sm" th:href="@{'/time_action/'+${si.id}}">TNA</a>
+
+
+                </td>
                 <td>
                     <a  class="btn btn-warning" th:href="@{'/order_details_edit/'+${si.id}}">Update</a>
 
-                    <a  class="btn btn-danger" th:href="@{'/order_details/delete/'+${si.id}}">Delete</a>
+<!--                    <a  class="btn btn-danger" th:href="@{'/order_details/delete/'+${si.id}}">Delete</a>-->
                 </td>
 
             </tr>

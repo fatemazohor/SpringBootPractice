@@ -22,8 +22,13 @@ public class OrderDetails {
     private Date oderDate;
 
     private Date deliveryDate;
-    private String shippingDate;
+    private String shippingAddress;
     private String orderUniId;
+    private double sAmount;
+    private double mAmount;
+    private double lAmount;
+    private double totalAmount;
+    private double paid;
     @ManyToOne
     @JoinColumn
     private Style styleId;
@@ -33,11 +38,7 @@ public class OrderDetails {
     @ManyToOne
     @JoinColumn
     private OrderStatus orStatusId;
-    private double sAmount;
-    private double mAmount;
-    private double lAmount;
-    private double totalAmount;
-    private double paid;
+
 
 
 }
