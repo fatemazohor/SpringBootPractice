@@ -18,4 +18,5 @@ public class StockAdjustment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    private int factor;
 }

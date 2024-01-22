@@ -4,7 +4,7 @@ USE `springbootp3.1`;
 --
 -- Host: localhost    Database: springbootp3.1
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.0.31
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +16,40 @@ USE `springbootp3.1`;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `adjustment_material`
+--
+
+DROP TABLE IF EXISTS `adjustment_material`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `adjustment_material` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `price` double NOT NULL,
+  `quantity` double NOT NULL,
+  `remarks` varchar(255) DEFAULT NULL,
+  `raw_material_id_id` int DEFAULT NULL,
+  `stock_adjustment_id_id` int DEFAULT NULL,
+  `ware_house_id_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKevo78xqm9m3dqr95ng7my1jpp` (`raw_material_id_id`),
+  KEY `FK97g2b2qg966m7mmf5bxhf0828` (`stock_adjustment_id_id`),
+  KEY `FKbxudf7mmmba13jmxf4gl9eof8` (`ware_house_id_id`),
+  CONSTRAINT `FK97g2b2qg966m7mmf5bxhf0828` FOREIGN KEY (`stock_adjustment_id_id`) REFERENCES `stock_adjustment` (`id`),
+  CONSTRAINT `FKbxudf7mmmba13jmxf4gl9eof8` FOREIGN KEY (`ware_house_id_id`) REFERENCES `ware_house` (`id`),
+  CONSTRAINT `FKevo78xqm9m3dqr95ng7my1jpp` FOREIGN KEY (`raw_material_id_id`) REFERENCES `raw_material` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `adjustment_material`
+--
+
+LOCK TABLES `adjustment_material` WRITE;
+/*!40000 ALTER TABLE `adjustment_material` DISABLE KEYS */;
+/*!40000 ALTER TABLE `adjustment_material` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `buyers`
@@ -301,7 +335,7 @@ CREATE TABLE `order_details` (
   CONSTRAINT `FK443dun3htm2bjja5tu58y12il` FOREIGN KEY (`style_id_id`) REFERENCES `style` (`id`),
   CONSTRAINT `FKg9x15j7e7g04cgjr4xte28od1` FOREIGN KEY (`or_status_id_id`) REFERENCES `order_status` (`id`),
   CONSTRAINT `FKmcrs12i81xsmtv0ytg31hca00` FOREIGN KEY (`buyers_id_id`) REFERENCES `buyers` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -310,7 +344,7 @@ CREATE TABLE `order_details` (
 
 LOCK TABLES `order_details` WRITE;
 /*!40000 ALTER TABLE `order_details` DISABLE KEYS */;
-INSERT INTO `order_details` VALUES (1,'2024-01-21','2024-01-01',10,10,NULL,300,10,NULL,300,1,1,1,'UK'),(2,'2024-01-22','2024-01-02',0,0,NULL,3000.02,0,NULL,3000.02,2,1,1,'UK');
+INSERT INTO `order_details` VALUES (1,'2024-01-21','2024-01-01',10,10,NULL,300,10,NULL,300,1,1,1,'UK'),(2,'2024-01-22','2024-01-02',10,10,NULL,3000.02,10,NULL,3000.02,2,1,1,'UK'),(3,'2024-01-26','2024-01-03',30,20,NULL,6000.02,10,NULL,6000.02,3,2,1,'UK');
 /*!40000 ALTER TABLE `order_details` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -336,6 +370,71 @@ LOCK TABLES `order_status` WRITE;
 /*!40000 ALTER TABLE `order_status` DISABLE KEYS */;
 INSERT INTO `order_status` VALUES (1,'Invoiced'),(2,'Processing'),(3,'Shifted'),(4,'Delivered');
 /*!40000 ALTER TABLE `order_status` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `purchase`
+--
+
+DROP TABLE IF EXISTS `purchase`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `purchase` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `delivery_date` date DEFAULT NULL,
+  `paid` double NOT NULL,
+  `price` double NOT NULL,
+  `purchase_date` date DEFAULT NULL,
+  `quantity` double NOT NULL,
+  `total` double NOT NULL,
+  `raw_material_id_id` int DEFAULT NULL,
+  `status_id_id` int DEFAULT NULL,
+  `vendors_id_id` int DEFAULT NULL,
+  `ware_house_id_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKi4hme9d4m4t7670ql638yrwev` (`raw_material_id_id`),
+  KEY `FKr72709t49l86uvdpv4rsupmod` (`status_id_id`),
+  KEY `FK9e188vkhkdot5w28l11vhg12s` (`vendors_id_id`),
+  KEY `FKkacrwkqm6r95293swvpi04aj0` (`ware_house_id_id`),
+  CONSTRAINT `FK9e188vkhkdot5w28l11vhg12s` FOREIGN KEY (`vendors_id_id`) REFERENCES `vendors` (`id`),
+  CONSTRAINT `FKi4hme9d4m4t7670ql638yrwev` FOREIGN KEY (`raw_material_id_id`) REFERENCES `raw_material` (`id`),
+  CONSTRAINT `FKkacrwkqm6r95293swvpi04aj0` FOREIGN KEY (`ware_house_id_id`) REFERENCES `ware_house` (`id`),
+  CONSTRAINT `FKr72709t49l86uvdpv4rsupmod` FOREIGN KEY (`status_id_id`) REFERENCES `purchase_status` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `purchase`
+--
+
+LOCK TABLES `purchase` WRITE;
+/*!40000 ALTER TABLE `purchase` DISABLE KEYS */;
+INSERT INTO `purchase` VALUES (1,'2024-01-24',1000.02,100,'2024-01-21',10,1000.02,1,1,1,1),(2,'2024-01-23',0,100,'2024-01-01',1,100,2,1,2,1),(3,'2024-01-23',0,100,'2024-01-02',20,2000,2,1,2,1),(4,'2024-02-07',0,120,'2024-01-02',10,1200,1,1,1,1);
+/*!40000 ALTER TABLE `purchase` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `purchase_status`
+--
+
+DROP TABLE IF EXISTS `purchase_status`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `purchase_status` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `purchase_status`
+--
+
+LOCK TABLES `purchase_status` WRITE;
+/*!40000 ALTER TABLE `purchase_status` DISABLE KEYS */;
+INSERT INTO `purchase_status` VALUES (1,'Ordered'),(2,'Shipping processing'),(3,'Received'),(4,'Canceled');
+/*!40000 ALTER TABLE `purchase_status` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -424,6 +523,82 @@ LOCK TABLES `size` WRITE;
 /*!40000 ALTER TABLE `size` DISABLE KEYS */;
 INSERT INTO `size` VALUES (1,'L'),(2,'M'),(3,'S'),(4,'XS');
 /*!40000 ALTER TABLE `size` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `stock`
+--
+
+DROP TABLE IF EXISTS `stock`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `stock` (
+  `id` int NOT NULL,
+  `create_date` date DEFAULT NULL,
+  `quantity` double NOT NULL,
+  `update_date` date DEFAULT NULL,
+  `raw_material_id_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_eqgtid4iu8r11oq0ymoytp917` (`raw_material_id_id`),
+  CONSTRAINT `FKn1iq3mhii6lhynv1qu32afsyo` FOREIGN KEY (`raw_material_id_id`) REFERENCES `raw_material` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stock`
+--
+
+LOCK TABLES `stock` WRITE;
+/*!40000 ALTER TABLE `stock` DISABLE KEYS */;
+INSERT INTO `stock` VALUES (1,NULL,21,'2024-01-22',2),(2,'2024-01-22',10,'2024-01-22',1);
+/*!40000 ALTER TABLE `stock` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `stock_adjustment`
+--
+
+DROP TABLE IF EXISTS `stock_adjustment`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `stock_adjustment` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `factor` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stock_adjustment`
+--
+
+LOCK TABLES `stock_adjustment` WRITE;
+/*!40000 ALTER TABLE `stock_adjustment` DISABLE KEYS */;
+INSERT INTO `stock_adjustment` VALUES (1,'Sales order',1),(2,'Is Outdated',-1),(3,'Is Damaged',-1),(4,'Material Missing',-1);
+/*!40000 ALTER TABLE `stock_adjustment` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `stock_seq`
+--
+
+DROP TABLE IF EXISTS `stock_seq`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `stock_seq` (
+  `next_val` bigint DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stock_seq`
+--
+
+LOCK TABLES `stock_seq` WRITE;
+/*!40000 ALTER TABLE `stock_seq` DISABLE KEYS */;
+INSERT INTO `stock_seq` VALUES (101);
+/*!40000 ALTER TABLE `stock_seq` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -724,6 +899,32 @@ LOCK TABLES `vendors` WRITE;
 INSERT INTO `vendors` VALUES (1,'Khagan, Birulia (Ashulia), Savar Dhaka-1341, Bangladesh.','8801955577607','Simtex Industries Limited ','Hanif Haque','info@simtexgroup.com'),(2,'Horindhara, Tannery Road, Hemayetpur, Savar, Dhaka.','01713043259','AKH Packaging & Accessories Ltd','Md. Firoz Uddin Hawlader','firoz@akhfashions.com'),(3,'387 (South), Tejgaon Industrial Area, Dhaka-1208, Bangladesh','880-2-8170592','Ha-meem group','Mr. A. K. Azad','delwar@hameemgroup.com'),(4,'350 Beximco Industrial Park Sarabo, Kashimpur Gazipur Bangladesh','880-2-58611891','Beximco Textile Division Limited','Mr. Sohail F. Rahman','enquiry@beximtex.com'),(5,'Adamjee Court Main Building (5th, 4th, 3rd Floor), 115-120, Motijheel C/A, Dhaka 1000, Bangladesh','(+88 02) 7176207-8','Noman Group','Mr. A. K. Azad','demo@nttml.com');
 /*!40000 ALTER TABLE `vendors` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `ware_house`
+--
+
+DROP TABLE IF EXISTS `ware_house`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ware_house` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `city` varchar(255) DEFAULT NULL,
+  `contact` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ware_house`
+--
+
+LOCK TABLES `ware_house` WRITE;
+/*!40000 ALTER TABLE `ware_house` DISABLE KEYS */;
+INSERT INTO `ware_house` VALUES (1,'Gazipur','0953842','Gazipur warehouse'),(2,'Dhaka','0963258','Dhaka Warehouse');
+/*!40000 ALTER TABLE `ware_house` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -734,4 +935,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-22  2:53:37
+-- Dump completed on 2024-01-22 14:37:25

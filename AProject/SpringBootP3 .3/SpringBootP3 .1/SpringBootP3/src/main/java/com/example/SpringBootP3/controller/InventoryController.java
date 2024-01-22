@@ -2,15 +2,9 @@ package com.example.SpringBootP3.controller;
 
 import com.example.SpringBootP3.model.Vendors;
 import com.example.SpringBootP3.model.buyer.Buyers;
-import com.example.SpringBootP3.model.inventory.Purchase;
-import com.example.SpringBootP3.model.inventory.PurchaseStatus;
-import com.example.SpringBootP3.model.inventory.StockAdjustment;
-import com.example.SpringBootP3.model.inventory.WareHouse;
+import com.example.SpringBootP3.model.inventory.*;
 import com.example.SpringBootP3.model.sale.RawMaterial;
-import com.example.SpringBootP3.repository.inventory.IPurchase;
-import com.example.SpringBootP3.repository.inventory.IPurchaseStatus;
-import com.example.SpringBootP3.repository.inventory.IStockAdjustment;
-import com.example.SpringBootP3.repository.inventory.IWareHouse;
+import com.example.SpringBootP3.repository.inventory.*;
 import com.example.SpringBootP3.repository.other.IVendorRepo;
 import com.example.SpringBootP3.repository.sale.IRawMaterialRepo;
 import com.example.SpringBootP3.service.Stock.StockUpdateService;
@@ -40,6 +34,8 @@ public class InventoryController {
     private StockUpdateService stockUpdateService;
     @Autowired
     private IStockAdjustment stockAdjustmentRepo;
+    @Autowired
+    private IAdjustmentMaterial adjustmentMaterialRepo;
 
     //WareHouse start
     @GetMapping("/warehouse/list")
@@ -202,7 +198,7 @@ public class InventoryController {
     @GetMapping("/stock_adjustment_status/addform")
     public String stockAdjustmentStatusform(Model m){
 
-        m.addAttribute("stockAdjustmentStatus",new StockAdjustment());
+        m.addAttribute("stockAdjustment",new StockAdjustment());
         m.addAttribute("title","Create new Stock Adjustment Status");
         return "inventory/stockAdjustmentForm";
     }
@@ -222,11 +218,72 @@ public class InventoryController {
     public String stockAdjustmentStatusEdit(@PathVariable int id,Model m){
         StockAdjustment stockAdjustmentStatusname=stockAdjustmentRepo.findById(id).get();
         m.addAttribute("title","Update Stock Adjustment Status");
-        m.addAttribute("stockAdjustmentStatus",stockAdjustmentStatusname);
+        m.addAttribute("stockAdjustment",stockAdjustmentStatusname);
         return "inventory/stockAdjustmentForm";
 
     }
 
 
     //Stock Adjustment end
+    //Adjustment Material (Raw Materials used for order and Materials damaged will be recoded here and
+    // stock of Material (Stock Table)  will be subtract here)
+    // Adjustment Material and Stock both table will be updated here;
+    @GetMapping("/adjustment_material/list")
+    public String adjustmentMatList(Model m){
+        List<AdjustmentMaterial> adjustmentMatList=adjustmentMaterialRepo.findAll();
+        m.addAttribute("title","Adjustment Material List");
+        m.addAttribute("adjustmentMatList", adjustmentMatList);
+        return "inventory/adjustmentMatList";
+    }
+    @GetMapping("/adjustment_material/addform")
+    public String adjustmentMatform(Model m){
+
+        //warehouse dropdown
+        List<WareHouse> warehouseList=wareHouseRepo.findAll();
+        m.addAttribute("warehouseList", warehouseList);
+        //raw Material dropdown
+        List<RawMaterial> rawMaterialList=iRawMaterialRepo.findAll();
+        m.addAttribute("rawMaterialList", rawMaterialList);
+        //Stock adjustment dropdown
+        List<StockAdjustment> stockAdjustmentsList=stockAdjustmentRepo.findAll();
+        m.addAttribute("stockAdjustmentsList", stockAdjustmentsList);
+
+
+        m.addAttribute("adjustmentMat",new AdjustmentMaterial());
+        m.addAttribute("title","Create new Adjustment Material");
+        return "inventory/adjustmentMatForm";
+    }
+
+    @PostMapping("/adjustment_material/save")
+    public String adjustmentMatSave(@ModelAttribute AdjustmentMaterial adjustmentMaterial){
+        adjustmentMaterialRepo.save(adjustmentMaterial);
+        return "redirect:/adjustment_material/list";
+    }
+    @GetMapping("/adjustment_material/delete/{id}")
+    public String adjustmentMatDelete(@PathVariable int id){
+        adjustmentMaterialRepo.deleteById(id);
+        return "redirect:/adjustment_material/list";
+    }
+
+    @GetMapping("/adjustment_material_edit/{id}")
+    public String adjustmentMatEdit(@PathVariable int id,Model m){
+        //warehouse dropdown
+        List<WareHouse> warehouseList=wareHouseRepo.findAll();
+        m.addAttribute("warehouseList", warehouseList);
+        //raw Material dropdown
+        List<RawMaterial> rawMaterialList=iRawMaterialRepo.findAll();
+        m.addAttribute("rawMaterialList", rawMaterialList);
+        //Stock adjustment dropdown
+        List<StockAdjustment> stockAdjustmentsList=stockAdjustmentRepo.findAll();
+        m.addAttribute("stockAdjustmentsList", stockAdjustmentsList);
+
+
+        AdjustmentMaterial adjustmentMatname=adjustmentMaterialRepo.findById(id).get();
+        m.addAttribute("title","Update Adjustment Material");
+        m.addAttribute("adjustmentMat",adjustmentMatname);
+        return "inventory/adjustmentMatForm";
+
+    }
+
+    //Adjustment Material end
 }
