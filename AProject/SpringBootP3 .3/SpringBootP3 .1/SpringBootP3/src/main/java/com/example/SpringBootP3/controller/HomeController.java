@@ -33,14 +33,19 @@ public class HomeController {
     private String home(){
         return "index";
     }
+//    @GetMapping("/dashboard")
+//    private String dashboard(){
+//        return "dashboard";
+//    }
     @GetMapping("/page")
     private String page(){
         return "page";
     }
-    @GetMapping("/page2")
-    private String page2(){
-        return "page2";
-    }
+    //shifted to saleImageController
+//    @GetMapping("/page2")
+//    private String page2(){
+//        return "page2";
+//    }
 
 
 //    Tech pack page Data

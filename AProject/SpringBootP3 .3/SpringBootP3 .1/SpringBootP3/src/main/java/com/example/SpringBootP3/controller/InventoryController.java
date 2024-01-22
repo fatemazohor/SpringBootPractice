@@ -2,8 +2,10 @@ package com.example.SpringBootP3.controller;
 
 import com.example.SpringBootP3.model.Vendors;
 import com.example.SpringBootP3.model.buyer.Buyers;
+import com.example.SpringBootP3.model.buyer.OrderDetails;
 import com.example.SpringBootP3.model.inventory.*;
 import com.example.SpringBootP3.model.sale.RawMaterial;
+import com.example.SpringBootP3.repository.buyer.IOrderDetails;
 import com.example.SpringBootP3.repository.inventory.*;
 import com.example.SpringBootP3.repository.other.IVendorRepo;
 import com.example.SpringBootP3.repository.sale.IRawMaterialRepo;
@@ -36,6 +38,11 @@ public class InventoryController {
     private IStockAdjustment stockAdjustmentRepo;
     @Autowired
     private IAdjustmentMaterial adjustmentMaterialRepo;
+    @Autowired
+    private IOrderDetails orderDetailsRepo;
+    @Autowired
+    private IStock iStockRepo;
+
 
     //WareHouse start
     @GetMapping("/warehouse/list")
@@ -205,6 +212,8 @@ public class InventoryController {
 
     @PostMapping("/stock_adjustment_status/save")
     public String stockAdjustmentStatusSave(@ModelAttribute StockAdjustment stockAdjustment){
+
+
         stockAdjustmentRepo.save(stockAdjustment);
         return "redirect:/stock_adjustment_status/list";
     }
@@ -247,6 +256,9 @@ public class InventoryController {
         //Stock adjustment dropdown
         List<StockAdjustment> stockAdjustmentsList=stockAdjustmentRepo.findAll();
         m.addAttribute("stockAdjustmentsList", stockAdjustmentsList);
+        //Order Details Dropdown
+        List<OrderDetails> orderDetailsList=orderDetailsRepo.findAll();
+        m.addAttribute("orderDetailsList",orderDetailsList);
 
 
         m.addAttribute("adjustmentMat",new AdjustmentMaterial());
@@ -256,6 +268,12 @@ public class InventoryController {
 
     @PostMapping("/adjustment_material/save")
     public String adjustmentMatSave(@ModelAttribute AdjustmentMaterial adjustmentMaterial){
+        //stock subtract
+        double myquantity = adjustmentMaterial.getQuantity();
+        int myid=adjustmentMaterial.getRawMaterialId().getId();
+        stockUpdateService.subtractStock(myid,myquantity);
+        //stock subtract end
+
         adjustmentMaterialRepo.save(adjustmentMaterial);
         return "redirect:/adjustment_material/list";
     }
@@ -276,6 +294,9 @@ public class InventoryController {
         //Stock adjustment dropdown
         List<StockAdjustment> stockAdjustmentsList=stockAdjustmentRepo.findAll();
         m.addAttribute("stockAdjustmentsList", stockAdjustmentsList);
+        //Order Details Dropdown
+        List<OrderDetails> orderDetailsList=orderDetailsRepo.findAll();
+        m.addAttribute("orderDetailsList",orderDetailsList);
 
 
         AdjustmentMaterial adjustmentMatname=adjustmentMaterialRepo.findById(id).get();
@@ -286,4 +307,15 @@ public class InventoryController {
     }
 
     //Adjustment Material end
+    //Stock table
+    //stock tables' data are inserted using purchase table and adjustment table
+    //so individual update is not allowed
+    @GetMapping("/stock/list")
+    public String stockList(Model m){
+        List<Stock> stockList=iStockRepo.findAll();
+        m.addAttribute("title","Stock List");
+        m.addAttribute("stockList", stockList);
+        return "inventory/stockList";
+    }
+    //Stock table end
 }

@@ -26,8 +26,13 @@
                 <td th:text="${si.styleId.code}"></td>
                 <td th:text="${si.oderDate}"></td>
                 <td th:text="${si.deliveryDate}"></td>
-                <td th:text="${si.orStatusId.name}">
-<!--                    <span th:if="${si.orStatusId == 1}" class="badge badge-warning" ></span>-->
+<!--                <td th:text="${si.orStatusId.name}">-->
+                    <th:block th:switch="${si.orStatusId.id}">
+                        <td th:text="${si.orStatusId.name}" th:case="1" class="badge bg-warning text-dark"></td>
+                        <td th:text="${si.orStatusId.name}" th:case="2" class="badge bg-primary text-dark"></td>
+                        <td th:text="${si.orStatusId.name}" th:case="3" class="badge bg-info text-dark"></td>
+                        <td th:text="${si.orStatusId.name}" th:case="4" class="badge bg-success text-dark "></td>
+                    </th:block>
                 </td>
                 <td>
                     <a  class="btn btn-sm btn-info text-white shadow-sm" th:href="@{'/time_action/'+${si.id}}">TNA</a>

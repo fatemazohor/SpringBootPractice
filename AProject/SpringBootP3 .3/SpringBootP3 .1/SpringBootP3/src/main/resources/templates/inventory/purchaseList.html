@@ -28,7 +28,13 @@
                 <td th:text="${uom.purchaseDate}"></td>
                 <td th:text="${uom.deliveryDate}"></td>
                 <td th:text="${uom.total}"></td>
-                <td th:text="${uom.statusId.name}"></td>
+<!--                <td th:text="${uom.statusId.name}"></td>-->
+                <th:block th:switch="${uom.statusId.id}">
+                <td th:text="${uom.statusId.name}" th:case="1" class="badge bg-warning text-dark"></td>
+                <td th:text="${uom.statusId.name}" th:case="2" class="badge bg-info text-dark"></td>
+                <td th:text="${uom.statusId.name}" th:case="3" class="badge bg-success text-dark"></td>
+                <td th:text="${uom.statusId.name}" th:case="4" class="badge bg-dark "></td>
+                </th:block>
                 <td>
                     <a  class="btn btn-warning" th:href="@{'/purchase_edit/'+${uom.id}}">Update</a>
 

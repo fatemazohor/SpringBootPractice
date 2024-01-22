@@ -1,5 +1,6 @@
 package com.example.SpringBootP3.model.inventory;
 
+import com.example.SpringBootP3.model.buyer.OrderDetails;
 import com.example.SpringBootP3.model.sale.RawMaterial;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,5 +29,9 @@ public class AdjustmentMaterial {
     @ManyToOne
     @JoinColumn
     private RawMaterial rawMaterialId;
+    @ManyToOne
+    @JoinColumn
+    private OrderDetails orderDetailsId;
+
 
 }

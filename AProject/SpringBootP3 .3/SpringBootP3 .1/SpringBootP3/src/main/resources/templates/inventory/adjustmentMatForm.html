@@ -34,6 +34,19 @@
                     </div>
                 </div>
             </div>
+<!--            <div class="col-sm-6">-->
+<!--                <div class='mb-2'>-->
+<!--                    <label for="orderDetails">Order Id</label>-->
+<!--                    <div class="mb-3">-->
+<!--                        &lt;!&ndash;                                                <label for="styleCode" class="form-label">Style Code</label>&ndash;&gt;-->
+<!--                        <select name="orderDetails" id="orderDetails" class="form-control" th:field="*{orderDetailsId}">-->
+<!--                            <option  th:each="order:${orderDetailsList}" th:text="${order.buyersId.organization}+'-'+${order.styleId.code}" th:value="${order.id}">Select one</option>-->
+
+<!--                        </select>-->
+
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div class="col-12">
                 <div class='mb-2'>
                     <label for='txtRemark' class=''>Remark</label>
@@ -65,22 +78,24 @@
                 <div class='mb-2'>
                     <label for='txtQuantity' class=''>Quantity</label>
                     <div class=''>
-                        <input type='text' class='form-control' name='txtQuantity' id='txtQuantity' value='' placeholder=''  >
+                        <input type='text' class='form-control' th:field="*{quantity}" id='txtQuantity' value='' placeholder=''  >
                     </div>
                 </div>
             </div>
             <div class="col-lg-4">
                 <div class='mb-2'>
                     <label for='txtPrice' class=''>Price</label><div class=''>
-                    <input type='text' class='form-control' name='txtPrice' id='txtPrice' value='' placeholder=''  >
+                    <input type='text' class='form-control' th:field="*{price}" id='txtPrice' value='' placeholder=''  >
                 </div>
                 </div>
             </div>
             <div class="col-12">
                 <hr>
                 <div class="col mb-2">
-                    <input type="button" id="btnAddToCart" name="btnAddToCart" class="btn btn-sm btn-outline-dark" value="Add item" />
-                    <input type="button" id="clearAll" class="btn btn-sm btn-outline-danger" value="Empty" />
+<!--                    <input type="button" id="btnAddToCart" name="btnAddToCart" class="btn btn-sm btn-outline-dark float-end" value="Calculate" />-->
+                    <input type="button" id="clearAll"
+                           onclick="clearall()"
+                           class="btn btn-sm btn-outline-danger float-end" value="Empty" />
                 </div>
             </div>
         </div>
@@ -100,10 +115,32 @@
 <!--            </table>-->
         </div>
     </div>
-        <div class="card-footer border-top">
-            <input type='button' value='Create' name='btnProcessOrder' id='btnProcessOrder' class='btn btn-info' />
-        </div>
+<!--        <div class="card-footer border-top">-->
+<!--            <input type='button' value='Create' name='btnProcessOrder' id='btnProcessOrder' class='btn btn-info' />-->
+<!--        </div>-->
         <button type="submit" th:if="${id==null}" class="btn btn-primary">Submit</button>
     </form>
 </div>
+<script>
+
+    //function clear all
+    function clearall(){
+
+        var price = document.getElementById('txtPrice').value;
+        var qty = document.getElementById('txtQuantity').value;
+        // var discount = document.getElementById('txtDiscount').value;
+
+
+        if (price != null || qty != null ) {
+            document.getElementById('txtPrice').value = '0.00';
+            document.getElementById('txtQuantity').value = '0.00';
+            // document.getElementById('txtDiscount').value = '0.00';
+
+        }
+
+
+    }
+    //function clear all end
+
+</script>
 <div th:insert="~{footer.html}"></div>

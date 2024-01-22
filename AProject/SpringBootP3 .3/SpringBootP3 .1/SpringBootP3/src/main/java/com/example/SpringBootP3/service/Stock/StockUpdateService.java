@@ -36,6 +36,26 @@ public class StockUpdateService {
         }
 
     }
+    public void subtractStock(int id, double quantity) throws NullPointerException{
+
+        System.out.println("inside StockUpdate Service for subtract");
+
+        Stock targetStock=getStockById(id);
+        if(targetStock != null){
+            double quantityDown=targetStock.getQuantity();
+            targetStock.setQuantity(quantityDown-quantity);
+            iStockRepo.save(targetStock);
+
+        }else{
+            RawMaterial rawMaterial=rawMaterialRepo.findById(id).get();
+
+            Stock st=new Stock();
+            st.setRawMaterialId(rawMaterial);
+            st.setQuantity((-quantity));
+            saveStock(st);
+        }
+
+    }
      private void saveStock(Stock stock){
          Stock stockNew=iStockRepo.save(stock);
      }
