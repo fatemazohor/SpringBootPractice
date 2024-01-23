@@ -20,7 +20,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="si:${measurementDetailsList}">
+            <tr th:each="si:${listMeasurement}">
                 <td th:text="${si.id}"></td>
                 <td th:text="${si.styleId.code}"></td>
                 <td th:text="${si.description}"></td>
@@ -38,6 +38,32 @@
 
             </tbody>
         </table>
+
+        <div th:if="${totalPages > 1}">
+            <div class="row col-md-10">
+                <div class="col-sm-2"
+                th:text="'Total Rows '+${totalItems}">
+                </div>
+                <div class="col-sm-2">
+                    <span th:each="index:${#numbers.sequence(1,totalPages)}">
+                        <a th:if="${currentPage != index}"
+                        th:href="@{'/page/'+${index}}" th:text="${index}"></a>
+                        <span th:unless="${currentPage != index}" th:text="${index}"></span>
+                        &nbsp; &nbsp;
+                    </span>
+                </div>
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}"
+                    th:href="@{'/page/'+${currentPage+1}}">Next</a>
+                    <span th:unless="${currentPage < totalPages}">Next</span>
+                </div>
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}"
+                       th:href="@{'/page/'+${totalPages}}">Last</a>
+                    <span th:unless="${currentPage < totalPages}">Last</span>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

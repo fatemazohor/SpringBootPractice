@@ -6,7 +6,9 @@ import com.example.SpringBootP3.model.sale.*;
 import com.example.SpringBootP3.repository.other.IUOMRepo;
 import com.example.SpringBootP3.repository.other.IVendorRepo;
 import com.example.SpringBootP3.repository.sale.*;
+import com.example.SpringBootP3.service.SaleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,6 +30,9 @@ import java.util.Optional;
 
 @Controller
 public class SaleController {
+
+    @Autowired
+    private SaleService saleService;
 
     @Autowired
     private IRawMaterialCat rawMaterialCatRepo;
@@ -650,12 +655,29 @@ public String rawMaterialcatList(Model m){
 
     //    Raw Material start
 
+//pagination
+
+    @GetMapping("/rpage/{rpageNo}")
+    public String findRawPaginated(@PathVariable("rpageNo")int pageNo,Model m){
+        int pageSize=8;
+        Page<RawMaterial> page=saleService.findRawPaginated(pageNo,pageSize);
+
+        List<RawMaterial> rawMaterialList = page.getContent();
+        m.addAttribute("currentPage",pageNo);
+        m.addAttribute("totalPages",page.getTotalPages());
+        m.addAttribute("totalItems",page.getTotalElements());
+        m.addAttribute("rawMaterialList",rawMaterialList);
+        m.addAttribute("title","Raw Material List");
+        return "sale/rawMaterialList";
+    }
+    //pagination end
+
     @GetMapping("/raw_material/list")
     public String rawMaterialList(Model m){
-        List<RawMaterial> rawMaterialList=iRawMaterialRepo.findAll();
-        m.addAttribute("title","Raw Material List");
-        m.addAttribute("rawMaterialList", rawMaterialList);
-        return "sale/rawMaterialList";
+//        List<RawMaterial> rawMaterialList=iRawMaterialRepo.findAll();
+//        m.addAttribute("title","Raw Material List");
+//        m.addAttribute("rawMaterialList", rawMaterialList);
+        return findRawPaginated(1,m);
     }
 
     //raw material attachment display image
@@ -792,13 +814,32 @@ public String rawMaterialcatList(Model m){
     //    Raw Material end
     //    Measurement  Details start
 
-    @GetMapping("/measurement_details/list")
-    public String measurementDetailsList(Model m){
-        List<MeasurementDetails> measurementDetailsList=detailsRepo.findAll();
+
+
+    //pagination method
+    @GetMapping("/page/{pageNo}")
+    public String findPaginated(@PathVariable("pageNo")int pageNo,Model m){
+        int pageSize=10;
+        Page<MeasurementDetails> page = saleService.findPaginated(pageNo,pageSize);
+        List<MeasurementDetails> listMeasurement = page.getContent();
+        m.addAttribute("currentPage",pageNo);
+        m.addAttribute("totalPages",page.getTotalPages());
+        m.addAttribute("totalItems",page.getTotalElements());
+        m.addAttribute("listMeasurement",listMeasurement);
         m.addAttribute("title","Measurement Details List");
-        m.addAttribute("measurementDetailsList", measurementDetailsList);
         return "sale/measurementDetailsList";
     }
+
+    @GetMapping("/measurement_details/list")
+    public String measurementDetailsList(Model m){
+//        List<MeasurementDetails> measurementDetailsList=detailsRepo.findAll();
+//        m.addAttribute("title","Measurement Details List");
+//        m.addAttribute("measurementDetailsList", measurementDetailsList);
+//        return "sale/measurementDetailsList";
+        return findPaginated(1,m);
+    }
+
+
     @GetMapping("/measurement_details/addform")
     public String measurementDetailsform(Model m){
         //        Style id dropdown
@@ -952,12 +993,30 @@ public String rawMaterialcatList(Model m){
 
     //    Style material quantity start
 
+
+    //pagination
+
+    @GetMapping("/spage/{spageNo}")
+    public String findMatPaginated(@PathVariable("spageNo")int pageNo,Model m){
+        int pageSize=10;
+        Page<StyleMaterialQuantity> page=saleService.findMatPaginated(pageNo,pageSize);
+
+        List<StyleMaterialQuantity> styleMatQtyList = page.getContent();
+        m.addAttribute("currentPage",pageNo);
+        m.addAttribute("totalPages",page.getTotalPages());
+        m.addAttribute("totalItems",page.getTotalElements());
+        m.addAttribute("styleMatQtyList",styleMatQtyList);
+        m.addAttribute("title","Style Material Quantity List");
+        return "sale/styleMatQtyList";
+    }
+    //pagination end
+
     @GetMapping("/style_materaial_qty/list")
     public String styleMatQtyList(Model m){
-        List<StyleMaterialQuantity> styleMatQtyList=styleMaterialQuantityRepo.findAll();
-        m.addAttribute("title","Style Material Quantity List");
-        m.addAttribute("styleMatQtyList", styleMatQtyList);
-        return "sale/styleMatQtyList";
+//        List<StyleMaterialQuantity> styleMatQtyList=styleMaterialQuantityRepo.findAll();
+//        m.addAttribute("title","Style Material Quantity List");
+//        m.addAttribute("styleMatQtyList", styleMatQtyList);
+        return findMatPaginated(1,m);
     }
     @GetMapping("/style_materaial_qty/addform")
     public String styleMatQtyform(Model m){
