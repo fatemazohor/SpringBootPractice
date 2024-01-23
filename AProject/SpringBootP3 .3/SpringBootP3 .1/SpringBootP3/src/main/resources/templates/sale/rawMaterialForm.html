@@ -22,7 +22,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="rawMaterial" class="form-label">Style Code</label>
+                <label for="rawMaterial" class="form-label">Raw Material Category</label>
                 <select name="styleCode" id="rawMaterial" class="form-control" th:field="*{rawMaterialCatId}">
                     <option  th:each="raw:${rawMaterialCategoriesList}" th:text="${raw.name}" th:value="${raw.id}">Select one</option>
 
@@ -31,7 +31,7 @@
             </div>
 
             <div class="mb-3">
-                <label for="Name" class="form-label">Code</label>
+                <label for="Name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="Name" th:field="*{name}">
 
             </div>
