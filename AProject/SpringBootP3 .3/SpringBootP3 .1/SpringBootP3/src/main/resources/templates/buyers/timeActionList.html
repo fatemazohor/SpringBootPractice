@@ -32,6 +32,33 @@
 
             </tbody>
         </table>
+<!--        pagination-->
+
+        <div th:if="${totalPages > 1}">
+            <div class="row col-md-10">
+                <div class="col-sm-2"
+                     th:text="'Total Rows '+${totalItems}">
+                </div>
+                <div class="col-sm-2">
+                    <span th:each="index:${#numbers.sequence(1,totalPages)}">
+                        <a th:if="${currentPage != index}"
+                           th:href="@{'/tpage/'+${index}}" th:text="${index}"></a>
+                        <span th:unless="${currentPage != index}" th:text="${index}"></span>
+                        &nbsp; &nbsp;
+                    </span>
+                </div>
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}"
+                       th:href="@{'/tpage/'+${currentPage+1}}">Next</a>
+                    <span th:unless="${currentPage < totalPages}">Next</span>
+                </div>
+                <div class="col-sm-1">
+                    <a th:if="${currentPage < totalPages}"
+                       th:href="@{'/tpage/'+${totalPages}}">Last</a>
+                    <span th:unless="${currentPage < totalPages}">Last</span>
+                </div>
+            </div>
+        </div>
     </div>
 
 </div>

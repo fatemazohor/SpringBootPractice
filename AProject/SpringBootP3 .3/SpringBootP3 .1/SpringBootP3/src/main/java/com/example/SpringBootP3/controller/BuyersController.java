@@ -1,11 +1,14 @@
 package com.example.SpringBootP3.controller;
 
 import com.example.SpringBootP3.model.buyer.*;
+import com.example.SpringBootP3.model.sale.RawMaterial;
 import com.example.SpringBootP3.model.sale.Size;
 import com.example.SpringBootP3.model.sale.Style;
 import com.example.SpringBootP3.repository.buyer.*;
 import com.example.SpringBootP3.repository.sale.IStyle;
+import com.example.SpringBootP3.service.InventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.sql.Time;
 import java.util.List;
 
 @Controller
@@ -29,6 +33,8 @@ public class BuyersController {
     private ITask taskRepo;
     @Autowired
     private ITimeActionRepo timeActionRepo;
+    @Autowired
+    private InventoryService inventoryService;
 
 
 
@@ -215,12 +221,29 @@ public class BuyersController {
 
 
     //TimeAction start
+    //pagination
+
+    @GetMapping("/tpage/{tpageNo}")
+    public String findTPaginated(@PathVariable("tpageNo")int pageNo,Model m){
+        int pageSize=8;
+        Page<TimeAction> page=inventoryService.findTimePaginated(pageNo,pageSize);
+
+        List<TimeAction> timeActionList = page.getContent();
+        m.addAttribute("currentPage",pageNo);
+        m.addAttribute("totalPages",page.getTotalPages());
+        m.addAttribute("totalItems",page.getTotalElements());
+        m.addAttribute("timeActionList",timeActionList);
+        m.addAttribute("title","Time Action List");
+        return "buyers/timeActionList";
+    }
+
+    //pagination end
     @GetMapping("/time_action/list")
     public String timeActionList(Model m){
-        List<TimeAction> timeActionList=timeActionRepo.findAll();
-        m.addAttribute("title","Time Action List");
-        m.addAttribute("timeActionList", timeActionList);
-        return "buyers/timeActionList";
+//        List<TimeAction> timeActionList=timeActionRepo.findAll();
+//        m.addAttribute("title","Time Action List");
+//        m.addAttribute("timeActionList", timeActionList);
+        return findTPaginated(1,m);
     }
     @GetMapping("/time_action/addform")
     public String timeActionform(Model m){
