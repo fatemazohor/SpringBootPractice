@@ -1,0 +1,38 @@
+<div th:insert="header.html"></div>
+<div class="px-3 py-3">
+    <h4 class="card-title mb-1" th:text="${title}"></h4>
+    <p class="pb-0">Best seller of the month cate</p>
+    <a href=/time_action/addform class="btn btn-sm btn-primary">Create New</a>
+
+    <div class="py-2">
+        <table class="table table-striped text-center">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Order Id</th>
+                <th scope="col">Task</th>
+                <th scope="col">Expected Start Date</th>
+                <th scope="col">Action</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="si:${timeActionList}">
+                <td th:text="${si.id}"></td>
+                <td th:text="${si.orderId.buyersId.organization}+'-'+${si.orderId.styleId.code}"></td>
+                <td th:text="${si.taskId.name}"></td>
+                <td th:text="${si.expectedStartDate}"></td>
+                <td>
+                    <a  class="btn btn-warning" th:href="@{'/time_action_edit/'+${si.id}}">Update</a>
+
+                    <a  class="btn btn-danger" th:href="@{'/time_action/delete/'+${si.id}}">Delete</a>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+</div>
+<div th:insert="footer.html"></div>
