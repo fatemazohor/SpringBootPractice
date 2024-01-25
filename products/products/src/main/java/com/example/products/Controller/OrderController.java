@@ -49,27 +49,27 @@ public class OrderController {
         return "Data saved";
     }
 
-    @GetMapping("/orderdetails")
-    public String orderDetForm() {
-
-        return "orderDetailsForm";
-    }
-    @PostMapping("/det_save")
-    public String orDetailssave(@ModelAttribute("ordere")Orders orders){
-    ordersService.saveData(orders);
-        return "data saved";
-    }
-
-    @PostMapping("/details_save")
-    public String  detailsSave(
-            @RequestParam("sizeId")String sizeId,
-            @RequestParam("quantity")String quantity,
-            @RequestParam("price")String price,
-            @RequestParam("total")String total
-    ){
-
-        return "details";
-    }
+//    @GetMapping("/orderdetails")
+//    public String orderDetForm() {
+//
+//        return "orderDetailsForm";
+//    }
+//    @PostMapping("/det_save")
+//    public String orDetailssave(@ModelAttribute("ordere")Orders orders){
+//    ordersService.saveData(orders);
+//        return "data saved";
+//    }
+//
+//    @PostMapping("/details_save")
+//    public String  detailsSave(
+//            @RequestParam("sizeId")String sizeId,
+//            @RequestParam("quantity")String quantity,
+//            @RequestParam("price")String price,
+//            @RequestParam("total")String total
+//    ){
+//
+//        return "details";
+//    }
 
 
 

@@ -15,19 +15,19 @@ public class BuyerOrder {
     @Autowired
     private IBuyerOrder buyerOrderrepo;
 
-    @GetMapping("/buyer_page")
-    private String getBuyer(Model m){
-
-        m.addAttribute("buyerd",new BuyerOrder());
-        return "buyerpage";
-
-    }
-
-    @PostMapping("/save")
-    private String getsaveBuyer(@ModelAttribute BuyerOrder buyerd){
-//    buyerOrderrepo.save(buyerd);
-
-        return "buyerpage";
-
-    }
+//    @GetMapping("/buyer_page")
+//    private String getBuyer(Model m){
+//
+//        m.addAttribute("buyerd",new BuyerOrder());
+//        return "buyerpage";
+//
+//    }
+//
+//    @PostMapping("/save")
+//    private String getsaveBuyer(@ModelAttribute BuyerOrder buyerd){
+////    buyerOrderrepo.save(buyerd);
+//
+//        return "buyerpage";
+//
+//    }
 }
