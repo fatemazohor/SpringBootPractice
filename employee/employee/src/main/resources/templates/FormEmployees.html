@@ -11,7 +11,7 @@
 <div class="container">
     <h4 th:if="${id == null}">Enter New Employeee</h4>
     <h4 th:if="${id != null}">Update Employeee</h4>
-    <form method="post" th:action="@{'/employees/save'}" th:object="${employee}">
+    <form method="post" th:action="@{'/public/save'}" th:object="${employee}">
         <input type="hidden" th:field="*{id}">
         <div class="mb-3">
         <label for="ename" class="form-label">Employee Name</label>
@@ -35,6 +35,10 @@
         <div class="mb-3">
         <label for="email" class="form-label">Email</label>
         <input type="text" class="form-control" name="email" id="email" th:field="*{email}">
+        </div>
+        <div class="mb-3">
+        <label for="pass" class="form-label">Password</label>
+        <input type="text" class="form-control"  id="pass" th:field="*{password}">
         </div>
         <div class="mb-3">
             <label for="address" class="form-label">Address</label>
