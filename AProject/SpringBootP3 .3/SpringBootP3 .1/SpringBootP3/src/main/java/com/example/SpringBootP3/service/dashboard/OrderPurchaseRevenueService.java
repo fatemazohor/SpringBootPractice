@@ -15,6 +15,6 @@ public class OrderPurchaseRevenueService {
     public int revenue(){
         double orderTotal=orderDetailsRepo.findByTotal();
         double purchaseTotal=iPurchaseRepo.findByTotalPurchase();
-        return (int)((orderTotal-purchaseTotal)/100);
+        return (int)(((orderTotal-purchaseTotal)/purchaseTotal)*100);
     }
 }

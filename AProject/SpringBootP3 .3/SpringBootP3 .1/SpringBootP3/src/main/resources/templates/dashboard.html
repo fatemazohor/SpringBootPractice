@@ -75,7 +75,8 @@
                                 </div>
                                 <div class="ms-3">
                                     <div class="small mb-1">Sales</div>
-                                    <h5 class="mb-0" th:text="${totalOrderSale}">12.5k</h5>
+<!--                                    <h5 class="mb-0" th:text="${totalOrderSale}">12.5k</h5>-->
+                                    <h5 class="mb-0" th:text="${#numbers.formatDecimal(totalOrderSale, 0, 'COMMA', 2, 'POINT')}">12.5k</h5>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +89,8 @@
                                 </div>
                                 <div class="ms-3">
                                     <div class="small mb-1">Purchase</div>
-                                    <h5 class="mb-0" th:text="${totalPurchase}">1.54k</h5>
+<!--                                    <h5 class="mb-0" th:text="${totalPurchase}">1.54k</h5>-->
+                                    <h5 class="mb-0" th:text="${#numbers.formatDecimal(totalPurchase, 0, 'COMMA', 2, 'POINT')}">1.54k</h5>
                                 </div>
                             </div>
                         </div>
@@ -336,8 +338,8 @@
 
                             <div class="d-flex align-items-center">
                                 <div class="avatar avatar-sm me-3">
-                                    <img th:src="'../assets/img/avatars/'+${istat.count}+'.png'"
-                                         alt="Avatar" class="rounded-circle" />
+<!--                                    <img th:src="'../assets/img/avatars/'+${istat.count}+'.png'"-->
+<!--                                         alt="Avatar" class="rounded-circle" />-->
                                     <!--                                    <img src="../assets/img/avatars/1.png" alt="Avatar" class="rounded-circle" />-->
                                 </div>
                                 <div>

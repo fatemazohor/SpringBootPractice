@@ -16,6 +16,7 @@
                 <th scope="col">Status</th>
                 <th scope="col">Time & Action</th>
                 <th scope="col">Action</th>
+                <th scope="col">Print</th>
 
             </tr>
             </thead>
@@ -26,23 +27,26 @@
                 <td th:text="${si.styleId.code}"></td>
                 <td th:text="${si.oderDate}"></td>
                 <td th:text="${si.deliveryDate}"></td>
-<!--                <td th:text="${si.orStatusId.name}">-->
-                    <th:block th:switch="${si.orStatusId.id}">
-                        <td th:text="${si.orStatusId.name}" th:case="1" class="badge bg-warning text-dark"></td>
-                        <td th:text="${si.orStatusId.name}" th:case="2" class="badge bg-primary text-dark"></td>
-                        <td th:text="${si.orStatusId.name}" th:case="3" class="badge bg-info text-dark"></td>
-                        <td th:text="${si.orStatusId.name}" th:case="4" class="badge bg-success text-dark "></td>
-                    </th:block>
+                <!--                <td th:text="${si.orStatusId.name}">-->
+                <th:block th:switch="${si.orStatusId.id}">
+                    <td th:text="${si.orStatusId.name}" th:case="1" class="badge bg-warning text-dark"></td>
+                    <td th:text="${si.orStatusId.name}" th:case="2" class="badge bg-primary text-dark"></td>
+                    <td th:text="${si.orStatusId.name}" th:case="3" class="badge bg-info text-dark"></td>
+                    <td th:text="${si.orStatusId.name}" th:case="4" class="badge bg-success text-dark "></td>
+                </th:block>
                 </td>
                 <td>
-                    <a  class="btn btn-sm btn-info text-white shadow-sm" th:target="_blank" th:href="@{'/time_action/'+${si.id}}">TNA</a>
+                    <a class="btn btn-sm btn-info text-white shadow-sm" th:target="_blank"
+                       th:href="@{'/time_action/'+${si.id}}">TNA</a>
 
 
                 </td>
                 <td>
-                    <a  class="btn btn-warning" th:href="@{'/order_details_edit/'+${si.id}}">Update</a>
+                    <a class="btn btn-warning" th:href="@{'/order_details_edit/'+${si.id}}">Update</a>
+                </td>
+                <td>
 
-<!--                    <a  class="btn btn-danger" th:href="@{'/order_details/delete/'+${si.id}}">Delete</a>-->
+                    <a class="btn btn-outline-info" th:target="_blank" th:href="@{'/receipt/'+${si.id}}">Receipt</a>
                 </td>
 
             </tr>

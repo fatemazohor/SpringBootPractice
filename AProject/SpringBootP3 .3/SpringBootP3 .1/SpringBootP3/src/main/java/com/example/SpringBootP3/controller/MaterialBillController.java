@@ -2,9 +2,11 @@ package com.example.SpringBootP3.controller;
 
 import com.example.SpringBootP3.model.bom.Department;
 import com.example.SpringBootP3.model.bom.LaborCost;
+import com.example.SpringBootP3.model.buyer.OrderDetails;
 import com.example.SpringBootP3.model.sale.Style;
 import com.example.SpringBootP3.repository.bom.IDepartmentRepo;
 import com.example.SpringBootP3.repository.bom.ILaborCost;
+import com.example.SpringBootP3.repository.buyer.IOrderDetails;
 import com.example.SpringBootP3.repository.sale.IStyle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,9 @@ public class MaterialBillController {
 
     @Autowired
     private IStyle iStylerepo;
+
+    @Autowired
+    private IOrderDetails orderDetailsRepo;
 
     //department start
 
@@ -108,4 +113,15 @@ public class MaterialBillController {
     }
 
     //Labor cost end
+
+    //Order details by Id
+
+    @GetMapping("/receipt/{id}")
+    public String getReceipt(@PathVariable int id,Model m){
+        OrderDetails details=orderDetailsRepo.findById(id).get();
+        m.addAttribute("details",details);
+        return "other/receipt";
+
+    }
+    //Order details by Id end
 }

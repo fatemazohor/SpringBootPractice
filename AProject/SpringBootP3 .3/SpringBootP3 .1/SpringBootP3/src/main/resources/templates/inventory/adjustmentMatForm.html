@@ -1,7 +1,7 @@
 <div th:insert="~{header.html}"></div>
 <div class="px-3 py-3">
     <h4 class="card-title mb-1" th:text="${title}"></h4>
-    <p class="pb-0">Best seller of the month cate</p>
+<!--    <p class="pb-0">Best seller of the month cate</p>-->
     <a href=/adjustment_material/list class="btn btn-sm btn-primary">Manage</a>
 <!--    //Data entry form-->
     <form th:action="@{/adjustment_material/save}" th:object="${adjustmentMat}" method="POST" enctype="multipart/form-data">

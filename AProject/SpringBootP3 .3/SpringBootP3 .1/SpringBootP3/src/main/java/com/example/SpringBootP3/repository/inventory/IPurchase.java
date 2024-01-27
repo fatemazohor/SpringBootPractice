@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface IPurchase extends JpaRepository<Purchase,Integer> {
 
-    @Query("select sum(pr.price) from Purchase pr")
+    @Query("select sum(pr.paid) from Purchase pr")
     public double findByTotalPurchase();
 }
