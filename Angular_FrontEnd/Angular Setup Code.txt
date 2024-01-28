@@ -1,0 +1,51 @@
+instal visual studio code
+instal node js
+comamand prompt here>
+npm install -g @angular/cli
+npm fund
+ng version
+
+
+
+
+ng new MyAngular --no-standalone
+cd MyAngular
+ng serve
+
+
+
+After project open
+Set-ExecutionPolicy Unrestricted(Windows powershell)
+Visual stuio te Terminal a ng serve
+
+
+ng add @angular/material (For Material)
+
+npm i bootstrap@5.3.2  (For bootstrap)
+style: "node_modules/bootstrap/dist/css/bootstrap.min.css"
+scripts: "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+
+npm i -g json-server (For jason server)
+
+json-server --watch db.json (For db.jason)
+
+ng g c componentName (For new component)
+
+componentName.model.ts  (For component model)
+
+ng g s services/ServiceName (For service)
+
+
+
+
+....................................For font.......................................
+1. npm install @fortawesome/fontawesome-free
+
+In style: "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+	"node_modules/bootstrap/dist/css/bootstrap.min.css"
+
+In scripts: node_modules\@fortawesome\fontawesome-free\js\all.min.js
+		"node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"
+
+
+
