@@ -1,0 +1,31 @@
+<p>book works!</p>
+
+<div class=" container py-2,mx=3">
+
+    <table class="table table-striped text-center">
+
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let bo of bookData">
+                <td>{{bo.id}}</td>
+                <td>{{bo.name}}</td>
+                <td>{{bo.price}}</td>      
+                <td>{{bo.price}}</td>      
+                <td>
+                    <!-- <button class="btn btn-warning mx-1" (click)="updateBook(bo)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</button> -->
+                    <button class="btn btn-danger mx-1" (click)="deleteBooks(bo)">Delete</button> 
+                </td>      
+            </tr>
+        </tbody>
+    </table>
+
+    
+</div>
