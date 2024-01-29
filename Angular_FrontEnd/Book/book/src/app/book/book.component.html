@@ -59,10 +59,12 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 </div>
                 
                
-                <!-- <div class="mb-3">
-                    <label  class="form-label">Roll</label>
-                    <input type="text" class="form-control" formControlName="roll" >                        
-                </div> -->
+                <div class="mb-3">
+                    <label  class="form-label">Category</label>
+                    <select id="categoryId" class="form-select" formControlName="categoryId">
+                        <option *ngFor="let cat of cateData" [value]="cat.cateName">{{cat.cateName}}</option>
+                      </select>
+                </div>
                 
                 
                 
@@ -70,7 +72,8 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" (click)=" addBook()">Save</button>
+            <!-- <button type="button" [disabled]="formValue.invalid" class="btn btn-primary" (click)=" addBook()">Save</button> -->
+            <button type="button" [disabled]="formValue.invalid" class="btn btn-primary" (click)="onSubmit()">Save</button>
             <button type="button" class="btn btn-primary" (click)="updateBook()">Update</button>
         </div>
     </div>

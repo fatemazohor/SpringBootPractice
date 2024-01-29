@@ -1,6 +1,6 @@
 import { CategoryModel } from "./category.model";
 export class BookModel{
-    id?:number;
+    id:number=0;
     name?:string;
     price?:string;
     categoryId?: {

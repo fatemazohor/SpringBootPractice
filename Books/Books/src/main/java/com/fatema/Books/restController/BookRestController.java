@@ -32,9 +32,14 @@ public class BookRestController {
     }
 
     @PostMapping("/book")
-    public Book savebook(@RequestBody Book book){
-        
-        return bookRepo.save(book);
+    public ResponseEntity<Book>  savebook(@RequestBody Book book){
+
+        String categoryName = book.getCategoryId().getCateName();
+        Category category=categoryRepo.findAllByCateName(categoryName);
+        book.setCategoryId(category);
+        bookRepo.save(book);
+
+        return ResponseEntity.ok(book);
     }
 
     @PutMapping("/book/{id}")
