@@ -1,8 +1,8 @@
 <p>book works!</p>
 
-<div>
+<div class="container">
     <h2>Book List</h2>
-    <table>
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
@@ -21,16 +21,16 @@
         </tbody>
     </table>
   
-    <ul>
+    <!-- <ul>
       <li *ngFor="let bo of book">
         {{ bo.name }} - {{ bo.price }} --{{ bo.categoryId?.cateName }}
       </li>
-    </ul>
+    </ul> -->
   </div>
 
-  <div>
+  <div class="container py-3">
     <h3>Book entry form</h3>
-    <div class="container">
+    <div >
         <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
 
             <div class="mb-3">
@@ -51,7 +51,8 @@
                     <option *ngFor="let dept of category" [value]="dept.cateName">{{ dept.cateName }}</option>
                 </select>
             </div>
-            <button type="submit" [disabled]="bookForm.invalid">Create Book</button>
+            <button type="submit"  class="btn btn-success"
+            [disabled]="bookForm.invalid">Create Book</button>
         </form>
     </div>
   </div>
