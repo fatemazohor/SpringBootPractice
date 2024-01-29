@@ -1,5 +1,14 @@
 <p>book works!</p>
 
+
+<div class="container-fluid">
+    <h1 class="text-dark">Angular Crud</h1>
+    <div class="d-flex">
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Add
+            Book</button>
+    </div>
+</div>
+
 <div class=" container py-2,mx=3">
 
     <table class="table table-striped text-center">
@@ -20,12 +29,58 @@
                 <td>{{bo.price}}</td>      
                 <td>{{bo.price}}</td>      
                 <td>
-                    <!-- <button class="btn btn-warning mx-1" (click)="updateBook(bo)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</button> -->
-                    <button class="btn btn-danger mx-1" (click)="deleteBooks(bo)">Delete</button> 
+                    <!-- <button class="btn btn-warning mx-1" (click)="editById(bo)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Edit</button>
+                    <button class="btn btn-danger mx-1" (click)="deleteBooks(bo)">Delete</button>  -->
                 </td>      
             </tr>
         </tbody>
     </table>
 
+
+    <!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formValue" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                    <label  class="form-label">Book Name</label>
+                    <input type="text" class="form-control" formControlName="name" >                        
+                </div>
+                
+                <div class="mb-3">
+                    <label  class="form-label">Price</label>
+                    <input type="text" class="form-control" formControlName="price">                        
+                </div>
+                
+               
+                <div class="mb-3">
+                    <label  class="form-label">Category</label>
+                    <select id="categoryId" class="form-select" formControlName="categoryId">
+                        <option *ngFor="let cat of category" [value]="cat.cateName">{{cat.cateName}}</option>
+                      </select>
+                </div>
+                
+                
+                
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- <button type="button" [disabled]="formValue.invalid" class="btn btn-primary" (click)=" addBook()">Save</button> -->
+            <button type="button" [disabled]="formValue.invalid" class="btn btn-primary" 
+            (click)="onSubmit()">Save</button>
+            <!-- <button type="button" [disabled]="formValue.invalid" class="btn btn-success" 
+            >Save</button> -->
+            <!-- <button type="button" class="btn btn-primary" (click)="updateBook()">Update</button> -->
+        </div>
+    </div>
+</div>
+</div>
     
 </div>

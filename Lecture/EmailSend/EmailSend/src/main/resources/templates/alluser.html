@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Dob</th>
+    <th>Image</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <tr th:each="user: ${userList}">
+    <td th:text="${user.id}"></td>
+    <td th:text="${user.name}"></td>
+    <td th:text="${user.email}"></td>
+    <td th:text="${user.dob}"></td>
+<!--    <td><img height="80px" th:src="@{${'/public/display?id=' + user.id}}" alt=""></td>-->
+    <td>
+
+    </td>
+
+  </tr>
+  </tbody>
+
+</table>
+
+</body>
+</html>

@@ -8,4 +8,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @Repository
 public interface ICategory extends JpaRepository<Category,Integer> {
+
+    Category findByCateName(String cateName);
 }

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div style="margin-top: 30px">
+
+    <table>
+        <thead>
+        <tr>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Gender</td>
+            <td>DoB</td>
+            <td>Action</td>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="emp:${employeeList}">
+            <td th:text="${emp.name}"></td>
+            <td th:text="${emp.email}"></td>
+            <td th:text="${emp.gender}"></td>
+            <td th:text="${emp.dob}"></td>
+            <td >
+
+            </td>
+
+        </tr>
+
+
+        </tbody>
+    </table>
+
+</div>
+
+</body>
+</html>

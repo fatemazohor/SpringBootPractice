@@ -23,14 +23,23 @@ public class BookRestController {
     private ICategory categoryRepo;
 
 
+//    swagger link: http://localhost:8086/swagger-ui/index.html#/
+
+
     @GetMapping("/book")
     public List<Book> getBook(){
         return bookRepo.findAll();
     }
 
     @PostMapping("/book")
-    public Book savebook(@RequestBody Book book){
-        return bookRepo.save(book);
+    public ResponseEntity<Book>  savebook(@RequestBody Book book){
+
+        String categoryName = book.getCategoryId().getCateName();
+        Category category=categoryRepo.findByCateName(categoryName);
+        book.setCategoryId(category);
+        bookRepo.save(book);
+
+        return ResponseEntity.ok(book);
     }
 
     @PutMapping("/book/{id}")
