@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookService } from '../service/book.service';
 import { error } from 'console';
 import { CategoryService } from '../service/category.service';
+import { CategoryModel } from '../interface/category.model';
 
 @Component({
   selector: 'app-book',
@@ -12,9 +13,12 @@ import { CategoryService } from '../service/category.service';
 })
 export class BookComponent implements OnInit{
 
-  bookModel:BookModel=new BookModel();
+  
   books:BookModel[]=[]
+  category:CategoryModel[]=[]
   formValue !:FormGroup
+
+  bookModel:BookModel=new BookModel();
   bookData:any
   cateData:any
 
@@ -38,7 +42,8 @@ export class BookComponent implements OnInit{
 
   getCategory(){
     this.cateApi.getAllCategory().subscribe({
-      next:res=>{this.cateData=res},
+      // next:res=>{this.cateData=res},
+      next:res=>{this.category=res},
       error:err=>{
         console.error('error fetching data',err)
       }
@@ -55,9 +60,9 @@ export class BookComponent implements OnInit{
   onSubmit(){
     if(this.formValue.valid){
       const bookModelData:BookModel=this.formValue.value;
-      this.api.saveBook(bookModelData).subscribe({
+      this.api.addNewbook(bookModelData).subscribe({
         next:res=>{
-          console.log('Book created')
+          console.log('Book created',res)
           this.getBook();
           this.formValue.reset();
           alert('Book is saved')
@@ -69,63 +74,69 @@ export class BookComponent implements OnInit{
     }
   }
 
-addBook(){
-  // this.bookModel.name=this.formValue.value.name;
-  // this.bookModel.price=this.formValue.value.price;
-  // this.bookData.name=this.formValue.value.name;
-  if(this.formValue.valid){
-    this.bookModel.name=this.formValue.value.name;
-  this.bookModel.price=this.formValue.value.price;
-  this.bookModel.categoryId=this.formValue.value.categoryId;
-  this.api.saveBook(this.bookModel)
-  .subscribe(res=>
-    {console.log(res);
-    
-    alert('Data saved');
-    this.getBook()
-    this.formValue.reset();
-    },
-    erro=>{
-      alert("Data not saved");
-    })
-
-  }
   
-}
+  //old methods
 
-editById(bo:any){
-  this.bookModel.id=bo.id
-  this.formValue.controls['name'].setValue(bo.name)
-  this.formValue.controls['price'].setValue(bo.price)
-}
+// addBook(){
+//   this.bookModel.name=this.formValue.value.name;
+//   this.bookModel.price=this.formValue.value.price;
+//   this.bookData.name=this.formValue.value.name;
+//   if(this.formValue.valid){
+//     const bookadd:BookModel= this.formValue.value;
+//     this.bookModel.name=this.formValue.value.name;
+//   this.bookModel.price=this.formValue.value.price;
+//   this.bookModel.categoryId=this.formValue.value.categoryId;
+//   this.api.saveBook(this.bookModel)
 
-updateBook(){
-  this.bookModel.name=this.formValue.value.name;
-  this.bookModel.price=this.formValue.value.price;
+//   this.api.addNewbook(bookadd)
+//   .subscribe(res=>
+//     {console.log(res);
+    
+//     alert('Data saved');
+//     this.getBook()
+//     this.formValue.reset();
+//     },
+//     erro=>{
+//       alert("Data not saved");
+//     })
 
-  this.api.editBook(this.bookModel.id,this.bookModel)
-  .subscribe({next:res=>{
-    console.log(res)
-    alert("Data updated")
-    this.getBook();
-  },
-  error:err=>
-  {alert("Data not updated")}
-})
-}
+//   }
+  
+// }
 
-deleteBooks(bo:any){
-  this.api.deleteBook(bo.id)
-  .subscribe({next:res=>{
-    console.log(res)
-    alert("Data deleted")
-    this.getBook()
-  },
-  error: err=>{
-  console.log(err)
-  alert("data not deleted")
-}
-})
-}
+// editById(bo:any){
+//   this.bookModel.id=bo.id
+//   this.formValue.controls['name'].setValue(bo.name)
+//   this.formValue.controls['price'].setValue(bo.price)
+// }
+
+// updateBook(){
+//   this.bookModel.name=this.formValue.value.name;
+//   this.bookModel.price=this.formValue.value.price;
+
+//   this.api.editBook(this.bookModel.id,this.bookModel)
+//   .subscribe({next:res=>{
+//     console.log(res)
+//     alert("Data updated")
+//     this.getBook();
+//   },
+//   error:err=>
+//   {alert("Data not updated")}
+// })
+// }
+
+// deleteBooks(bo:any){
+//   this.api.deleteBook(bo.id)
+//   .subscribe({next:res=>{
+//     console.log(res)
+//     alert("Data deleted")
+//     this.getBook()
+//   },
+//   error: err=>{
+//   console.log(err)
+//   alert("data not deleted")
+// }
+// })
+// }
 
 }

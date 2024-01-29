@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestBody;
 @Repository
 public interface ICategory extends JpaRepository<Category,Integer> {
 
-    Category findAllByCateName(String cateName);
+    Category findByCateName(String cateName);
 }

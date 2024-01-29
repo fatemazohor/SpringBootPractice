@@ -35,7 +35,7 @@ public class BookRestController {
     public ResponseEntity<Book>  savebook(@RequestBody Book book){
 
         String categoryName = book.getCategoryId().getCateName();
-        Category category=categoryRepo.findAllByCateName(categoryName);
+        Category category=categoryRepo.findByCateName(categoryName);
         book.setCategoryId(category);
         bookRepo.save(book);
 

@@ -1,0 +1,57 @@
+<p>book works!</p>
+
+<div>
+    <h2>Book List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let bo of book">
+                <td>{{bo.id}}</td>
+                <td>{{bo.name}}</td>
+                <td>{{bo.price}}</td>
+                <td>{{bo.categoryId?.cateName}}</td>
+            </tr>
+        </tbody>
+    </table>
+  
+    <ul>
+      <li *ngFor="let bo of book">
+        {{ bo.name }} - {{ bo.price }} --{{ bo.categoryId?.cateName }}
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <h3>Book entry form</h3>
+    <div class="container">
+        <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+
+            <div class="mb-3">
+                <label  class="form-label">Book Name</label>
+                <input type="text" class="form-control" formControlName="name" >                        
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">Price</label>
+                <input type="text" class="form-control" formControlName="price" >                        
+            </div>
+            <div class="mb-3">
+                <label  class="form-label">Category</label>
+                <!-- <select id="categoryId" class="form-select" formControlName="categoryId">
+                    <option *ngFor="let dept of category" [value]="dept.cateName">{{dept.cateName }}</option>
+                  </select> -->
+
+                  <select id="categoryId" class="form-select" formControlName="categoryId">
+                    <option *ngFor="let dept of category" [value]="dept.cateName">{{ dept.cateName }}</option>
+                </select>
+            </div>
+            <button type="submit" [disabled]="bookForm.invalid">Create Book</button>
+        </form>
+    </div>
+  </div>
