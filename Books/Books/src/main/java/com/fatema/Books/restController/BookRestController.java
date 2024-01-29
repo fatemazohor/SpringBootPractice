@@ -23,6 +23,9 @@ public class BookRestController {
     private ICategory categoryRepo;
 
 
+//    swagger link: http://localhost:8086/swagger-ui/index.html#/
+
+
     @GetMapping("/book")
     public List<Book> getBook(){
         return bookRepo.findAll();
@@ -30,6 +33,7 @@ public class BookRestController {
 
     @PostMapping("/book")
     public Book savebook(@RequestBody Book book){
+        
         return bookRepo.save(book);
     }
 

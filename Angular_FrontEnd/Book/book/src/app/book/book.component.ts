@@ -11,7 +11,7 @@ import { error } from 'console';
 })
 export class BookComponent implements OnInit{
 
-  bookModel:BookModel=new BookModel()
+  bookModel:BookModel[]=[]
   formValue !:FormGroup
   bookData:any
 
@@ -37,15 +37,15 @@ addBook(){
   // this.bookData.name=this.formValue.value.name;
   this.api.saveBook(this.bookModel)
   .subscribe(res=>
-    {console.log(res)
-    alert('Data saved')
-    this.formValue.reset();
+    {console.log(res);
+    
+    alert('Data saved');
     this.getBook()
+    this.formValue.reset();
     },
     erro=>{
       alert("Data not saved");
-    }
-    )
+    })
 }
 editById(bo:any){
   this.bookModel.id=bo.id
@@ -57,7 +57,7 @@ updateBook(){
   this.bookModel.name=this.formValue.value.name;
   this.bookModel.price=this.formValue.value.price;
 
-  this.api.editBook(this.bookModel.id,this.bookModel)
+  this.api.editBook(this.bookModel,this.bookModel)
   .subscribe({next:res=>{
     console.log(res)
     alert("Data updated")
@@ -72,13 +72,14 @@ deleteBooks(bo:any){
   this.api.deleteBook(bo.id)
   .subscribe({next:res=>{
     console.log(res)
-    alert("Data deletd")
+    alert("Data deleted")
     this.getBook()
   },
-error: err=>{
+  error: err=>{
   console.log(err)
   alert("data not deleted")
-}})
+}
+})
 }
 
 }
