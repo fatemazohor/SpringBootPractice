@@ -1,6 +1,6 @@
 
 export class Book{
-    id?:number;
+    id:number=0;
     name?:string;
     price?:string;
     categoryId?:{

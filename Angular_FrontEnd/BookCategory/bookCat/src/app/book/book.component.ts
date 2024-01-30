@@ -15,6 +15,9 @@ export class BookComponent implements OnInit{
   book:Book[]=[];
   category:Category[]=[];
   bookForm!:FormGroup
+  bookModel:Book = new Book();
+  button:number=1;
+  
 
   constructor(
     private bookService:BookServiceService,
@@ -77,6 +80,56 @@ onSubmit(){
       },
       error:err=>{
         alert('Book not saved')
+      }
+    })
+  }
+}
+
+
+deleteBook(bookId:number){
+  this.bookService.deleteBook(bookId).subscribe({
+    next:res=>{
+      console.log('book deleted');
+      this.loadBook();
+      alert('Book deleted');
+      console.log(res);
+    },
+    error:err=>{
+      this.loadBook();
+      alert('Book not deleted');
+      console.log('book not deleted');
+      console.log(err);
+    }
+  })
+ }
+
+onEditById(bo:any){
+  this.bookModel.id=bo.id;
+  this.bookForm.controls['name'].setValue(bo.name)
+  this.bookForm.controls['price'].setValue(bo.price)
+  this.bookForm.controls['categoryId'].setValue(bo.categoryId.cateName)
+ this.button=2;
+}
+
+editBook(){
+  if(this.bookForm.valid){
+    // this.bookModel=this.bookForm.value
+    this.bookModel.name=this.bookForm.value.name
+    this.bookModel.price=this.bookForm.value.price
+    this.bookModel.categoryId=this.bookForm.value.categoryId;
+    // const bookData:Book = this.bookForm.value;
+    this.bookService.updateBook(this.bookModel.id,this.bookModel)
+    .subscribe({
+      next:res=>{
+        console.log(res)
+        alert("Book is updated")
+        this.loadBook()
+        this.bookForm.reset()
+      },
+      error:err=>{
+        this.loadBook()
+        alert("Book not found for update")
+        console.log(err);
       }
     })
   }

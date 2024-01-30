@@ -16,7 +16,8 @@ public class Book {
     private String name;
     private String price;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    //cascade = CascadeType.PERSIST
+    @ManyToOne
     @JoinColumn(name = "dept_id")
     private Category categoryId;
 

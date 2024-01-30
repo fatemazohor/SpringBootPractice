@@ -49,21 +49,33 @@ public class BookRestController {
             Book book=bookRepo.findById(id).get();
             book.setName(bo.getName());
             book.setPrice(bo.getPrice());
+            String categoryName = bo.getCategoryId().getCateName();
+            Category category=categoryRepo.findByCateName(categoryName);
+            book.setCategoryId(category);
             bookRepo.save(book);
             return new ResponseEntity<>("Book updated", HttpStatus.OK);
         }
         return new ResponseEntity<>("Book don't exist",HttpStatus.BAD_REQUEST);
     }
 
+//    @DeleteMapping("/book/{id}")
+//    public ResponseEntity<String> deleteBook(@PathVariable("id")int id){
+//        boolean exist=bookRepo.existsById(id);
+//        if (exist){
+//            bookRepo.deleteById(id);
+//            return new ResponseEntity<>("Book Deleted",HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>("Book not deleted",HttpStatus.BAD_REQUEST);
+//    }
     @DeleteMapping("/book/{id}")
-    public ResponseEntity<String> deleteBook(@PathVariable("id")int id){
+    public void deleteBook(@PathVariable("id")int id){
         boolean exist=bookRepo.existsById(id);
         if (exist){
             bookRepo.deleteById(id);
-            return new ResponseEntity<>("Book Deleted",HttpStatus.OK);
+
         }
-        return new ResponseEntity<>("Book not deleted",HttpStatus.BAD_REQUEST);
     }
+
 
 
 // Category Rest Controller Method
