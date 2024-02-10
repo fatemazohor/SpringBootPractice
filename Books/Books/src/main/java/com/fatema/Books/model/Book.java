@@ -15,6 +15,7 @@ public class Book {
     private int id;
     private String name;
     private String price;
+    private String imagePath;
 
     //cascade = CascadeType.PERSIST
     @ManyToOne
