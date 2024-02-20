@@ -3,6 +3,10 @@ package com.fatema.Books.controller;
 import com.fatema.Books.model.Book;
 import com.fatema.Books.repository.IBook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +22,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class BookController {
@@ -33,12 +38,41 @@ public class BookController {
         return "home";
     }
 
+    @GetMapping("/book/display")
+    public ResponseEntity<byte[]> getBookImage(@RequestParam("id") int id) throws IOException{
+
+        Optional<Book> book=iBook.findById(id);
+        if (book.isPresent()){
+            Book bookImage=book.get();
+            //select directory
+            String uploadDirectory="";
+            String fileName=bookImage.getImagePath();
+            String filePath=Path.of(uploadDirectory,fileName).toString();
+            try {
+                Path path=Path.of(filePath);
+                byte[] imageByte=Files.readAllBytes(path);
+                return ResponseEntity
+                        .ok()
+                        .contentType(MediaType.IMAGE_JPEG)
+                        .header(HttpHeaders.CONTENT_DISPOSITION,"inline+filename="
+                                +path.getFileName().toString())
+                        .body(imageByte);
+            } catch (IOException e){
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            }
+
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @GetMapping("/entry")
     public String bookForm(Model m){
         m.addAttribute("book",new Book());
 
         return "entry";
     }
+
     @PostMapping("/entry/save")
     public String bookSave(@ModelAttribute @Validated Book book,
                            BindingResult result, @RequestParam("imagePath")MultipartFile image)
