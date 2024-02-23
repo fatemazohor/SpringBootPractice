@@ -12,6 +12,10 @@ import { CategoryServiceService } from '../service/category-service.service';
 })
 export class BookComponent implements OnInit{
 
+  // selectedFile: File = null;
+  stringValue: string = '';
+
+
   book:Book[]=[];
   category:Category[]=[];
   bookForm!:FormGroup
@@ -40,7 +44,8 @@ export class BookComponent implements OnInit{
     this.bookForm=this.formBulder.group({
       name:['',Validators.required],
       price:['',Validators.required],
-      categoryId:['',Validators.required]
+      categoryId:['',Validators.required],
+      profile:['']
     })
   }
 
@@ -136,6 +141,27 @@ editBook(){
 }
 
 
+
+// onFileSelected(event): void {
+//   const files: FileList = event.target.files;
+//     if (files.length > 0) {
+//       this.selectedFile = files[0];
+//     } else {
+//       this.selectedFile = null;
+//     }
+// }
+
+// onFileSelect(event){
+//   if (event.target.files.length > 0) {
+//     const file = event.target.files[0];
+//     if (file.length  !=null) {
+//       this.bookForm.get('profile')?.setValue(file)
+//           } else {
+            
+//           }
+    
+//   }
+// }
 
 
 }

@@ -1,0 +1,45 @@
+<p>imgae-upload works!</p>
+<div class="container">
+    <form [formGroup]="productForm" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="pname">Product Name</label>
+            <input type="text" class="form-control" formControlName="pname">
+        </div>
+        <div class="mb-3">
+            <label for="pname">Product Description</label>
+            <input type="text" class="form-control" formControlName="pDescription">
+        </div>
+        <div class="mb-3">
+            <label for="pname">Product Image</label>
+            <input type="file" value="select" class="form-control" formControlName="pImage" (change)="onFileSelect($event)">
+        </div>
+        <div >
+            <button type="submit" class="btn btn-success" [disabled]="productForm.invalid" 
+                (click)="onSubmit()" data-bs-dismiss="modal">Submit</button>
+        </div>
+    </form>
+    <div *ngIf=" menuType == true" class="row">
+        <div class="col-md-6">
+            <div class="col">  
+                <div style="position: relative;" class="col-md-2">
+                    <span class="btn-remove-image" (click)="resetImage()">x</span>
+                    <img [src]="product.pImage?.url" alt="preview Image" height="100px" width="100px">
+                </div>
+            </div>
+
+            <section [ngSwitch]="status">
+                <p *ngSwitchCase="'uploading'">⏳ Uploading...</p>
+                <p *ngSwitchCase="'success'">✅ Done!</p>
+                <p *ngSwitchCase="'fail'">❌ Error!</p>
+                <p *ngSwitchDefault>😶 Waiting to upload...</p>
+            </section>
+        </div>
+        <div class="col-md-6">
+            <p>Name: {{showImage.name}}</p>
+            <p>Size: {{showImage.size}} bytes</p>
+            <p>Type: {{showImage.type}}</p>
+        </div>
+
+
+    </div>
+</div>

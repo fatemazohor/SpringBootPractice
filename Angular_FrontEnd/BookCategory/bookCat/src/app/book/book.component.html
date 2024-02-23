@@ -57,6 +57,11 @@
                     <option *ngFor="let dept of category" [value]="dept.cateName">{{ dept.cateName }}</option>
                 </select>
             </div>
+            <div class="mb-3">
+                <label  class="form-label">Image</label>
+                <!-- <input type="file" name="profile" (change)="onFileSelect($event)"> -->
+            </div>
+
             
             <button type="submit"  class="btn btn-success"
             [disabled]="bookForm.invalid" (click)="onSubmit()">Create Book</button>
@@ -75,4 +80,7 @@
             </div> -->
         </form>
     </div>
+  </div>
+  <div>
+    <img src="http://localhost:8098/measurement_attachment/display?id=1" alt="check img" style="width: 300px ;height: 200px">
   </div>
