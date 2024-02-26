@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "book-image-be91c": {
+      "hosting": {
+        "book-image": [
+          "book-image-be91c"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "book-image-be91c"
+  }
+}
