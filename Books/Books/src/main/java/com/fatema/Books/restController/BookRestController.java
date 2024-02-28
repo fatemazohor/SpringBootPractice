@@ -2,13 +2,20 @@ package com.fatema.Books.restController;
 
 import com.fatema.Books.model.Book;
 import com.fatema.Books.model.Category;
+import com.fatema.Books.model.ProductImage;
 import com.fatema.Books.repository.IBook;
 import com.fatema.Books.repository.ICategory;
+import com.fatema.Books.repository.IProductImage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 
 @RestController
@@ -21,6 +28,8 @@ public class BookRestController {
 
     @Autowired
     private ICategory categoryRepo;
+    @Autowired
+    private IProductImage productImageRepo;
 
 
 //    swagger link: http://localhost:8086/swagger-ui/index.html#/
@@ -111,7 +120,38 @@ public class BookRestController {
         return new ResponseEntity<>("Category don't exist,not deleted",HttpStatus.BAD_REQUEST);
     }
 
+    @GetMapping("/product/display")
 
+
+    @PostMapping(value = "/product",consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
+    public ResponseEntity<ProductImage> addNewProduct(@RequestPart ("product") ProductImage product,
+                                                      @RequestPart("imageFile") MultipartFile file) throws IOException {
+        //save image
+     if(!file.isEmpty()){
+         byte[] bytes=file.getBytes();
+         String originalFileName = file.getOriginalFilename();
+         //timestamp for unique image name
+         Long timestamp=System.currentTimeMillis();
+         //file extension
+         if (originalFileName == null) throw new AssertionError();
+         String fileExtension = originalFileName.substring(originalFileName.lastIndexOf("."));
+         //new file name
+         String newFileName = "product_"+timestamp+fileExtension;
+         //set file name to database
+         product.setProductImage(newFileName);
+         //save image with new name in specific directory
+         String uploadDirectory = "src/main/resources/static/assets/image/products_image/";
+         Path uploadPath= Path.of(uploadDirectory);
+         if (!Files.exists(uploadPath)){
+             Files.createDirectories(uploadPath);
+         }
+         Path filePath = uploadPath.resolve(newFileName);
+         Files.write(filePath,bytes);
+     }
+     productImageRepo.save(product);
+     return ResponseEntity.ok(product);
+
+    }
 
 
 

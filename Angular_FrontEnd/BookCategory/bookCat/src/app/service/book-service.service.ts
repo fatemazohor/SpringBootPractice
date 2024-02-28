@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Book } from '../model/book.model';
+import { Book, ProductImage } from '../model/book.model';
 import { json } from 'stream/consumers';
 
 @Injectable({
@@ -10,6 +10,7 @@ import { json } from 'stream/consumers';
 export class BookServiceService {
 
   baseUrl='http://localhost:8086/api/book'
+  productUrl='http://localhost:8086/api'
 
   constructor(private http:HttpClient) { }
 
@@ -33,7 +34,10 @@ export class BookServiceService {
   deleteBook(id:number):Observable<void>{
     return this.http.delete<void>(this.baseUrl+'/'+id);
   }
+  // create product image
+  createProduct(product:FormData):Observable<ProductImage>{
+  return this.http.post<ProductImage>(`${this.productUrl}/product`,product)
+  }
   
- 
   
 }

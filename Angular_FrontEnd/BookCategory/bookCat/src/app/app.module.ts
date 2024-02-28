@@ -7,12 +7,14 @@ import { BookComponent } from './book/book.component';
 import { CategoryComponent } from './category/category.component';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ImgaeUploadComponent } from './imgae-upload/imgae-upload.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BookComponent,
-    CategoryComponent
+    CategoryComponent,
+    ImgaeUploadComponent
   ],
   imports: [
     BrowserModule,
