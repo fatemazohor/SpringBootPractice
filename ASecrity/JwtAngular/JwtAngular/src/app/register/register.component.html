@@ -1,0 +1,40 @@
+<div class="col-md-12">
+    <div class="card card-container">
+
+        @if (!isSuccessful) {
+
+            <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" name="name" [(ngModel)]="form.name" #name="ngModel" 
+                    [ngClass]="{'is-invalid':f.submitted && name.errors}">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="form-control"  [(ngModel)]="form.email" required email #email="ngModel"
+                    [ngClass]="{'is-invalid':f.submitted && email.errors}"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" [(ngModel)]="form.password" required #password="ngModel"
+                    [ngClass]="{'is-invalid':f.submitted && password.errors}"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-primary btn-block">Sign Up</button>
+                </div>
+                
+
+
+
+            </form>
+        }
+
+
+    </div>
+</div>
